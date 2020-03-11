@@ -1,6 +1,7 @@
-package com.asis.finalproject;
+package com.asis.finalproject.nasaearthimage;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.asis.finalproject.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +38,24 @@ public class NasaImageFavoritesActivity extends AppCompatActivity {
 
         ListView listView = findViewById(R.id.favouritesList);
         listView.setAdapter(favoritesAdapter);
+        listView.setOnItemClickListener((adapterView, view, i, l) -> {
+            Bundle dataToPass = new Bundle();
+            dataToPass.putSerializable("NASA-IMAGE", nasaEarthImages.get(i));
+
+            boolean isLandScape = findViewById(R.id.frameLayout) != null;
+            if(isLandScape) {
+                FavoriteDetails favoriteDetails = new FavoriteDetails();
+                favoriteDetails.setArguments(dataToPass);
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frameLayout, favoriteDetails)
+                        .commit();
+            } else {
+                Intent intent = new Intent(NasaImageFavoritesActivity.this, FavoriteDetailsActivityHolder.class);
+                intent.putExtras(dataToPass);
+                startActivity(intent);
+            }
+        });
     }
 
     private void loadFavoritesList(){

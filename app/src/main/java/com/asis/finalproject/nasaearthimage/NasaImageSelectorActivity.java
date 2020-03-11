@@ -1,4 +1,4 @@
-package com.asis.finalproject;
+package com.asis.finalproject.nasaearthimage;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.asis.finalproject.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -71,6 +73,7 @@ public class NasaImageSelectorActivity extends AppCompatActivity {
     private void addToFavorites() {
         //Download image to phone
         //Save nasa earth image to database
+        startActivity(new Intent(this, NasaImageFavoritesActivity.class));
     }
 
 
