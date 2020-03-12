@@ -1,5 +1,6 @@
 package com.asis.finalproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
 
@@ -28,8 +29,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         ImageButton nasaImageOfDayButton = findViewById(R.id.nasaImageOfDayButton);
+        Intent listOfImages = new Intent(MainActivity.this, ListOfImages.class);
         nasaImageOfDayButton.setOnClickListener((v) -> {
-
+            startActivity(listOfImages);
         });
     }
 }
