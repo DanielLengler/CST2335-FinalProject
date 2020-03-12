@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,11 +18,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.asis.finalproject.R;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -46,13 +50,7 @@ public class NasaImageSelectorActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
 
         Button favoritesButton = findViewById(R.id.addToFavourites);
-        favoritesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(NasaImageSelectorActivity.this, NasaImageFavoritesActivity.class);
-                startActivity(intent);
-            }
-        });
+        favoritesButton.setOnClickListener(this::addToFavorites);
 
         Button searchButton = findViewById(R.id.findImageButton);
         searchButton.setOnClickListener(v -> {
@@ -70,12 +68,26 @@ public class NasaImageSelectorActivity extends AppCompatActivity {
         });
     }
 
-    private void addToFavorites() {
-        //Download image to phone
-        //Save nasa earth image to database
+    private void addToFavorites(View v) {
+        if(imageView.getDrawable() == null) {
+            Snackbar.make(v, "No image found", Snackbar.LENGTH_LONG).show();
+            return;
+        }
+
+        DatabaseHelper databaseHelper = new DatabaseHelper(v.getContext());
+        long id = databaseHelper.insertImage(nasaEarthImage);
+        nasaEarthImage.setId(id);
+        databaseHelper.close();
+
+        String path = Environment.getExternalStorageDirectory().toString();
+        try (FileOutputStream out = new FileOutputStream(new File(path, nasaEarthImage.getId() + ".png"))) {
+            nasaEarthImage.getImage().compress(Bitmap.CompressFormat.PNG, 100, out);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         startActivity(new Intent(this, NasaImageFavoritesActivity.class));
     }
-
 
     private class NasaImageQuery extends AsyncTask<String, Integer, String> {
 

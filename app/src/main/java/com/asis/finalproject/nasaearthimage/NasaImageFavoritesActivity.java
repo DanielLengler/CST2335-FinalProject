@@ -2,6 +2,7 @@ package com.asis.finalproject.nasaearthimage;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.asis.finalproject.R;
@@ -56,12 +58,42 @@ public class NasaImageFavoritesActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        listView.setOnItemLongClickListener((adapterView, view, i, l) -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(NasaImageFavoritesActivity.this);
+            builder.setTitle("Remove image from favorites?")
+                    .setNegativeButton(android.R.string.no, null)
+                    .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+                        DatabaseHelper databaseHelper = new DatabaseHelper(view.getContext());
+                        databaseHelper.deleteImage(nasaEarthImages.get(i));
+                        databaseHelper.close();
+
+                        nasaEarthImages.remove(i);
+                        favoritesAdapter.notifyDataSetChanged();
+
+                        //TODO delete files on device for this image
+                    });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+            return true;
+        });
     }
 
-    private void loadFavoritesList(){
-        //Test data
-        nasaEarthImages.add(new NasaEarthImage(123.2, 456.1, null));
-        nasaEarthImages.add(new NasaEarthImage(123.2, 456.1, null));
+    private void loadFavoritesList() {
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+
+        Cursor cursor = databaseHelper.getAll();
+        cursor.moveToFirst();
+        for (int i = 0; i < cursor.getCount(); i++) {
+            nasaEarthImages.add(new NasaEarthImage(
+                    cursor.getLong(cursor.getColumnIndex(DatabaseHelper.COL_ID)),
+                    cursor.getDouble(cursor.getColumnIndex(DatabaseHelper.COL_LATITUDE)),
+                    cursor.getDouble(cursor.getColumnIndex(DatabaseHelper.COL_LONGITUDE)),
+                    cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_IMAGE_PATH))));
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        databaseHelper.close();
     }
 
     private class FavoritesAdapter extends ArrayAdapter<NasaEarthImage> {

@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 class NasaEarthImage implements Serializable {
 
+    private long id;
     private Bitmap image;
     private String path;
     private double latitude, longitude;
@@ -24,6 +25,13 @@ class NasaEarthImage implements Serializable {
         this.latitude = latitude;
         this.longitude = longitude;
         this.image = image;
+    }
+
+    NasaEarthImage(long id, double latitude, double longitude, String path) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.path = path;
+        this.id = id;
     }
 
     Bitmap getImage() {
@@ -48,5 +56,21 @@ class NasaEarthImage implements Serializable {
 
     void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }
