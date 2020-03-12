@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent">
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,14 +13,46 @@
 
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageViewNasaImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:srcCompat="@tools:sample/avatars" />
 
+    <TextView
+        android:id="@+id/textViewNasaImageTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Title: " />
+
+    <TextView
+        android:id="@+id/textViewNasaImageExplanation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Explanation: " />
+
+    <TextView
+        android:id="@+id/textViewNasaImageDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Date: " />
+
+    <TextView
+        android:id="@+id/textViewNasaImageUrl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="URL: " />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible" />
+
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonSaveNasaImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/buttonSaveImage" />
 </LinearLayout>
+</ScrollView>
