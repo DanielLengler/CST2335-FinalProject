@@ -29,8 +29,9 @@ public class MainActivity extends AppCompatActivity {
         nasaEarthImageButton.setOnClickListener((v) -> startActivity(new Intent(MainActivity.this, NasaImageSelectorActivity.class)));
 
         ImageButton nasaImageOfDayButton = findViewById(R.id.nasaImageOfDayButton);
+        Intent listOfImages = new Intent(MainActivity.this, ListOfImages.class);
         nasaImageOfDayButton.setOnClickListener((v) -> {
-
+            startActivity(listOfImages);
         });
     }
 }
