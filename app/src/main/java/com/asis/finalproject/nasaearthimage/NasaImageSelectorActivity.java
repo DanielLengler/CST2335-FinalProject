@@ -1,11 +1,12 @@
 package com.asis.finalproject.nasaearthimage;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -24,7 +25,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -79,9 +79,8 @@ public class NasaImageSelectorActivity extends AppCompatActivity {
         nasaEarthImage.setId(id);
         databaseHelper.close();
 
-        String path = Environment.getExternalStorageDirectory().toString();
-        try (FileOutputStream out = new FileOutputStream(new File(path, nasaEarthImage.getId() + ".png"))) {
-            nasaEarthImage.getImage().compress(Bitmap.CompressFormat.PNG, 100, out);
+        try (FileOutputStream out = openFileOutput(nasaEarthImage.getPath(), Context.MODE_PRIVATE)) {
+            ((BitmapDrawable) imageView.getDrawable()).getBitmap().compress(Bitmap.CompressFormat.PNG, 100, out);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -111,12 +110,6 @@ public class NasaImageSelectorActivity extends AppCompatActivity {
                 String result = sb.toString();
                 JSONObject nasaImageJson = new JSONObject(result);
 
-                if(nasaImageJson.has("msg")) {
-                    publishProgress(100);
-                    errorMessage = nasaImageJson.getString("msg");
-                    return errorMessage;
-                }
-
                 String imageURL = nasaImageJson.getString("url");
 
                 image = null;
@@ -127,13 +120,15 @@ public class NasaImageSelectorActivity extends AppCompatActivity {
                 if (responseCode == 200) {
                     image = BitmapFactory.decodeStream(connection.getInputStream());
                 }
-                nasaEarthImage.setImage(image);
+                nasaEarthImage.setPath(nasaEarthImage.getId() + ".png");
 
                 publishProgress(100);
 
 
             } catch (IOException | JSONException e) {
                 Log.e("NasaImageQuery-error", e.getMessage());
+                errorMessage = "No image was found";
+                return errorMessage;
             }
 
             return "Finished";
@@ -143,10 +138,11 @@ public class NasaImageSelectorActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             if(errorMessage == null) {
                 imageView.setImageBitmap(image);
-                progressBar.setVisibility(View.INVISIBLE);
             } else {
                 Toast.makeText(NasaImageSelectorActivity.this, errorMessage, Toast.LENGTH_LONG).show();
             }
+
+            progressBar.setVisibility(View.INVISIBLE);
         }
 
         @Override

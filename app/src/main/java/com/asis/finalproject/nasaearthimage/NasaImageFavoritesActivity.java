@@ -3,7 +3,10 @@ package com.asis.finalproject.nasaearthimage;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +24,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.asis.finalproject.R;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +52,7 @@ public class NasaImageFavoritesActivity extends AppCompatActivity {
             dataToPass.putSerializable("NASA-IMAGE", nasaEarthImages.get(i));
 
             boolean isLandScape = findViewById(R.id.frameLayout) != null;
-            if(isLandScape) {
+            if (isLandScape) {
                 FavoriteDetails favoriteDetails = new FavoriteDetails();
                 favoriteDetails.setArguments(dataToPass);
                 getSupportFragmentManager()
@@ -67,6 +74,8 @@ public class NasaImageFavoritesActivity extends AppCompatActivity {
                         databaseHelper.deleteImage(nasaEarthImages.get(i));
                         databaseHelper.close();
 
+                        deleteImage(nasaEarthImages.get(i));
+
                         nasaEarthImages.remove(i);
                         favoritesAdapter.notifyDataSetChanged();
 
@@ -78,22 +87,46 @@ public class NasaImageFavoritesActivity extends AppCompatActivity {
         });
     }
 
+    private void deleteImage(NasaEarthImage nasaEarthImage) {
+        System.err.println(Environment.getExternalStorageDirectory());
+
+
+        File file = new File(Environment.getExternalStorageDirectory(), nasaEarthImage.getPath());
+        boolean result = file.delete();
+        Toast.makeText(this, "File delete result: "+result, Toast.LENGTH_LONG).show();
+    }
+
     private void loadFavoritesList() {
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
 
         Cursor cursor = databaseHelper.getAll();
         cursor.moveToFirst();
         for (int i = 0; i < cursor.getCount(); i++) {
-            nasaEarthImages.add(new NasaEarthImage(
+            NasaEarthImage nasaEarthImage = new NasaEarthImage(
                     cursor.getLong(cursor.getColumnIndex(DatabaseHelper.COL_ID)),
                     cursor.getDouble(cursor.getColumnIndex(DatabaseHelper.COL_LATITUDE)),
                     cursor.getDouble(cursor.getColumnIndex(DatabaseHelper.COL_LONGITUDE)),
-                    cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_IMAGE_PATH))));
+                    cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_IMAGE_PATH)));
+            nasaEarthImages.add(nasaEarthImage);
             cursor.moveToNext();
         }
         cursor.close();
 
         databaseHelper.close();
+    }
+
+    public static Bitmap loadImageFromPath(Context context, NasaEarthImage nasaEarthImage) {
+        if (nasaEarthImage.getPath() == null) {
+            return null;
+        }
+
+        try (FileInputStream fis = context.openFileInput(nasaEarthImage.getPath())) {
+            return BitmapFactory.decodeStream(fis);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     private class FavoritesAdapter extends ArrayAdapter<NasaEarthImage> {
@@ -108,7 +141,7 @@ public class NasaImageFavoritesActivity extends AppCompatActivity {
             LayoutInflater layoutInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View rowView = convertView;
 
-            if(rowView == null && layoutInflater != null) {
+            if (rowView == null && layoutInflater != null) {
                 rowView = layoutInflater.inflate(R.layout.nasa_earth_image_row, parent, false);
             }
 
@@ -121,7 +154,7 @@ public class NasaImageFavoritesActivity extends AppCompatActivity {
             if (nasaEarthImage != null) {
                 longitudeTextView.setText(String.valueOf(nasaEarthImage.getLongitude()));
                 latitudeTextView.setText(String.valueOf(nasaEarthImage.getLatitude()));
-                imageView.setImageBitmap(nasaEarthImage.getImage());
+                imageView.setImageBitmap(loadImageFromPath(rowView.getContext(), nasaEarthImage));
             }
 
             return rowView;

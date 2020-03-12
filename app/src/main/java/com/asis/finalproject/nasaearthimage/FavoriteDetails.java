@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -34,6 +35,9 @@ public class FavoriteDetails extends Fragment {
 
             TextView latitudeTV = view.findViewById(R.id.latitude);
             latitudeTV.setText(String.valueOf(nasaEarthImage.getLatitude()));
+
+            ImageView imageView = view.findViewById(R.id.imageView);
+            imageView.setImageBitmap(NasaImageFavoritesActivity.loadImageFromPath(view.getContext(), nasaEarthImage));
         }
 
 
