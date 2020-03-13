@@ -1,4 +1,4 @@
-package com.asis.finalproject;
+package com.aurelio.finalproject;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -26,6 +26,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.asis.finalproject.NasaImageItem;
+import com.asis.finalproject.R;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.FileInputStream;
@@ -48,7 +50,7 @@ public class ListOfImages extends AppCompatActivity {
     SharedPreferences dateSharedPrefs = null;
     EditText editText;
     SQLiteDatabase db;
-    private ArrayList<NasaImageItem> elements = new ArrayList<>();
+    private ArrayList<NasaImageItem> elements;
     private MyListAdapter myAdapter;
     public static final String ITEM_SELECTED = "ITEM";
     public static final String ITEM_POSITION = "POSITION";
@@ -74,6 +76,7 @@ public class ListOfImages extends AppCompatActivity {
             imageOfTheDay.putExtra("DATE", editText.getText().toString());
 //            startActivity(imageOfTheDay);
             startActivityForResult(imageOfTheDay, 56);
+//            elements.add()
             });
 
 
@@ -160,18 +163,11 @@ public class ListOfImages extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        myAdapter = new MyListAdapter();
-        myAdapter.notifyDataSetChanged();
         super.onActivityResult(requestCode, resultCode, data);
+        loadDataFromDatabase();
+        myAdapter.notifyDataSetChanged();
+
     }
-
-
-//    @Override
-//    protected void onResume() {
-//        Log.e("ListOfImages","In function:" + "onResume()");
-//        myAdapter.notifyDataSetChanged();
-//        super.onResume();
-//    }
 
     private void updateLabel() {
         String myFormat = "yyyy-MM-dd";
@@ -191,7 +187,7 @@ public class ListOfImages extends AppCompatActivity {
         //get a database connection:
         MyOpener dbOpener = new MyOpener(this);
         db = dbOpener.getWritableDatabase();
-
+        elements = new ArrayList<>();
 
         // We want to get all of the columns. Look at MyOpener.java for the definitions:
         String [] columns = {MyOpener.COL_ID, MyOpener.COL_DATE, MyOpener.COL_EXPLANATION, MyOpener.COL_URL, MyOpener.COL_TITLE, MyOpener.COL_PATH};

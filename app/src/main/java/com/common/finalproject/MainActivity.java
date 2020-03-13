@@ -1,10 +1,13 @@
-package com.asis.finalproject;
+package com.common.finalproject;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.asis.finalproject.R;
+import com.aurelio.finalproject.ListOfImages;
 
 public class MainActivity extends AppCompatActivity {
 

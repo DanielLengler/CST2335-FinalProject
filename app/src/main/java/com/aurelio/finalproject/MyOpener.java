@@ -1,4 +1,4 @@
-package com.asis.finalproject;
+package com.aurelio.finalproject;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

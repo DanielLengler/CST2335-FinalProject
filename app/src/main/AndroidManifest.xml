@@ -12,10 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".NasaImageOfTheDay" />
-        <activity android:name=".ListOfImages" />
-        <activity android:name=".EmptyActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name="com.aurelio.finalproject.NasaImageOfTheDay" />
+        <activity android:name="com.aurelio.finalproject.ListOfImages" />
+        <activity android:name="com.aurelio.finalproject.EmptyActivity" />
+        <activity android:name="com.common.finalproject.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

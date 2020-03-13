@@ -1,8 +1,11 @@
-package com.asis.finalproject;
+package com.aurelio.finalproject;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.asis.finalproject.R;
+import com.aurelio.finalproject.DetailsFragment;
 
 public class EmptyActivity extends AppCompatActivity {
 

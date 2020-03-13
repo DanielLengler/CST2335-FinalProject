@@ -1,4 +1,4 @@
-package com.asis.finalproject;
+package com.aurelio.finalproject;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -8,17 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.snackbar.Snackbar;
+import com.asis.finalproject.R;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 
 public class DetailsFragment extends Fragment {

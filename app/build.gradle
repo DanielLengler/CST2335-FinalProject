@@ -21,6 +21,13 @@ android {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
     }
+    sourceSets {
+        main {
+            res {
+                srcDirs 'src/main/res', 'src/main/res/layouts/aurelio', 'src/main/res/layouts/daniel', 'src/main/res/layouts/naimul', 'src/main/res/layouts/elmira', 'src/main/res/layouts/common'
+            }
+        }
+    }
 }
 
 dependencies {
