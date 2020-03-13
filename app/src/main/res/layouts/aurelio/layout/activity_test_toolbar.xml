@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".TestToolbar">
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
@@ -23,7 +22,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
-            app:menu="@menu/activities_menu"
+            app:menu="@menu/menu_drawer_image_of_the_day"
             android:id="@+id/navdrawerMenu"/>
     </androidx.drawerlayout.widget.DrawerLayout>
 </LinearLayout>

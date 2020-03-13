@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import com.asis.finalproject.R;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 
 public class DetailsFragment extends Fragment {
@@ -60,8 +61,8 @@ public class DetailsFragment extends Fragment {
         //show the message
 
         FileInputStream fis = null;
-//        try {    fis = openFileInput(date + ".png");   }
-//        catch (FileNotFoundException e) {    e.printStackTrace();  }
+        try {    fis = getContext().openFileInput(date + ".png");   }
+        catch (FileNotFoundException e) {    e.printStackTrace();  }
         Bitmap bm = BitmapFactory.decodeStream(fis);
         ImageView imageView = (ImageView)result.findViewById(R.id.imageViewFragmentImage);
         imageView.setImageBitmap(bm);
@@ -76,6 +77,7 @@ public class DetailsFragment extends Fragment {
 
             //Tell the parent activity to remove
             parentActivity.getSupportFragmentManager().beginTransaction().remove(this).commit();
+            getActivity().finish();
         });
 
         return result;

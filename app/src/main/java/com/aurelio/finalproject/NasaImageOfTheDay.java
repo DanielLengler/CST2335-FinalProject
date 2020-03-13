@@ -73,7 +73,9 @@ public class NasaImageOfTheDay extends AppCompatActivity {
 
         MyHTTPRequest req = new MyHTTPRequest();
         req.execute("https://api.nasa.gov/planetary/apod?api_key=DgPLcIlnmN0Cwrzcg3e9NraFaYLIDI68Ysc6Zh3d&date=" + dateFromMain);  //Type 1
+
     }
+
     //Type1     Type2   Type3
     private class MyHTTPRequest extends AsyncTask< String, Integer, String>
     {
