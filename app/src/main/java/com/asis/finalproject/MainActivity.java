@@ -6,6 +6,8 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.asis.finalproject.nasaearthimage.NasaImageSelectorActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -24,14 +26,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         ImageButton nasaEarthImageButton = findViewById(R.id.nasaEarthImageButton);
-        nasaEarthImageButton.setOnClickListener((v) -> {
-
-        });
+        nasaEarthImageButton.setOnClickListener((v) -> startActivity(new Intent(MainActivity.this, NasaImageSelectorActivity.class)));
 
         ImageButton nasaImageOfDayButton = findViewById(R.id.nasaImageOfDayButton);
-        Intent listOfImages = new Intent(MainActivity.this, ListOfImages.class);
         nasaImageOfDayButton.setOnClickListener((v) -> {
-            startActivity(listOfImages);
         });
     }
 }

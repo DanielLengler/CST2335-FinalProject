@@ -4,6 +4,4 @@
     <string name="textviewSelectDate">Select a date and click the button to get a new image</string>
     <string name="birthday">Select a date</string>
     <string name="buttonSaveImage">Save Image</string>
-    <string name="hello_blank_fragment">Message Here</string>
-
 </resources>
