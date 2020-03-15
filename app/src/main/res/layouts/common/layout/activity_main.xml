@@ -7,52 +7,79 @@
     android:orientation="vertical"
     tools:context="com.common.finalproject.MainActivity">
 
-    <LinearLayout
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbarMain"/>
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_weight="1">
+        tools:openDrawer="start">
 
-        <ImageButton
-            android:id="@+id/bbcNewsReaderButton"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="fitCenter"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/bbc_news"/>
+            android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_weight="1">
 
-        <ImageButton
-            android:id="@+id/guardianArticleSearchButton"
-            android:layout_width="0dp"
+                    <ImageButton
+                        android:id="@+id/bbcNewsReaderButton"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitCenter"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/bbc_news"/>
+
+                    <ImageButton
+                        android:id="@+id/guardianArticleSearchButton"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitCenter"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/the_guardian" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        android:id="@+id/nasaImageOfDayButton"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitCenter"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/nasa_image_of_the_day" />
+
+                    <ImageButton
+                        android:id="@+id/nasaEarthImageButton"
+                        style="@style/Widget.AppCompat.ImageButton"
+                        android:layout_width="0dp"
+                        android:scaleType="fitCenter"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/nasa_earth" />
+
+                </LinearLayout>
+        </LinearLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:scaleType="fitCenter"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/the_guardian" />
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"
+            app:menu="@menu/menu_drawer_main"
+            android:id="@+id/navViewMain"/>
 
-    </LinearLayout>
+    </androidx.drawerlayout.widget.DrawerLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_weight="1">
-
-        <ImageButton
-            android:id="@+id/nasaImageOfDayButton"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:scaleType="fitCenter"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/nasa_image_of_the_day" />
-
-        <ImageButton
-            android:id="@+id/nasaEarthImageButton"
-            style="@style/Widget.AppCompat.ImageButton"
-            android:layout_width="0dp"
-            android:scaleType="fitCenter"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/nasa_earth" />
-
-    </LinearLayout>
 </LinearLayout>

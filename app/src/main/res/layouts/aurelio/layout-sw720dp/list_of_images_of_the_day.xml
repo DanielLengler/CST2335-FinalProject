@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.aurelio.finalproject.ListOfImages"
+    tools:context="com.aurelio.finalproject.ListOfImagesOfTheDay"
     >
 
     <ListView
@@ -22,7 +22,7 @@
         android:layout_alignBottom="@id/chat">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/textViewDateInfoImageOfTheDay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/textviewSelectDate"
@@ -30,7 +30,7 @@
             android:layout_weight="1"/>
 
         <EditText
-            android:id="@+id/Date"
+            android:id="@+id/DateImageOfTheDay"
             android:clickable="true"
             android:hint="@string/birthday"
             android:textAlignment="center"
@@ -40,7 +40,7 @@
             android:layout_weight="1"/>
 
         <Button
-            android:id="@+id/getImage"
+            android:id="@+id/getImageImageOfTheDay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/getImageOfTheDay" />

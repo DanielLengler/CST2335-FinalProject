@@ -23,13 +23,13 @@
         android:title="Nasa"
         android:icon="@drawable/nasa_earth"/>
 
-    <item android:id="@+id/navBarMain"
-        android:orderInCategory="4"
+    <item android:id="@+id/navBarNasaImageOfTheDay"
+        android:orderInCategory="3"
         app:showAsAction="always"
-        android:title="Main"
-        android:icon="@drawable/home"/>
+        android:title="Nasa"
+        android:icon="@drawable/nasa_image_of_the_day"/>
 
-    <item android:id="@+id/help_item_imageOfTheDay"
+    <item android:id="@+id/help_item_main"
         android:title="Help"
         app:showAsAction="never"
         android:orderInCategory="5"/> <!-- This uses showAsAction=never, so look at title= parameter -->

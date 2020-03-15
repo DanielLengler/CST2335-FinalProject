@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.aurelio.finalproject.DetailsFragment"
+    tools:context="com.aurelio.finalproject.DetailsFragmentImageOfTheDay"
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textViewFragmentId"
+        android:id="@+id/textViewFragmentIdImageOfTheDay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -17,40 +17,40 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Title"
-        android:id="@+id/textViewFragmentTitle"
+        android:id="@+id/textViewFragmentTitleImageOfTheDay"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/textViewFragmentId"/>
+        android:layout_below="@id/textViewFragmentIdImageOfTheDay"/>
 
     <TextView
         android:text="Date= "
-        android:id="@+id/textViewFragmentDate"
+        android:id="@+id/textViewFragmentDateImageOfTheDay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/textViewFragmentTitle"
+        android:layout_below="@id/textViewFragmentTitleImageOfTheDay"
         />
 
     <TextView
         android:text="URL= "
-        android:id="@+id/textViewFragmentUrl"
+        android:id="@+id/textViewFragmentUrlImageOfTheDay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textViewFragmentDate"
+        android:layout_below="@id/textViewFragmentDateImageOfTheDay"
         android:layout_centerHorizontal="true"
         android:textAlignment="center"
         />
 
     <ImageView
         android:text="Explanation= "
-        android:id="@+id/imageViewFragmentImage"
+        android:id="@+id/imageViewFragmentImageImageOfTheDay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/textViewFragmentUrl"
+        android:layout_below="@id/textViewFragmentUrlImageOfTheDay"
         />
 
     <Button
-        android:id="@+id/buttonHideFragment"
+        android:id="@+id/buttonHideFragmentImageOfTheDay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

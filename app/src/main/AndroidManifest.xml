@@ -13,8 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="com.aurelio.finalproject.NasaImageOfTheDay" />
-        <activity android:name="com.aurelio.finalproject.ListOfImages" />
-        <activity android:name="com.aurelio.finalproject.EmptyActivity" />
+        <activity android:name="com.aurelio.finalproject.ListOfImagesOfTheDay" />
+        <activity android:name="com.aurelio.finalproject.EmptyActivityImageOfTheDay" />
         <activity android:name="com.common.finalproject.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

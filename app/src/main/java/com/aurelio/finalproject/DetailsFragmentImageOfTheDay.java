@@ -20,7 +20,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 
-public class DetailsFragment extends Fragment {
+public class DetailsFragmentImageOfTheDay extends Fragment {
 
     private Bundle dataFromActivity;
     private long id;
@@ -36,27 +36,27 @@ public class DetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         dataFromActivity = getArguments();
-        id = dataFromActivity.getLong(ListOfImages.ITEM_ID );
-        title = dataFromActivity.getString(ListOfImages.ITEM_TITLE);
-        date = dataFromActivity.getString(ListOfImages.ITEM_DATE);
-        explanation = dataFromActivity.getString(ListOfImages.ITEM_EXPLANATION);
-        url = dataFromActivity.getString(ListOfImages.ITEM_URL);
-        path = dataFromActivity.getString(ListOfImages.ITEM_PATH);
+        id = dataFromActivity.getLong(ListOfImagesOfTheDay.ITEM_ID );
+        title = dataFromActivity.getString(ListOfImagesOfTheDay.ITEM_TITLE);
+        date = dataFromActivity.getString(ListOfImagesOfTheDay.ITEM_DATE);
+        explanation = dataFromActivity.getString(ListOfImagesOfTheDay.ITEM_EXPLANATION);
+        url = dataFromActivity.getString(ListOfImagesOfTheDay.ITEM_URL);
+        path = dataFromActivity.getString(ListOfImagesOfTheDay.ITEM_PATH);
 
         // Inflate the layout for this fragment
-        View result =  inflater.inflate(R.layout.fragment_details, container, false);
+        View result =  inflater.inflate(R.layout.fragment_details_image_of_the_day, container, false);
 
         //show the title
-        TextView titleView = (TextView)result.findViewById(R.id.textViewFragmentTitle);
+        TextView titleView = (TextView)result.findViewById(R.id.textViewFragmentTitleImageOfTheDay);
         titleView.setText("Title: " + title);
         //show the date
-        TextView dateView = (TextView)result.findViewById(R.id.textViewFragmentDate);
+        TextView dateView = (TextView)result.findViewById(R.id.textViewFragmentDateImageOfTheDay);
         dateView.setText("Date: " + date);
         //show the explanation
 //        TextView explanationView = (TextView)result.findViewById(R.id.textViewFragmentExplanation);
 //        explanationView.setText("Explanation: " + explanation);
         //show the url
-        TextView urlView = (TextView)result.findViewById(R.id.textViewFragmentUrl);
+        TextView urlView = (TextView)result.findViewById(R.id.textViewFragmentUrlImageOfTheDay);
         urlView.setText("URL: " + url);
         //show the message
 
@@ -64,15 +64,15 @@ public class DetailsFragment extends Fragment {
         try {    fis = getContext().openFileInput(date + ".png");   }
         catch (FileNotFoundException e) {    e.printStackTrace();  }
         Bitmap bm = BitmapFactory.decodeStream(fis);
-        ImageView imageView = (ImageView)result.findViewById(R.id.imageViewFragmentImage);
+        ImageView imageView = (ImageView)result.findViewById(R.id.imageViewFragmentImageImageOfTheDay);
         imageView.setImageBitmap(bm);
 
         //show the id:
-        TextView idView = (TextView)result.findViewById(R.id.textViewFragmentId);
+        TextView idView = (TextView)result.findViewById(R.id.textViewFragmentIdImageOfTheDay);
         idView.setText("ID=" + id);
 
         // get the delete button, and add a click listener:
-        Button finishButton = (Button)result.findViewById(R.id.buttonHideFragment);
+        Button finishButton = (Button)result.findViewById(R.id.buttonHideFragmentImageOfTheDay);
         finishButton.setOnClickListener( clk -> {
 
             //Tell the parent activity to remove

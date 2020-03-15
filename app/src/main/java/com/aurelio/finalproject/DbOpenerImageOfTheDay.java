@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class MyOpener extends SQLiteOpenHelper {
+public class DbOpenerImageOfTheDay extends SQLiteOpenHelper {
 
     protected final static String DATABASE_NAME = "NasaImagesDB";
     protected final static int VERSION_NUM = 1;
@@ -16,7 +16,7 @@ public class MyOpener extends SQLiteOpenHelper {
     public final static String COL_PATH = "PATH";
     public final static String COL_ID = "_id";
 
-    public MyOpener(Context ctx)
+    public DbOpenerImageOfTheDay(Context ctx)
     {
         super(ctx, DATABASE_NAME, null, VERSION_NUM);
     }
