@@ -4,25 +4,17 @@
 
     <item
         android:id="@+id/actionLaunchBBC"
-        android:icon="@drawable/bbc_news"
-        android:title="@string/bbc_news"
-        app:showAsAction="ifRoom" />
+        android:title="@string/bbc_news"/>
 
     <item
         android:id="@+id/actionLaunchGuardian"
-        android:icon="@drawable/the_guardian"
-        android:title="@string/guardian"
-        app:showAsAction="ifRoom" />
+        android:title="@string/guardian"/>
 
     <item
         android:id="@+id/actionLaunchNasaEarthImage"
-        android:icon="@drawable/nasa_earth"
-        android:title="@string/nasa_earth_image"
-        app:showAsAction="ifRoom" />
+        android:title="@string/nasa_earth_image" />
 
     <item
         android:id="@+id/actionLaunchNasaImageOfDay"
-        android:icon="@drawable/nasa_image_of_the_day"
-        android:title="@string/image_of_the_day"
-        app:showAsAction="ifRoom" />
+        android:title="@string/image_of_the_day" />
 </menu>
