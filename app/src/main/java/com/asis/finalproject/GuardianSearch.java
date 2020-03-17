@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ import java.util.ArrayList;
 
 public class GuardianSearch extends AppCompatActivity {
 
+    private ProgressBar progressBar;
     private ArrayList<Article> results = new ArrayList<>();
     private ArrayList<Article> favorites = new ArrayList<>();
     private ArrayList<JSONObject> jsonObjects = new ArrayList<>();
@@ -48,6 +50,8 @@ public class GuardianSearch extends AppCompatActivity {
         Intent fromPrevious = getIntent();
         searchFor = fromPrevious.getStringExtra(GuardianSearchBar.SEARCH);
         Search search = new Search();
+        progressBar = findViewById(R.id.guardianSearchProgress);
+        progressBar.setVisibility(View.VISIBLE);
         search.execute(modifiedApi + searchFor);
         //search.execute(api);
         ListView resultsList = findViewById(R.id.listView);
@@ -59,6 +63,7 @@ public class GuardianSearch extends AppCompatActivity {
         //favoritesList.setAdapter(favoriteAdapter);
 
         Button removeFromFavoritesButton = findViewById(R.id.removeFromFavoritesButton);
+
 
         resultsList.setOnItemClickListener((list, view, position, id) -> {
             Article selected = results.get(position);
@@ -201,6 +206,7 @@ public class GuardianSearch extends AppCompatActivity {
                 InputStream response = urlConnection.getInputStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(response, "UTF-8"), 8);
                 StringBuilder sb = new StringBuilder();
+                publishProgress(50);
 
                 String line = null;
                 while ((line = reader.readLine()) != null)
@@ -225,6 +231,7 @@ public class GuardianSearch extends AppCompatActivity {
                     }catch(JSONException e){}
                 }
 
+                publishProgress(75);
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -239,6 +246,7 @@ public class GuardianSearch extends AppCompatActivity {
         @Override
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
+            progressBar.setVisibility(values[0]);
         }
 
         @Override

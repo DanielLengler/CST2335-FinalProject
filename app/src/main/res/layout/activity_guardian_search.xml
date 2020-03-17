@@ -8,6 +8,14 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal" > -->
 
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:visibility="invisible"
+        android:layout_centerInParent="true"
+        android:id="@+id/guardianSearchProgress"/>
+
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
