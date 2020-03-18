@@ -23,6 +23,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.asis.finalproject.R;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -78,6 +79,8 @@ public class NasaImageFavoritesActivity extends AppCompatActivity {
 
                         nasaEarthImages.remove(i);
                         favoritesAdapter.notifyDataSetChanged();
+
+                        Snackbar.make(view, i +" deleted", Snackbar.LENGTH_SHORT).show();
 
                         //TODO delete files on device for this image
                     });

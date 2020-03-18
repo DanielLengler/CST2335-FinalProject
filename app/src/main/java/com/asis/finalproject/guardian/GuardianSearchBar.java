@@ -1,12 +1,13 @@
-package com.asis.finalproject;
+package com.asis.finalproject.guardian;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.asis.finalproject.R;
 
 public class GuardianSearchBar extends AppCompatActivity {
 

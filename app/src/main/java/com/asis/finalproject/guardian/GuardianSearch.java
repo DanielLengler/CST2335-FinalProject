@@ -1,4 +1,4 @@
-package com.asis.finalproject;
+package com.asis.finalproject.guardian;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.asis.finalproject.R;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
