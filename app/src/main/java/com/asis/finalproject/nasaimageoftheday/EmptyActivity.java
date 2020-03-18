@@ -1,8 +1,10 @@
-package com.asis.finalproject;
+package com.asis.finalproject.nasaimageoftheday;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.asis.finalproject.R;
 
 public class EmptyActivity extends AppCompatActivity {
 

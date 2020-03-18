@@ -1,4 +1,4 @@
-package com.asis.finalproject;
+package com.asis.finalproject.nasaimageoftheday;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

@@ -14,9 +14,9 @@
         android:theme="@style/AppTheme">
         <activity android:name=".nasaearthimage.FavoriteDetailsActivityHolder" />
         <activity android:name=".nasaearthimage.NasaImageFavoritesActivity" />
-        <activity android:name=".NasaImageOfTheDay" />
-        <activity android:name=".ListOfImages" />
-        <activity android:name=".EmptyActivity" />
+        <activity android:name=".nasaimageoftheday.NasaImageOfTheDay" />
+        <activity android:name=".nasaimageoftheday.ListOfImages" />
+        <activity android:name=".nasaimageoftheday.EmptyActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

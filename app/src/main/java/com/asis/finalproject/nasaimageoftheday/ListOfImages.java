@@ -1,4 +1,4 @@
-package com.asis.finalproject;
+package com.asis.finalproject.nasaimageoftheday;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -26,6 +26,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.asis.finalproject.R;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.FileInputStream;

@@ -1,4 +1,4 @@
-package com.asis.finalproject;
+package com.asis.finalproject.nasaimageoftheday;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.asis.finalproject.R;
 
 import org.json.JSONObject;
 import java.io.BufferedReader;
