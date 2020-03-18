@@ -1,4 +1,19 @@
 <resources>
     <string name="app_name">CST2335-FinalProject</string>
     <string name="et_typeYourSearch">Type here to find your article</string>
+    <string name="nature"> Hello there</string>
+    <string name="Name">Name</string>
+    <string name="search">Search</string>
+    <string name="toast_message">Here is more information</string>
+    <string name="snackbar_message1">Article is added to favorites</string>
+    <string name="snackbar_message">Here is list of favorite Articles </string>
+    <string name="undo_message">Undo successful</string>
+    <string name="search_toast">You clicked on the search</string>
+    <string name="help_toast">You clicked on help</string>
+    <string name="mail_toast">You clicked on mail</string>
+    <string name="help_menu">Help menu</string>
+    <string name="help__menu_title">Information</string>
+    <string name="help_alert">In this app you can select and save your favorite articles.
+                                They will be stored in your Favorites Section. Later you can delete
+                                articles you do not need. For closing this window please click OK</string>
 </resources>

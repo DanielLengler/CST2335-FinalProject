@@ -1,6 +1,7 @@
 package com.asis.finalproject;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -12,10 +13,18 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -27,25 +36,44 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+
 public class FirstActivity extends AppCompatActivity {
     private ProgressBar progressBar;
+    private LinearLayout linearLayout;
+    private Button favorButton;
+    //**************************
     ListView lvRss;
     ArrayList<String> titles;
     ArrayList<String> links;
     ArrayList<String> descriptions;
     ArrayList<String> pubdates;
     ArrayAdapter<String> adapter;
-
+    //**************************
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.first_activity);
 
-        progressBar = (ProgressBar)findViewById(R.id.progressBar);
+        linearLayout = findViewById(R.id.linearLayout);
+        favorButton = findViewById(R.id.myFavorites_btn);
+
+        favorButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                showSnackbar();
+            }
+        });
+
+        //This gets the toolbar from the layout:
+        Toolbar tBar = findViewById(R.id.toolbar);
+
+        //This loads the toolbar, which calls onCreateOptionsMenu below:
+        //  setSupportActionBar(tBar);
+
+        progressBar =  findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
-
-
-        lvRss = (ListView) findViewById(R.id.lvRss);
+//**********************************************
+        lvRss = findViewById(R.id.lvRss);
 
         titles = new ArrayList<>();
         links = new ArrayList<>();
@@ -65,8 +93,84 @@ public class FirstActivity extends AppCompatActivity {
         });
 
         new ProcessInBackground().execute();
+//***********************************************
+    }
+    public void showSnackbar(){
+        Snackbar snackbar = Snackbar.make(linearLayout,getText(R.string.snackbar_message),Snackbar.LENGTH_INDEFINITE)
+                .setAction("UNDO", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Snackbar snackbar1  = Snackbar.make(linearLayout, getText(R.string.undo_message), Snackbar.LENGTH_SHORT);
+                        snackbar1.show();
+                    }
+                });
+        snackbar.show();
+
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.example_menu, menu);
+        // slide 15 material:
+        MenuItem searchItem = menu.findItem(R.id.search_item);
+        SearchView sView = (SearchView)searchItem.getActionView();
+
+        sView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+        sView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return false;
+
+            }  });
+
+        return true;
+
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        String message = null;
+        //Look at your menu XML file. Put a case for every id in that file:
+        switch(item.getItemId())
+        {
+            //what to do when the menu item is selected:
+            case R.id.item1:
+                message = "You clicked item 1";
+                break;
+            case R.id.search_item:
+                message = getString(R.string.search_toast);
+                break;
+            case R.id.help_item:
+                message = getString(R.string.help_toast);
+                new AlertDialog.Builder(this)
+                        .setTitle(getString(R.string.help__menu_title))
+                        .setMessage(getString(R.string.help_alert))
+                        .setCancelable(false)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                //code if yes
+                            }
+                        })
+//                        .setNegativeButton("No", null)
+                        .show();
+
+                break;
+            case R.id.mail:
+                message = getString(R.string.mail_toast);
+                break;
+        }
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        return true;
     }
 
+    //*******************************************************************
     public InputStream getInputStream(URL url)
     {
         try
@@ -81,8 +185,7 @@ public class FirstActivity extends AppCompatActivity {
         }
     }
 
-    public class ProcessInBackground extends AsyncTask<Integer, Void, Exception>
-    {
+    public class ProcessInBackground extends AsyncTask<Integer, Void, Exception> {
         ProgressDialog progressDialog = new ProgressDialog(FirstActivity.this);
 
         Exception exception = null;
@@ -98,8 +201,7 @@ public class FirstActivity extends AppCompatActivity {
         @Override
         protected Exception doInBackground(Integer... params) {
 
-            try
-            {
+            try {
                 URL url = new URL("http://feeds.bbci.co.uk/news/world/us_and_canada/rss.xml#");
 
                 //creates new instance of PullParserFactory that can be used to create XML pull parsers
@@ -130,56 +232,44 @@ public class FirstActivity extends AppCompatActivity {
                 // Returns the type of current event: START_TAG, END_TAG, START_DOCUMENT, END_DOCUMENT etc..
                 int eventType = xpp.getEventType(); //loop control variable
 
-                while (eventType != XmlPullParser.END_DOCUMENT)
-                {
+                while (eventType != XmlPullParser.END_DOCUMENT) {
                     //if we are at a START_TAG (opening tag)
-                    if (eventType == XmlPullParser.START_TAG)
-                    {
+                    if (eventType == XmlPullParser.START_TAG) {
                         //if the tag is called "item"
-                        if (xpp.getName().equalsIgnoreCase("item"))
-                        {
+                        if (xpp.getName().equalsIgnoreCase("item")) {
                             insideItem = true;
                         }
                         //if the tag is called "title"
-                        else if (xpp.getName().equalsIgnoreCase("title"))
-                        {
-                            if (insideItem)
-                            {
+                        else if (xpp.getName().equalsIgnoreCase("title")) {
+                            if (insideItem) {
                                 // extract the text between <title> and </title>
                                 titles.add(xpp.nextText());
                             }
                         }
                         //if the tag is called "description"
-                        else if (xpp.getName().equalsIgnoreCase("description"))
-                        {
-                            if (insideItem)
-                            {
+                        else if (xpp.getName().equalsIgnoreCase("description")) {
+                            if (insideItem) {
                                 // extract the text between <title> and </title>
                                 descriptions.add(xpp.nextText());
                             }
                         }
                         //if the tag is called "link"
-                        else if (xpp.getName().equalsIgnoreCase("link"))
-                        {
-                            if (insideItem)
-                            {
+                        else if (xpp.getName().equalsIgnoreCase("link")) {
+                            if (insideItem) {
                                 // extract the text between <link> and </link>
                                 links.add(xpp.nextText());
                             }
                         }
                         //if the tag is called "pubDate"
-                        else if (xpp.getName().equalsIgnoreCase("pubDate"))
-                        {
-                            if (insideItem)
-                            {
+                        else if (xpp.getName().equalsIgnoreCase("pubDate")) {
+                            if (insideItem) {
                                 // extract the text between <title> and </title>
                                 pubdates.add(xpp.nextText());
                             }
                         }
                     }
                     //if we are at an END_TAG and the END_TAG is called "item"
-                    else if (eventType == XmlPullParser.END_TAG && xpp.getName().equalsIgnoreCase("item"))
-                    {
+                    else if (eventType == XmlPullParser.END_TAG && xpp.getName().equalsIgnoreCase("item")) {
                         insideItem = false;
                     }
 
@@ -187,17 +277,11 @@ public class FirstActivity extends AppCompatActivity {
                 }
 
 
-            }
-            catch (MalformedURLException e)
-            {
+            } catch (MalformedURLException e) {
                 exception = e;
-            }
-            catch (XmlPullParserException e)
-            {
+            } catch (XmlPullParserException e) {
                 exception = e;
-            }
-            catch (IOException e)
-            {
+            } catch (IOException e) {
                 exception = e;
             }
 
@@ -219,31 +303,7 @@ public class FirstActivity extends AppCompatActivity {
             progressDialog.dismiss();
             progressBar.setVisibility(View.INVISIBLE);
         }
-
-        public boolean onCreateOptionsMenu(Menu menu) {
-            MenuInflater inflater = getMenuInflater();
-            inflater.inflate(R.menu.example_menu, menu);
-
-            MenuItem searchItem = menu.findItem(R.id.action_search);
-            SearchView searchView = (SearchView) searchItem.getActionView();
-
-            searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
-
-            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    return false;
-                }
-
-                @Override
-                public boolean onQueryTextChange(String newText) {
-                    adapter.getFilter().filter(newText);
-                    return false;
-                }
-            });
-            return true;
-        }
     }
-
+    //*****************************************************************
 
 }
