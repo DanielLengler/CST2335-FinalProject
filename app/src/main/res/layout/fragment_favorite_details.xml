@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".nasaearthimage.FavoriteDetails">
 
     <RelativeLayout
@@ -13,7 +14,8 @@
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@android:drawable/btn_default"/>
+            android:src="@android:drawable/btn_default"
+            android:layout_below="@id/toolbar"/>
 
         <TextView
             android:id="@+id/latitudeLabel"

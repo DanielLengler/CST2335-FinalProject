@@ -1,5 +1,6 @@
 package com.asis.finalproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.asis.finalproject.nasaearthimage.NasaImageSelectorActivity;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -115,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * Starts the Nasa earth image activity
      */
     private void launchNasaEarthImage() {
-
+        startActivity(new Intent(this, NasaImageSelectorActivity.class));
     }
 
     /**

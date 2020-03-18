@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.asis.finalproject.R;
 
@@ -39,6 +40,11 @@ public class NasaImageFavoritesActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nasa_image_favorites);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Nasa Image Finder");
+        getSupportActionBar().setSubtitle("Daniel lengler - version 1");
 
         loadFavoritesList();
 
@@ -59,7 +65,8 @@ public class NasaImageFavoritesActivity extends AppCompatActivity {
                         .beginTransaction()
                         .replace(R.id.frameLayout, favoriteDetails)
                         .commit();
-            } else {
+            }
+            else {
                 Intent intent = new Intent(NasaImageFavoritesActivity.this, FavoriteDetailsActivityHolder.class);
                 intent.putExtras(dataToPass);
                 startActivity(intent);
@@ -88,12 +95,9 @@ public class NasaImageFavoritesActivity extends AppCompatActivity {
     }
 
     private void deleteImage(NasaEarthImage nasaEarthImage) {
-        System.err.println(Environment.getExternalStorageDirectory());
-
-
-        File file = new File(Environment.getExternalStorageDirectory(), nasaEarthImage.getPath());
+        File file = new File(getFilesDir(), nasaEarthImage.getPath());
         boolean result = file.delete();
-        Toast.makeText(this, "File delete result: "+result, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "File delete result: " + result, Toast.LENGTH_LONG).show();
     }
 
     private void loadFavoritesList() {
@@ -107,6 +111,9 @@ public class NasaImageFavoritesActivity extends AppCompatActivity {
                     cursor.getDouble(cursor.getColumnIndex(DatabaseHelper.COL_LATITUDE)),
                     cursor.getDouble(cursor.getColumnIndex(DatabaseHelper.COL_LONGITUDE)),
                     cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_IMAGE_PATH)));
+            Log.e("NasaImageFavorites", nasaEarthImage.getPath());
+            Log.e("NasaImageFavorites", String.valueOf(nasaEarthImage.getId()));
+            Log.e("NasaImageFavorites", String.valueOf(nasaEarthImage.getLatitude()));
             nasaEarthImages.add(nasaEarthImage);
             cursor.moveToNext();
         }

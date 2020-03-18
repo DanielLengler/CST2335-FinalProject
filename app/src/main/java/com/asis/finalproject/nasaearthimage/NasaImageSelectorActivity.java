@@ -1,6 +1,7 @@
 package com.asis.finalproject.nasaearthimage;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,6 +9,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,8 +19,11 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.asis.finalproject.R;
 import com.google.android.material.snackbar.Snackbar;
@@ -46,6 +53,11 @@ public class NasaImageSelectorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nasa_image_selector);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Nasa Image Finder");
+        getSupportActionBar().setSubtitle("Daniel lengler - version 1");
+
         imageView = findViewById(R.id.earthImage);
         progressBar = findViewById(R.id.progressBar);
 
@@ -69,7 +81,7 @@ public class NasaImageSelectorActivity extends AppCompatActivity {
     }
 
     private void addToFavorites(View v) {
-        if(imageView.getDrawable() == null) {
+        if (nasaEarthImage.getPath() == null) {
             Snackbar.make(v, "No image found", Snackbar.LENGTH_LONG).show();
             return;
         }
@@ -77,15 +89,40 @@ public class NasaImageSelectorActivity extends AppCompatActivity {
         DatabaseHelper databaseHelper = new DatabaseHelper(v.getContext());
         long id = databaseHelper.insertImage(nasaEarthImage);
         nasaEarthImage.setId(id);
+        nasaEarthImage.setPath(id + ".png");
+        databaseHelper.update(nasaEarthImage);
         databaseHelper.close();
 
         try (FileOutputStream out = openFileOutput(nasaEarthImage.getPath(), Context.MODE_PRIVATE)) {
             ((BitmapDrawable) imageView.getDrawable()).getBitmap().compress(Bitmap.CompressFormat.PNG, 100, out);
+            Snackbar.make(v, "Image added to your favorites", Snackbar.LENGTH_LONG).show();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
-        startActivity(new Intent(this, NasaImageFavoritesActivity.class));
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.nasa_earth_image_menu, menu);
+        getResources().getString(R.string.app_name);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem menuItem) {
+        if (menuItem.getItemId() == R.id.actionHelp) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(NasaImageSelectorActivity.this);
+            builder.setTitle("Help")
+                    .setMessage("To use this application you enter a longitude and a latitude. You may then save the image if you like it or look for a different coordinate.")
+                    .setPositiveButton(android.R.string.cancel, (dialogInterface, i) -> dialogInterface.dismiss());
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
+        else if (menuItem.getItemId() == R.id.actionFavorites) {
+            startActivity(new Intent(this, NasaImageFavoritesActivity.class));
+        }
+        return true;
     }
 
     private class NasaImageQuery extends AsyncTask<String, Integer, String> {
@@ -120,7 +157,7 @@ public class NasaImageSelectorActivity extends AppCompatActivity {
                 if (responseCode == 200) {
                     image = BitmapFactory.decodeStream(connection.getInputStream());
                 }
-                nasaEarthImage.setPath(nasaEarthImage.getId() + ".png");
+                nasaEarthImage.setPath("imageFound");
 
                 publishProgress(100);
 
@@ -136,9 +173,10 @@ public class NasaImageSelectorActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String s) {
-            if(errorMessage == null) {
+            if (errorMessage == null) {
                 imageView.setImageBitmap(image);
-            } else {
+            }
+            else {
                 Toast.makeText(NasaImageSelectorActivity.this, errorMessage, Toast.LENGTH_LONG).show();
             }
 

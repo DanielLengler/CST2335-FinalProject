@@ -52,4 +52,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return getWritableDatabase().delete(TABLE_NAME,COL_ID+"=?",new String[]{String.valueOf(nasaEarthImage.getId())});
     }
 
+    void update(NasaEarthImage nasaEarthImage) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_IMAGE_PATH, nasaEarthImage.getPath());
+        contentValues.put(COL_LATITUDE, nasaEarthImage.getLatitude());
+        contentValues.put(COL_LONGITUDE, nasaEarthImage.getLongitude());
+        getWritableDatabase().update(TABLE_NAME, contentValues, COL_ID+"="+nasaEarthImage.getId(), null);
+    }
+
 }
