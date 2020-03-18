@@ -23,7 +23,8 @@ public class MainActivity extends AppCompatActivity {
 
         ImageButton guardianArticleSearchButton = findViewById(R.id.guardianArticleSearchButton);
         guardianArticleSearchButton.setOnClickListener((v) -> {
-
+            Intent intent = new Intent(MainActivity.this, GuardianSearchBar.class);
+            startActivity(intent);
         });
 
         ImageButton nasaEarthImageButton = findViewById(R.id.nasaEarthImageButton);

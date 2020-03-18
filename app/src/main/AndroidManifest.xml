@@ -12,6 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Favorite"></activity>
+        <activity android:name=".GuardianSearch" />
+        <activity android:name=".GuardianSearchBar" />
         <activity android:name=".nasaearthimage.FavoriteDetailsActivityHolder" />
         <activity android:name=".nasaearthimage.NasaImageFavoritesActivity" />
         <activity android:name=".nasaimageoftheday.NasaImageOfTheDay" />
@@ -24,7 +27,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".nasaearthimage.NasaImageSelectorActivity" />
     </application>
 
 </manifest>
