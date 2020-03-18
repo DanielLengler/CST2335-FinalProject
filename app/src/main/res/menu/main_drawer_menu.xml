@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/actionLaunchBBC"
+        android:title="@string/bbc_news"/>
+
+    <item
+        android:id="@+id/actionLaunchGuardian"
+        android:title="@string/guardian"/>
+
+    <item
+        android:id="@+id/actionLaunchNasaEarthImage"
+        android:title="@string/nasa_earth_image" />
+
+    <item
+        android:id="@+id/actionLaunchNasaImageOfDay"
+        android:title="@string/image_of_the_day" />
+</menu>

@@ -7,46 +7,27 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <LinearLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content" />
 
-        <ImageButton
-            android:id="@+id/bbcNewsReaderButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:srcCompat="@android:drawable/picture_frame"/>
-
-        <ImageButton
-            android:id="@+id/guardianArticleSearchButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:srcCompat="@android:drawable/picture_frame" />
-
-    </LinearLayout>
-
-    <LinearLayout
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        tools:openDrawer="start">
 
-        <ImageButton
-            android:id="@+id/nasaImageOfDayButton"
+        <include layout="@layout/activity_main_content"/>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_view"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:srcCompat="@android:drawable/picture_frame" />
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"
+            app:headerLayout="@layout/header_layout"
+            app:menu="@menu/main_drawer_menu" />
+    </androidx.drawerlayout.widget.DrawerLayout>
 
-        <ImageButton
-            android:id="@+id/nasaEarthImageButton"
-            style="@style/Widget.AppCompat.ImageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:srcCompat="@android:drawable/picture_frame" />
-
-    </LinearLayout>
 </LinearLayout>
