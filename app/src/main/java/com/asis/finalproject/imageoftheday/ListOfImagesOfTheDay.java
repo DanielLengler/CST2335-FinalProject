@@ -1,4 +1,4 @@
-package com.aurelio.finalproject;
+package com.asis.finalproject.imageoftheday;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -35,7 +35,7 @@ import androidx.fragment.app.Fragment;
 
 import com.asis.finalproject.NasaImageItem;
 import com.asis.finalproject.R;
-import com.common.finalproject.MainActivity;
+import com.asis.finalproject.MainActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 

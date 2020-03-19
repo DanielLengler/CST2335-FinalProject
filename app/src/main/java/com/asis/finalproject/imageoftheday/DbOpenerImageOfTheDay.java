@@ -1,4 +1,4 @@
-package com.aurelio.finalproject;
+package com.asis.finalproject.imageoftheday;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

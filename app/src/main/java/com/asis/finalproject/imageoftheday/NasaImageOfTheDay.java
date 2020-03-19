@@ -1,4 +1,4 @@
-package com.aurelio.finalproject;
+package com.asis.finalproject.imageoftheday;
 
 import androidx.appcompat.app.AppCompatActivity;
 

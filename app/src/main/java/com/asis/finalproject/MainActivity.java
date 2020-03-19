@@ -1,4 +1,4 @@
-package com.common.finalproject;
+package com.asis.finalproject;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,9 +14,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.asis.finalproject.NasaImageItem;
-import com.asis.finalproject.R;
-import com.aurelio.finalproject.ListOfImagesOfTheDay;
+import com.asis.finalproject.imageoftheday.ListOfImagesOfTheDay;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{

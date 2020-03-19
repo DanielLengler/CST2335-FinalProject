@@ -12,10 +12,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.aurelio.finalproject.NasaImageOfTheDay" />
-        <activity android:name="com.aurelio.finalproject.ListOfImagesOfTheDay" />
-        <activity android:name="com.aurelio.finalproject.EmptyActivityImageOfTheDay" />
-        <activity android:name="com.common.finalproject.MainActivity">
+        <activity android:name=".guardian.Favorite" />
+        <activity android:name=".guardian.GuardianSearch" />
+        <activity android:name=".guardian.GuardianSearchBar" />
+        <activity android:name=".nasaearthimage.NasaImageSelectorActivity" />
+        <activity android:name=".nasaearthimage.FavoriteDetailsActivityHolder" />
+        <activity android:name=".nasaearthimage.NasaImageFavoritesActivity" />
+        <activity android:name=".nasaimageoftheday.NasaImageOfTheDay" />
+        <activity android:name=".nasaimageoftheday.ListOfImages" />
+        <activity android:name=".nasaimageoftheday.EmptyActivity" />
+        <activity android:name=".MainActivity">
+        <activity android:name=".imageoftheday.NasaImageOfTheDay" />
+        <activity android:name=".imageoftheday.ListOfImagesOfTheDay" />
+        <activity android:name=".imageoftheday.EmptyActivityImageOfTheDay" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
