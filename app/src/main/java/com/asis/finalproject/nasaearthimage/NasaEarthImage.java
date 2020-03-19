@@ -1,22 +1,32 @@
 package com.asis.finalproject.nasaearthimage;
 
 import java.io.Serializable;
+import java.util.Calendar;
 
 class NasaEarthImage implements Serializable {
 
     private long id;
     private String path;
+    private Calendar date;
     private double latitude, longitude;
 
     NasaEarthImage(){
 
     }
 
-    NasaEarthImage(long id, double latitude, double longitude, String path) {
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.path = path;
-        this.id = id;
+    NasaEarthImage(long id, double latitude, double longitude, String path, Calendar date) {
+        setLatitude(latitude);
+        setLongitude(longitude);
+        setPath(path);
+        setId(id);
+        setDate(date);
+    }
+
+    public static Calendar getCalenderFromLong(long timeInMilliseconds) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.clear();
+        calendar.setTimeInMillis(timeInMilliseconds);
+        return calendar;
     }
 
     double getLatitude() {
@@ -49,5 +59,13 @@ class NasaEarthImage implements Serializable {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public Calendar getDate() {
+        return date;
+    }
+
+    public void setDate(Calendar date) {
+        this.date = date;
     }
 }

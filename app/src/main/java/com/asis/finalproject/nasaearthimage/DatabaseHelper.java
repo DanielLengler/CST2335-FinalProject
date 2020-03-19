@@ -17,6 +17,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     static final String COL_IMAGE_PATH = "PATH";
     static final String COL_LATITUDE = "LATITUDE";
     static final String COL_LONGITUDE = "LONGITUDE";
+    static final String COL_DATE = "DATE";
 
     DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, VERSION_NUM);
@@ -27,6 +28,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE "+TABLE_NAME+" (" +
                 COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 COL_IMAGE_PATH + " TEXT," +
+                COL_DATE +" TEXT,"+
                 COL_LATITUDE +" TEXT,"+
                 COL_LONGITUDE + ");");
     }
@@ -39,6 +41,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     long insertImage(NasaEarthImage nasaEarthImage) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_IMAGE_PATH, nasaEarthImage.getPath());
+        contentValues.put(COL_DATE, nasaEarthImage.getDate().getTimeInMillis());
         contentValues.put(COL_LATITUDE, nasaEarthImage.getLatitude());
         contentValues.put(COL_LONGITUDE, nasaEarthImage.getLongitude());
         return getWritableDatabase().insert(TABLE_NAME, null, contentValues);
@@ -55,6 +58,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     void update(NasaEarthImage nasaEarthImage) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_IMAGE_PATH, nasaEarthImage.getPath());
+        contentValues.put(COL_DATE, nasaEarthImage.getDate().getTimeInMillis());
         contentValues.put(COL_LATITUDE, nasaEarthImage.getLatitude());
         contentValues.put(COL_LONGITUDE, nasaEarthImage.getLongitude());
         getWritableDatabase().update(TABLE_NAME, contentValues, COL_ID+"="+nasaEarthImage.getId(), null);

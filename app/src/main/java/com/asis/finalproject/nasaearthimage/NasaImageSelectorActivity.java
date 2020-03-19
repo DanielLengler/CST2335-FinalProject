@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -39,11 +40,18 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import javax.net.ssl.HttpsURLConnection;
 
 public class NasaImageSelectorActivity extends AppCompatActivity {
 
+    private TextView dateTextView;
     private ImageView imageView;
     private ProgressBar progressBar;
     private NasaEarthImage nasaEarthImage = new NasaEarthImage();
@@ -60,6 +68,7 @@ public class NasaImageSelectorActivity extends AppCompatActivity {
 
         imageView = findViewById(R.id.earthImage);
         progressBar = findViewById(R.id.progressBar);
+        dateTextView = findViewById(R.id.dateTextView);
 
         Button favoritesButton = findViewById(R.id.addToFavourites);
         favoritesButton.setOnClickListener(this::addToFavorites);
@@ -147,6 +156,14 @@ public class NasaImageSelectorActivity extends AppCompatActivity {
                 String result = sb.toString();
                 JSONObject nasaImageJson = new JSONObject(result);
 
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
+
+                Calendar calendar = Calendar.getInstance();
+                calendar.clear();
+                calendar.setTime(sdf.parse(nasaImageJson.getString("date")));
+
+                nasaEarthImage.setDate(calendar);
+
                 String imageURL = nasaImageJson.getString("url");
 
                 image = null;
@@ -162,7 +179,7 @@ public class NasaImageSelectorActivity extends AppCompatActivity {
                 publishProgress(100);
 
 
-            } catch (IOException | JSONException e) {
+            } catch (IOException | JSONException | ParseException e) {
                 Log.e("NasaImageQuery-error", e.getMessage());
                 errorMessage = "No image was found";
                 return errorMessage;
@@ -174,7 +191,10 @@ public class NasaImageSelectorActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             if (errorMessage == null) {
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
                 imageView.setImageBitmap(image);
+                dateTextView.setText(format.format(nasaEarthImage.getDate().getTime()));
             }
             else {
                 Toast.makeText(NasaImageSelectorActivity.this, errorMessage, Toast.LENGTH_LONG).show();

@@ -50,6 +50,23 @@
             android:layout_toEndOf="@id/longitudeLabel"
             android:textSize="30sp"
             tools:text="value" />
+
+        <TextView
+            android:id="@+id/dateLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/longitudeLabel"
+            android:textSize="30sp"
+            android:text="Date:" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/longitudeLabel"
+            android:layout_toEndOf="@id/dateLabel"
+            android:textSize="30sp"
+            tools:text="Value" />
     </RelativeLayout>
 
 </FrameLayout>
