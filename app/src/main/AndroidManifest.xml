@@ -18,10 +18,6 @@
         <activity android:name=".nasaearthimage.NasaImageSelectorActivity" />
         <activity android:name=".nasaearthimage.FavoriteDetailsActivityHolder" />
         <activity android:name=".nasaearthimage.NasaImageFavoritesActivity" />
-        <activity android:name=".nasaimageoftheday.NasaImageOfTheDay" />
-        <activity android:name=".nasaimageoftheday.ListOfImages" />
-        <activity android:name=".nasaimageoftheday.EmptyActivity" />
-        <activity android:name=".MainActivity">
         <activity android:name=".imageoftheday.NasaImageOfTheDay" />
         <activity android:name=".imageoftheday.ListOfImagesOfTheDay" />
         <activity android:name=".imageoftheday.EmptyActivityImageOfTheDay" />
