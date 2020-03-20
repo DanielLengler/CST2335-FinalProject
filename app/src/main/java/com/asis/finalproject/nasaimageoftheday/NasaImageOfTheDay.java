@@ -52,18 +52,18 @@ public class NasaImageOfTheDay extends AppCompatActivity {
         Intent fromMain = getIntent();
         String dateFromMain =  fromMain.getStringExtra("DATE");
 
-        Button saveImage = findViewById(R.id.buttonSaveNasaImage);
+        Button saveImage = findViewById(R.id.buttonSaveNasaImageOfTheDay);
         saveImage.setOnClickListener( click ->
         {
             ContentValues newRowValues = new ContentValues();
-            newRowValues.put(MyOpener.COL_DATE, nasaImageDate);
-            newRowValues.put(MyOpener.COL_EXPLANATION, nasaImageExplanation);
-            newRowValues.put(MyOpener.COL_URL, nasaImageUrl);
-            newRowValues.put(MyOpener.COL_TITLE, nasaImageTitle);
-            newRowValues.put(MyOpener.COL_PATH, "F");
-            MyOpener dbOpener = new MyOpener(this);
+            newRowValues.put(DbOpenerImageOfTheDay.COL_DATE, nasaImageDate);
+            newRowValues.put(DbOpenerImageOfTheDay.COL_EXPLANATION, nasaImageExplanation);
+            newRowValues.put(DbOpenerImageOfTheDay.COL_URL, nasaImageUrl);
+            newRowValues.put(DbOpenerImageOfTheDay.COL_TITLE, nasaImageTitle);
+            newRowValues.put(DbOpenerImageOfTheDay.COL_PATH, "F");
+            DbOpenerImageOfTheDay dbOpener = new DbOpenerImageOfTheDay(this);
             db = dbOpener.getWritableDatabase();
-            long newId = db.insert(MyOpener.TABLE_NAME, null, newRowValues);
+            long newId = db.insert(DbOpenerImageOfTheDay.TABLE_NAME, null, newRowValues);
 
             elements.add(new NasaImageItem(nasaImageTitle, nasaImageExplanation, nasaImageDate, nasaImageUrl, nasaImagePath, newId));
             Toast.makeText(NasaImageOfTheDay.this, "Image saved to the database", LENGTH_LONG).show();
@@ -72,16 +72,18 @@ public class NasaImageOfTheDay extends AppCompatActivity {
 
         MyHTTPRequest req = new MyHTTPRequest();
         req.execute("https://api.nasa.gov/planetary/apod?api_key=DgPLcIlnmN0Cwrzcg3e9NraFaYLIDI68Ysc6Zh3d&date=" + dateFromMain);  //Type 1
+
     }
+
     //Type1     Type2   Type3
     private class MyHTTPRequest extends AsyncTask< String, Integer, String>
     {
-        ImageView nasaImage = findViewById(R.id.imageViewNasaImage);
-        TextView imageTitleView = findViewById(R.id.textViewNasaImageTitle);
-        TextView imageExplanationView = findViewById(R.id.textViewNasaImageExplanation);
-        TextView imageDateView = findViewById(R.id.textViewNasaImageDate);
-        TextView imageUrlView = findViewById(R.id.textViewNasaImageUrl);
-        ProgressBar loadingImage = findViewById(R.id.progressBar);
+        ImageView nasaImage = findViewById(R.id.imageViewNasaImageOfTheDay);
+        TextView imageTitleView = findViewById(R.id.textViewTitleNasaImageOfTheDay);
+        TextView imageExplanationView = findViewById(R.id.textViewExplanationNasaImageOfTheDay);
+        TextView imageDateView = findViewById(R.id.textViewDateNasaImageOfTheDay);
+        TextView imageUrlView = findViewById(R.id.textViewNasaUrlImageOfTheDay);
+        ProgressBar loadingImage = findViewById(R.id.progressBarImageOfTheDay);
         Bitmap image = null;
 
         //Type3                Type1
