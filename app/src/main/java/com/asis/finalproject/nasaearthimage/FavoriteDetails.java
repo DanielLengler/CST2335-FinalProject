@@ -20,10 +20,11 @@ import java.util.Locale;
  */
 public class FavoriteDetails extends Fragment {
 
+    /**
+     * Required empty public constructor
+     */
     public FavoriteDetails() {
-        // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,6 +51,5 @@ public class FavoriteDetails extends Fragment {
 
 
         return view;
-
     }
 }

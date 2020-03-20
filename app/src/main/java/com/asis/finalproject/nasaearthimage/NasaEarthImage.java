@@ -3,6 +3,9 @@ package com.asis.finalproject.nasaearthimage;
 import java.io.Serializable;
 import java.util.Calendar;
 
+/**
+ * A DTO class used for storing variables related to Nasa Images.
+ */
 class NasaEarthImage implements Serializable {
 
     private long id;
@@ -10,10 +13,21 @@ class NasaEarthImage implements Serializable {
     private Calendar date;
     private double latitude, longitude;
 
+    /**
+     * Default no args constructor
+     */
     NasaEarthImage(){
 
     }
 
+    /**
+     * 5 args constructor
+     * @param id - the id of the nasaEarthImage
+     * @param latitude - the latitude of the nasaEarthImage
+     * @param longitude - the longitude of the nasaEarthImage
+     * @param path - the path of the image on the phone
+     * @param date - the date of the nasaEarthImage
+     */
     NasaEarthImage(long id, double latitude, double longitude, String path, Calendar date) {
         setLatitude(latitude);
         setLongitude(longitude);
@@ -22,6 +36,11 @@ class NasaEarthImage implements Serializable {
         setDate(date);
     }
 
+    /**
+     * Helper method that returns a Calendar instance with the date from the argument
+     * @param timeInMilliseconds - the time in milliseconds since epoch
+     * @return calender instance
+     */
     public static Calendar getCalenderFromLong(long timeInMilliseconds) {
         Calendar calendar = Calendar.getInstance();
         calendar.clear();

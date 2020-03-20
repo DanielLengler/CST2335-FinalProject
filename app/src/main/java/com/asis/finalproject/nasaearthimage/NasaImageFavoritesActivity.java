@@ -34,6 +34,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * A class that displays the list of favorites saved by the user.
+ */
 public class NasaImageFavoritesActivity extends AppCompatActivity {
 
     private ArrayList<NasaEarthImage> nasaEarthImages = new ArrayList<>();
@@ -97,12 +100,19 @@ public class NasaImageFavoritesActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Deletes an image from the local storage
+     * @param nasaEarthImage - the object containing the path of the image to delete.
+     */
     private void deleteImage(NasaEarthImage nasaEarthImage) {
         File file = new File(getFilesDir(), nasaEarthImage.getPath());
         boolean result = file.delete();
         Toast.makeText(this, "File delete result: " + result, Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * Connects to the database using {@link DatabaseHelper} and loads all rows into the nasaEarthImages {@link ArrayList}
+     */
     private void loadFavoritesList() {
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
 
@@ -126,6 +136,12 @@ public class NasaImageFavoritesActivity extends AppCompatActivity {
         databaseHelper.close();
     }
 
+    /**
+     * Opens and loads an image from a path
+     * @param context - the context to use
+     * @param nasaEarthImage - the object containing the path
+     * @return a {@link Bitmap} object with the image loaded
+     */
     public static Bitmap loadImageFromPath(Context context, NasaEarthImage nasaEarthImage) {
         if (nasaEarthImage.getPath() == null) {
             return null;
@@ -140,12 +156,25 @@ public class NasaImageFavoritesActivity extends AppCompatActivity {
         return null;
     }
 
+    /**
+     * A custom adapter class that extends {@link ArrayAdapter}. Used for the favorites {@link ListView}
+     */
     private class FavoritesAdapter extends ArrayAdapter<NasaEarthImage> {
 
+        /**
+         * Constructor matching super
+         */
         FavoritesAdapter(@NonNull Context context, int resource, List<NasaEarthImage> list) {
             super(context, resource, list);
         }
 
+        /**
+         * Sets the {@link TextView}s and {@link ImageView} of the layout for the row.
+         * @param position - the position in the list of the item being processed
+         * @param convertView - the view previously at this position (can be null)
+         * @param parent - the parent {@link ViewGroup}
+         * @return the new view to display
+         */
         @NonNull
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {

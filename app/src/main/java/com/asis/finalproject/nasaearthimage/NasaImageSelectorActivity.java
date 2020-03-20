@@ -3,6 +3,7 @@ package com.asis.finalproject.nasaearthimage;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -49,6 +50,10 @@ import java.util.Locale;
 
 import javax.net.ssl.HttpsURLConnection;
 
+/**
+ * Main launching page for the NASA earth imagery database part of the assignment.
+ * Also referred to as NasaImageSelectorActivity and Nasa Image Finder on some occasions.
+ */
 public class NasaImageSelectorActivity extends AppCompatActivity {
 
     private TextView dateTextView;
@@ -89,6 +94,10 @@ public class NasaImageSelectorActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Code that adds the nasaEarthImage, updates its id and downloads the image to local storage
+     * @param v - pass through variable
+     */
     private void addToFavorites(View v) {
         if (nasaEarthImage.getPath() == null) {
             Snackbar.make(v, "No image found", Snackbar.LENGTH_LONG).show();
@@ -110,20 +119,37 @@ public class NasaImageSelectorActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Inflates the menu with a custom xml menu
+     * @param menu - the menu to inflate
+     * @return true
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.nasa_earth_image_menu, menu);
-        getResources().getString(R.string.app_name);
         return true;
     }
 
+    /**
+     * Handles the click actions for the toolbar menu
+     * @param menuItem - the item that was clicked
+     * @return true
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem menuItem) {
         if (menuItem.getItemId() == R.id.actionHelp) {
+            SharedPreferences sharedPreferences = this.getSharedPreferences("com.asis.finalproject", MODE_PRIVATE);
+            int timesOpened = sharedPreferences.getInt("OPENED-TIMES", 0)+1;
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putInt("OPENED-TIMES", timesOpened);
+            editor.apply();
+
             AlertDialog.Builder builder = new AlertDialog.Builder(NasaImageSelectorActivity.this);
             builder.setTitle("Help")
-                    .setMessage("To use this application you enter a longitude and a latitude. You may then save the image if you like it or look for a different coordinate.")
+                    .setMessage("To use this application you enter a longitude and a latitude. You may then save the image if you like it or look for a different coordinate."+
+                            "Help opened "+timesOpened+" times.")
                     .setPositiveButton(android.R.string.cancel, (dialogInterface, i) -> dialogInterface.dismiss());
             AlertDialog dialog = builder.create();
             dialog.show();
@@ -134,6 +160,9 @@ public class NasaImageSelectorActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Class that talks to ad gets data from a json rest api.
+     */
     private class NasaImageQuery extends AsyncTask<String, Integer, String> {
 
         private Bitmap image;
@@ -188,6 +217,10 @@ public class NasaImageSelectorActivity extends AppCompatActivity {
             return "Finished";
         }
 
+        /**
+         * Sets visual elements if no errors have occurred.
+         * @param s - the end message
+         */
         @Override
         protected void onPostExecute(String s) {
             if (errorMessage == null) {
@@ -203,12 +236,14 @@ public class NasaImageSelectorActivity extends AppCompatActivity {
             progressBar.setVisibility(View.INVISIBLE);
         }
 
+        /**
+         * Updates the progress bar's value
+         * @param values - the progress percentage
+         */
         @Override
         protected void onProgressUpdate(Integer... values) {
             progressBar.setVisibility(View.VISIBLE);
             progressBar.setProgress(values[0]);
         }
     }
-
-
 }

@@ -8,6 +8,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+/**
+ * Helper class for managing the database.
+ */
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "nasa_earth_image_db";
     private static final int VERSION_NUM = 1;
@@ -38,6 +41,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    /**
+     * Added a new row to the database
+     * @param nasaEarthImage - The object to insert into the database
+     * @return the id of the inserted row
+     */
     long insertImage(NasaEarthImage nasaEarthImage) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_IMAGE_PATH, nasaEarthImage.getPath());
@@ -47,14 +55,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return getWritableDatabase().insert(TABLE_NAME, null, contentValues);
     }
 
+    /**
+     * Returns all rows in the database
+     * @return a cursor with all the rows from TABLE_NAME.
+     */
     Cursor getAll() {
         return getReadableDatabase().rawQuery("SELECT * FROM "+TABLE_NAME, null);
     }
 
+    /**
+     * Deletes a row from the database
+     * @param nasaEarthImage - the object containing the id of the row to delete
+     * @return the number of rows effected
+     */
     long deleteImage(NasaEarthImage nasaEarthImage) {
         return getWritableDatabase().delete(TABLE_NAME,COL_ID+"=?",new String[]{String.valueOf(nasaEarthImage.getId())});
     }
 
+    /**
+     * Updates a row in the database based on the argument
+     * @param nasaEarthImage - the object containing the new data
+     */
     void update(NasaEarthImage nasaEarthImage) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_IMAGE_PATH, nasaEarthImage.getPath());

@@ -7,6 +7,10 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.asis.finalproject.R;
 
+/**
+ * A class that holds a {@link FavoriteDetails} fragment.
+ * Is only used when the device is in portrait mode.
+ */
 public class FavoriteDetailsActivityHolder extends AppCompatActivity {
 
     @Override
