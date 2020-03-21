@@ -149,7 +149,7 @@ public class NasaImageSelectorActivity extends AppCompatActivity {
             AlertDialog.Builder builder = new AlertDialog.Builder(NasaImageSelectorActivity.this);
             builder.setTitle("Help")
                     .setMessage("To use this application you enter a longitude and a latitude. You may then save the image if you like it or look for a different coordinate."+
-                            "Help opened "+timesOpened+" times.")
+                            "\nHelp opened "+timesOpened+" times.")
                     .setPositiveButton(android.R.string.cancel, (dialogInterface, i) -> dialogInterface.dismiss());
             AlertDialog dialog = builder.create();
             dialog.show();
