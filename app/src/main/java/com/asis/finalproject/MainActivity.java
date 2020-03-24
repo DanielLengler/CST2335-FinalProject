@@ -2,6 +2,7 @@ package com.asis.finalproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,8 +19,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ImageButton bbcNewsReaderButton = findViewById(R.id.bbcNewsReaderButton);
-        bbcNewsReaderButton.setOnClickListener((v) -> {
-
+        bbcNewsReaderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, FirstActivity.class));
+            }
         });
 
         ImageButton guardianArticleSearchButton = findViewById(R.id.guardianArticleSearchButton);
