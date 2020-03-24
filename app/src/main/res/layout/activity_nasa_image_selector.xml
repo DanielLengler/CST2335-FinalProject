@@ -32,30 +32,30 @@
             android:src="@drawable/image_placeholder" />
 
         <EditText
-            android:id="@+id/longitudeInput"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="7"
-            android:hint="Longitude"
-            android:inputType="number|numberDecimal"
-            app:layout_constraintBottom_toBottomOf="@+id/latitudeInput"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/latitudeInput"
-            app:layout_constraintTop_toTopOf="@+id/latitudeInput" />
-
-        <EditText
             android:id="@+id/latitudeInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:ems="7"
             android:hint="Latitude"
-            android:inputType="number|numberDecimal"
+            android:inputType="numberSigned|numberDecimal"
             app:layout_constraintEnd_toStartOf="@+id/longitudeInput"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/dateTextView" />
+
+        <EditText
+            android:id="@+id/longitudeInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="7"
+            android:hint="Longitude"
+            android:inputType="numberSigned|numberDecimal"
+            app:layout_constraintBottom_toBottomOf="@+id/latitudeInput"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/latitudeInput"
+            app:layout_constraintTop_toTopOf="@+id/latitudeInput" />
 
         <TextView
             android:id="@+id/dateTextView"
