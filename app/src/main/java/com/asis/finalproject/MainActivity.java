@@ -7,6 +7,7 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.asis.finalproject.bbc.FirstActivity;
 import com.asis.finalproject.guardian.GuardianSearchBar;
 import com.asis.finalproject.nasaearthimage.NasaImageSelectorActivity;
 import com.asis.finalproject.nasaimageoftheday.ListOfImages;
@@ -19,12 +20,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ImageButton bbcNewsReaderButton = findViewById(R.id.bbcNewsReaderButton);
-        bbcNewsReaderButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, FirstActivity.class));
-            }
-        });
+        bbcNewsReaderButton.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, FirstActivity.class)));
 
         ImageButton guardianArticleSearchButton = findViewById(R.id.guardianArticleSearchButton);
         guardianArticleSearchButton.setOnClickListener((v) -> {
@@ -37,8 +33,6 @@ public class MainActivity extends AppCompatActivity {
 
         ImageButton nasaImageOfDayButton = findViewById(R.id.nasaImageOfDayButton);
         Intent listOfImages = new Intent(MainActivity.this, ListOfImages.class);
-        nasaImageOfDayButton.setOnClickListener((v) -> {
-            startActivity(listOfImages);
-        });
+        nasaImageOfDayButton.setOnClickListener((v) -> startActivity(listOfImages));
     }
 }

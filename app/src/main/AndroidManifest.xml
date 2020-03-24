@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FirstActivity" />
+        <activity android:name=".bbc.FirstActivity" />
         <activity android:name=".guardian.Favorite" />
         <activity android:name=".guardian.GuardianSearch" />
         <activity android:name=".guardian.GuardianSearchBar" />
