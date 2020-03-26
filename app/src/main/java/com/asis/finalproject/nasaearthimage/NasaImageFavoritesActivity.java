@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +28,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -41,6 +39,7 @@ public class NasaImageFavoritesActivity extends AppCompatActivity {
 
     private ArrayList<NasaEarthImage> nasaEarthImages = new ArrayList<>();
     private FavoritesAdapter favoritesAdapter;
+    private FavoriteDetails favoriteDetails;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,8 +48,11 @@ public class NasaImageFavoritesActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Nasa Image Finder");
-        getSupportActionBar().setSubtitle("Daniel lengler - version 1");
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(R.string.neid_toolbar_title);
+            getSupportActionBar().setSubtitle(R.string.neid_toolbar_subtitle);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         loadFavoritesList();
 
@@ -65,14 +67,13 @@ public class NasaImageFavoritesActivity extends AppCompatActivity {
 
             boolean isLandScape = findViewById(R.id.frameLayout) != null;
             if (isLandScape) {
-                FavoriteDetails favoriteDetails = new FavoriteDetails();
+                favoriteDetails = new FavoriteDetails();
                 favoriteDetails.setArguments(dataToPass);
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.frameLayout, favoriteDetails)
                         .commit();
-            }
-            else {
+            } else {
                 Intent intent = new Intent(NasaImageFavoritesActivity.this, FavoriteDetailsActivityHolder.class);
                 intent.putExtras(dataToPass);
                 startActivity(intent);
@@ -80,7 +81,7 @@ public class NasaImageFavoritesActivity extends AppCompatActivity {
         });
         listView.setOnItemLongClickListener((adapterView, view, i, l) -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(NasaImageFavoritesActivity.this);
-            builder.setTitle("Remove image from favorites?")
+            builder.setTitle(R.string.remove_from_favorites_neid)
                     .setNegativeButton(android.R.string.no, null)
                     .setPositiveButton(android.R.string.yes, (dialog, which) -> {
                         DatabaseHelper databaseHelper = new DatabaseHelper(view.getContext());
@@ -92,7 +93,8 @@ public class NasaImageFavoritesActivity extends AppCompatActivity {
                         nasaEarthImages.remove(i);
                         favoritesAdapter.notifyDataSetChanged();
 
-                        //TODO delete files on device for this image
+                        if (findViewById(R.id.frameLayout) != null)
+                            getSupportFragmentManager().beginTransaction().remove(favoriteDetails).commit();
                     });
             AlertDialog dialog = builder.create();
             dialog.show();
@@ -102,12 +104,13 @@ public class NasaImageFavoritesActivity extends AppCompatActivity {
 
     /**
      * Deletes an image from the local storage
+     *
      * @param nasaEarthImage - the object containing the path of the image to delete.
      */
     private void deleteImage(NasaEarthImage nasaEarthImage) {
         File file = new File(getFilesDir(), nasaEarthImage.getPath());
         boolean result = file.delete();
-        Toast.makeText(this, "File delete result: " + result, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getString(R.string.file_delete_neid) + " " + result, Toast.LENGTH_LONG).show();
     }
 
     /**
@@ -138,7 +141,8 @@ public class NasaImageFavoritesActivity extends AppCompatActivity {
 
     /**
      * Opens and loads an image from a path
-     * @param context - the context to use
+     *
+     * @param context        - the context to use
      * @param nasaEarthImage - the object containing the path
      * @return a {@link Bitmap} object with the image loaded
      */
@@ -159,7 +163,7 @@ public class NasaImageFavoritesActivity extends AppCompatActivity {
     /**
      * A custom adapter class that extends {@link ArrayAdapter}. Used for the favorites {@link ListView}
      */
-    private class FavoritesAdapter extends ArrayAdapter<NasaEarthImage> {
+    private static class FavoritesAdapter extends ArrayAdapter<NasaEarthImage> {
 
         /**
          * Constructor matching super
@@ -170,9 +174,10 @@ public class NasaImageFavoritesActivity extends AppCompatActivity {
 
         /**
          * Sets the {@link TextView}s and {@link ImageView} of the layout for the row.
-         * @param position - the position in the list of the item being processed
+         *
+         * @param position    - the position in the list of the item being processed
          * @param convertView - the view previously at this position (can be null)
-         * @param parent - the parent {@link ViewGroup}
+         * @param parent      - the parent {@link ViewGroup}
          * @return the new view to display
          */
         @NonNull
@@ -185,6 +190,7 @@ public class NasaImageFavoritesActivity extends AppCompatActivity {
                 rowView = layoutInflater.inflate(R.layout.nasa_earth_image_row, parent, false);
             }
 
+            assert rowView != null;
             TextView longitudeTextView = rowView.findViewById(R.id.longitude);
             TextView latitudeTextView = rowView.findViewById(R.id.latitude);
             TextView dateTextView = rowView.findViewById(R.id.date);

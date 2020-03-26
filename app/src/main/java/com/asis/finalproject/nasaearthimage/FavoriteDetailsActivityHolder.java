@@ -20,8 +20,11 @@ public class FavoriteDetailsActivityHolder extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Nasa Image Finder");
-        getSupportActionBar().setSubtitle("Daniel lengler - version 1");
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(R.string.neid_toolbar_title);
+            getSupportActionBar().setSubtitle(R.string.neid_toolbar_subtitle);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         FavoriteDetails favoriteDetails = new FavoriteDetails();
         favoriteDetails.setArguments(getIntent().getExtras());

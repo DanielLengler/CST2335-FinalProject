@@ -1,7 +1,7 @@
 package com.asis.finalproject.nasaearthimage;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -9,7 +9,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -43,10 +42,9 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -68,8 +66,11 @@ public class NasaImageSelectorActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Nasa Image Finder");
-        getSupportActionBar().setSubtitle("Daniel lengler - version 1");
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(R.string.neid_toolbar_title);
+            getSupportActionBar().setSubtitle(R.string.neid_toolbar_subtitle);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         imageView = findViewById(R.id.earthImage);
         progressBar = findViewById(R.id.progressBar);
@@ -89,18 +90,19 @@ public class NasaImageSelectorActivity extends AppCompatActivity {
                 nasaImageQuery.execute(String.format("https://api.nasa.gov/planetary/earth/imagery/?lon=%s&lat=%s&date=2014-02-01&api_key=DEMO_KEY",
                         longitude, latitude));
             } catch (NumberFormatException e) {
-                Toast.makeText(this, "Unable to parse you're inputted longitude or latitude", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.bad_input_message_neid, Toast.LENGTH_LONG).show();
             }
         });
     }
 
     /**
      * Code that adds the nasaEarthImage, updates its id and downloads the image to local storage
+     *
      * @param v - pass through variable
      */
     private void addToFavorites(View v) {
         if (nasaEarthImage.getPath() == null) {
-            Snackbar.make(v, "No image found", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(v, R.string.null_image_path_neid, Snackbar.LENGTH_LONG).show();
             return;
         }
 
@@ -113,7 +115,7 @@ public class NasaImageSelectorActivity extends AppCompatActivity {
 
         try (FileOutputStream out = openFileOutput(nasaEarthImage.getPath(), Context.MODE_PRIVATE)) {
             ((BitmapDrawable) imageView.getDrawable()).getBitmap().compress(Bitmap.CompressFormat.PNG, 100, out);
-            Snackbar.make(v, "Image added to your favorites", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(v, R.string.added_to_favorites_neid, Snackbar.LENGTH_LONG).show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -121,6 +123,7 @@ public class NasaImageSelectorActivity extends AppCompatActivity {
 
     /**
      * Inflates the menu with a custom xml menu
+     *
      * @param menu - the menu to inflate
      * @return true
      */
@@ -133,29 +136,35 @@ public class NasaImageSelectorActivity extends AppCompatActivity {
 
     /**
      * Handles the click actions for the toolbar menu
+     *
      * @param menuItem - the item that was clicked
      * @return true
      */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem menuItem) {
-        if (menuItem.getItemId() == R.id.actionHelp) {
-            SharedPreferences sharedPreferences = this.getSharedPreferences("com.asis.finalproject", MODE_PRIVATE);
-            int timesOpened = sharedPreferences.getInt("OPENED-TIMES", 0)+1;
+        switch (menuItem.getItemId()) {
+            case R.id.actionHelp:
+                SharedPreferences sharedPreferences = this.getSharedPreferences("com.asis.finalproject", MODE_PRIVATE);
+                int timesOpened = sharedPreferences.getInt("OPENED-TIMES", 0) + 1;
 
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putInt("OPENED-TIMES", timesOpened);
-            editor.apply();
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("OPENED-TIMES", timesOpened);
+                editor.apply();
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(NasaImageSelectorActivity.this);
-            builder.setTitle("Help")
-                    .setMessage("To use this application you enter a longitude and a latitude. You may then save the image if you like it or look for a different coordinate."+
-                            "\nHelp opened "+timesOpened+" times.")
-                    .setPositiveButton(android.R.string.cancel, (dialogInterface, i) -> dialogInterface.dismiss());
-            AlertDialog dialog = builder.create();
-            dialog.show();
-        }
-        else if (menuItem.getItemId() == R.id.actionFavorites) {
-            startActivity(new Intent(this, NasaImageFavoritesActivity.class));
+                AlertDialog.Builder builder = new AlertDialog.Builder(NasaImageSelectorActivity.this);
+                builder.setTitle(R.string.help_neid)
+                        .setMessage(getString(R.string.info_message1_neid) +
+                                "\n " + getString(R.string.info_message2_neid) + " " + timesOpened + " " + getString(R.string.info_message3_neid))
+                        .setPositiveButton(android.R.string.cancel, (dialogInterface, i) -> dialogInterface.dismiss());
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                break;
+            case R.id.actionFavorites:
+                startActivity(new Intent(this, NasaImageFavoritesActivity.class));
+                break;
+            case android.R.id.home:
+                finish();
+                break;
         }
         return true;
     }
@@ -163,6 +172,7 @@ public class NasaImageSelectorActivity extends AppCompatActivity {
     /**
      * Class that talks to ad gets data from a json rest api.
      */
+    @SuppressLint("StaticFieldLeak")
     private class NasaImageQuery extends AsyncTask<String, Integer, String> {
 
         private Bitmap image;
@@ -183,17 +193,19 @@ public class NasaImageSelectorActivity extends AppCompatActivity {
                 String line;
                 while ((line = reader.readLine()) != null) sb.append(line).append("\n");
                 String result = sb.toString();
+                publishProgress(30);
                 JSONObject nasaImageJson = new JSONObject(result);
 
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
 
                 Calendar calendar = Calendar.getInstance();
                 calendar.clear();
-                calendar.setTime(sdf.parse(nasaImageJson.getString("date")));
+                calendar.setTime(Objects.requireNonNull(sdf.parse(nasaImageJson.getString("date"))));
 
                 nasaEarthImage.setDate(calendar);
 
                 String imageURL = nasaImageJson.getString("url");
+                publishProgress(70);
 
                 image = null;
                 URL imageUrl = new URL(imageURL);
@@ -206,19 +218,17 @@ public class NasaImageSelectorActivity extends AppCompatActivity {
                 nasaEarthImage.setPath("imageFound");
 
                 publishProgress(100);
-
-
-            } catch (IOException | JSONException | ParseException e) {
-                Log.e("NasaImageQuery-error", e.getMessage());
-                errorMessage = "No image was found";
+            } catch (IOException | JSONException | ParseException | NullPointerException e) {
+                errorMessage = getString(R.string.null_image_path_neid);
                 return errorMessage;
             }
 
-            return "Finished";
+            return getString(R.string.finished_neid);
         }
 
         /**
          * Sets visual elements if no errors have occurred.
+         *
          * @param s - the end message
          */
         @Override
@@ -228,16 +238,16 @@ public class NasaImageSelectorActivity extends AppCompatActivity {
 
                 imageView.setImageBitmap(image);
                 dateTextView.setText(format.format(nasaEarthImage.getDate().getTime()));
-            }
-            else {
+            } else {
                 Toast.makeText(NasaImageSelectorActivity.this, errorMessage, Toast.LENGTH_LONG).show();
             }
 
-            progressBar.setVisibility(View.INVISIBLE);
+            progressBar.setVisibility(View.GONE);
         }
 
         /**
          * Updates the progress bar's value
+         *
          * @param values - the progress percentage
          */
         @Override

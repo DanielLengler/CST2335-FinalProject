@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/imageView"
             android:textSize="30sp"
-            android:text="Latitude:" />
+            android:text="@string/latitude_neid" />
 
         <TextView
             android:id="@+id/latitude"
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/latitudeLabel"
             android:textSize="30sp"
-            android:text="Longitude:" />
+            android:text="@string/longitude_neid" />
 
         <TextView
             android:id="@+id/longitude"
@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/longitudeLabel"
             android:textSize="30sp"
-            android:text="Date:" />
+            android:text="@string/date_neid" />
 
         <TextView
             android:id="@+id/date"

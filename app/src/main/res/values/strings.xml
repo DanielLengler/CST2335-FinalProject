@@ -9,5 +9,25 @@
     <string name="birthday">Select a date</string>
     <string name="buttonSaveImage">Save Image</string>
     <string name="hello_blank_fragment">Message Here</string>
+    <string name="latitude_neid">Latitude:</string>
+    <string name="longitude_neid">Longitude:</string>
+    <string name="date_neid">Date:</string>
+    <string name="latitude2_neid">Latitude</string>
+    <string name="longitude2_neid">Longitude</string>
+    <string name="find_earth_image_neid">Find Earth Image</string>
+    <string name="add_to_favorites_neid">Add to Favorites</string>
+    <string name="help_neid">Help</string>
+    <string name="favorites_neid">Favorites</string>
+    <string name="neid_toolbar_title">Nasa Image Finder</string>
+    <string name="neid_toolbar_subtitle">Daniel lengler - version 1</string>
+    <string name="bad_input_message_neid">Unable to parse you\'re inputted longitude or latitude</string>
+    <string name="null_image_path_neid">No image found</string>
+    <string name="added_to_favorites_neid">Image added to your favorites</string>
+    <string name="info_message1_neid">To use this application you enter a longitude and a latitude. You may then save the image if you like it or look for a different coordinate.</string>
+    <string name="info_message2_neid">Help opened</string>
+    <string name="info_message3_neid">times.</string>
+    <string name="finished_neid">Finished</string>
+    <string name="remove_from_favorites_neid">Remove image from favorites?</string>
+    <string name="file_delete_neid">File delete result:</string>
 
 </resources>

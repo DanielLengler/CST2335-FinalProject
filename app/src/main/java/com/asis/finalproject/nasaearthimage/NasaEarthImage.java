@@ -41,7 +41,7 @@ class NasaEarthImage implements Serializable {
      * @param timeInMilliseconds - the time in milliseconds since epoch
      * @return calender instance
      */
-    public static Calendar getCalenderFromLong(long timeInMilliseconds) {
+    static Calendar getCalenderFromLong(long timeInMilliseconds) {
         Calendar calendar = Calendar.getInstance();
         calendar.clear();
         calendar.setTimeInMillis(timeInMilliseconds);
@@ -64,11 +64,11 @@ class NasaEarthImage implements Serializable {
         this.longitude = longitude;
     }
 
-    public String getPath() {
+    String getPath() {
         return path;
     }
 
-    public void setPath(String path) {
+    void setPath(String path) {
         this.path = path;
     }
 
@@ -80,11 +80,11 @@ class NasaEarthImage implements Serializable {
         this.id = id;
     }
 
-    public Calendar getDate() {
+    Calendar getDate() {
         return date;
     }
 
-    public void setDate(Calendar date) {
+    void setDate(Calendar date) {
         this.date = date;
     }
 }
