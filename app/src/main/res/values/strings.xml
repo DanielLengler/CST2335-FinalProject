@@ -2,6 +2,9 @@
     <string name="app_name">CST2335-FinalProject</string>
     <string name="et_typeYourSearch">Type here to find your article</string>
     <string name="nature"> Hello there</string>
+<!--    <string name="link1"><a href="http://feeds.bbci.co.uk/news/world/us_and_canada/rss.xml">link to the article</a></string>-->
+<!--    <string name="link"><a href="https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Ffeeds.bbci.co.uk%2Fnews%2Fworld%2Fus_and_canada%2Frss.xml">link to the article</a></string>-->
+    <string name="link">link to the article</string>
     <string name="Name">Name</string>
     <string name="search">Search</string>
     <string name="toast_message">Here is more information</string>

@@ -3,18 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/linearLayout"
+    android:id="@+id/relativeLayout"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-<!--    <androidx.appcompat.widget.Toolbar-->
-<!--        android:id="@+id/toolbar"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:background="?attr/colorPrimary"-->
-<!--        android:minHeight="?attr/actionBarSize"-->
-<!--        android:theme="?attr/actionBarTheme" />-->
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#008577"
+        android:elevation="4dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,7 +24,7 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/searchEditText"
+            android:id="@+id/searchEditText2"
             android:layout_width="262dp"
             android:layout_height="55dp"
             android:hint="Search"
@@ -35,18 +37,17 @@
 
         <!---->
         <ImageButton
-            android:id="@+id/addBtn"
+            android:id="@+id/searchBtn2"
             android:layout_width="wrap_content"
             android:layout_height="53dp"
             app:srcCompat="@drawable/ic_clear" />
 
         <ImageButton
-            android:id="@+id/favoriteBtn"
-            android:layout_width="58dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
+            android:id="@+id/returnBtn"
+            android:layout_width="76dp"
+            android:layout_height="53dp"
             android:layout_marginEnd="37dp"
-            app:srcCompat="@drawable/ic_favorite_color" />
+            app:srcCompat="@drawable/return_btn" />
     </LinearLayout>
 
     <ProgressBar
@@ -59,12 +60,14 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/recyclerFavorites"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
-        android:background="#DCDCDC"
+        android:background="#EFEFEF"
         android:padding="8dp"
         android:scrollbars="vertical"
         tools:ignore="NotSibling" />
+
+
 </LinearLayout>
