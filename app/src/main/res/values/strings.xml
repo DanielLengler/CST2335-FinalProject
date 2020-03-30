@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">CST2335-FinalProject</string>
+    <string name="app_name">FinalProject</string>
+    <string name="image_of_the_day">Image of the Day</string>
+    <string name="guardian">Guardian</string>
+    <string name="bbc_news">BBC News</string>
+    <string name="nasa_earth_image">Nasa Earth Image</string>
+    <string name="open">Open</string> <!-- for DrawerLayout actionbar-->
+    <string name="close">Close</string> <!-- for DrawerLayout actionbar-->
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

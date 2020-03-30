@@ -11,9 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Favorite"></activity>
-        <activity android:name=".GuardianSearch" />
-        <activity android:name=".GuardianSearchBar" />
+        <activity android:name="guardian.GuardianResults"></activity>
+        <activity android:name="guardian.EmptyActivity" />
+        <activity android:name="guardian.Favorite" />
+        <activity android:name="guardian.GuardianSearch" />
+        <activity android:name="guardian.GuardianSearchBar" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

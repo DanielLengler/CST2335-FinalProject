@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/favoritesToolbarItem"
+        android:title="Favorites"
+        android:icon="@drawable/star_empty"
+        app:showAsAction="always"
+        android:orderInCategory="1"/>
+
+    <item
+        android:id="@+id/searchToolbarItem"
+        android:title="Search"
+        android:icon="@drawable/search"
+        app:showAsAction="always"
+        android:orderInCategory="2"/>
+
+    <item
+        android:id="@+id/helpToolbarItem"
+        android:title="Help"
+        android:icon="@drawable/help"
+        app:showAsAction="always"
+        android:orderInCategory="3" />
+
+</menu>
