@@ -180,7 +180,7 @@ public class GuardianResults extends AppCompatActivity implements NavigationView
 
     private void setupActionBarAndDrawer() {
         //For ToolBar:
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.guardianToolbar);
         setSupportActionBar(toolbar);
 
         //For NavigationDrawer:
@@ -189,7 +189,7 @@ public class GuardianResults extends AppCompatActivity implements NavigationView
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.guardian_Nav_View);
         navigationView.setNavigationItemSelectedListener(this);
 
     }
@@ -260,10 +260,20 @@ public class GuardianResults extends AppCompatActivity implements NavigationView
         public View getView(int position, View convertView, ViewGroup parent) {
             Article results = (Article) getItem(position);
             LayoutInflater inflater = getLayoutInflater();
-            View newView = inflater.inflate(R.layout.activity_guardian_search_populate_favorited, parent, false);
-            TextView textView = newView.findViewById(R.id.results);
-            textView.setText(results.getTitle());
-            return newView;
+
+            if(!checkIfExistsInDataBase(results)) {
+                View newView = inflater.inflate(R.layout.activity_guardian_search_populate, parent, false);
+                TextView textView = newView.findViewById(R.id.results);
+                textView.setText(results.getTitle());
+                return newView;
+            }
+
+            else{
+                View newView = inflater.inflate(R.layout.activity_guardian_search_populate_favorited, parent, false);
+                TextView textView = newView.findViewById(R.id.results);
+                textView.setText(results.getTitle());
+                return newView;
+            }
         }
     }
 

@@ -144,7 +144,7 @@ public class Favorite extends AppCompatActivity implements NavigationView.OnNavi
 
     private void setupActionBarAndDrawer() {
         //For ToolBar:
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.guardianToolbar);
         setSupportActionBar(toolbar);
 
         //For NavigationDrawer:
@@ -153,7 +153,7 @@ public class Favorite extends AppCompatActivity implements NavigationView.OnNavi
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.guardian_Nav_View);
         navigationView.setNavigationItemSelectedListener(this);
 
     }
