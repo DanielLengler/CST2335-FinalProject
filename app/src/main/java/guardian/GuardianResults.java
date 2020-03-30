@@ -104,15 +104,16 @@ public class GuardianResults extends AppCompatActivity implements NavigationView
                 if(!checkIfExistsInDataBase(selected)) {
                     insertIntoDataBase(selected);
                     favorites.add(selected);
-                    //adapter.notifyDataSetChanged();
+                    adapter.notifyDataSetChanged();
                     Snackbar.make(view, "Added to favorites", Snackbar.LENGTH_SHORT).setAction("Undo", (clickSnackBar) -> {
                         deleteFromDataBase(selected);
                         favorites.remove(selected);
+                        adapter.notifyDataSetChanged();
                         Toast.makeText(this, "Removed from favorites", Toast.LENGTH_SHORT).show();
                     }).show();
                     //Toast.makeText(this, "Added to favorites", Toast.LENGTH_SHORT).show();
 
-                    adapter.notifyDataSetChanged();
+                    //adapter.notifyDataSetChanged();
                 }
 
 
