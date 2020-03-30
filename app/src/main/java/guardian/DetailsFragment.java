@@ -42,7 +42,7 @@ public class DetailsFragment extends Fragment {
         TextView articleTitle = (TextView) result.findViewById(R.id.articleTitle);
         TextView articleUrl = (TextView) result.findViewById(R.id.articleUrl);
         TextView articleSection = (TextView) result.findViewById(R.id.articleSectionName);
-        Button addtoFavoritesButton = (Button) result.findViewById(R.id.addToFavorites);
+        //Button addtoFavoritesButton = (Button) result.findViewById(R.id.addToFavorites);
 
         articleTitle.setText(title);
         articleUrl.setText(url);

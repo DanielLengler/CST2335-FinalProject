@@ -79,13 +79,13 @@ public class GuardianResults extends AppCompatActivity implements NavigationView
 
         resultsList.setOnItemClickListener((list, view, position, id) -> {
             Bundle dataToPass = new Bundle();
-            dataToPass.putString(TITLE, favorites.get(position).getTitle());
-            dataToPass.putString(URL, favorites.get(position).getUrl());
-            dataToPass.putString(SECTION_NAME, favorites.get(position).getSectionName());
+            dataToPass.putString(TITLE, results.get(position).getTitle());
+            dataToPass.putString(URL, results.get(position).getUrl());
+            dataToPass.putString(SECTION_NAME, results.get(position).getSectionName());
             if(isTablet){
                 detailsFragment = new DetailsFragment();
                 detailsFragment.setArguments(dataToPass);
-                getSupportFragmentManager().beginTransaction().replace(R.id.favoriteFrameLayout, detailsFragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, detailsFragment).commit();
             }
 
             else{
