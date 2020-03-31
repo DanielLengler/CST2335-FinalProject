@@ -26,4 +26,5 @@
     <string name="explanationImageOfTheDay">Explanation: </string>
     <string name="imageDateViewImageOfTheDay">Date: </string>
     <string name="imageUrlViewImageOfTheDay">URL: </string>
+    <string name="helpTitleImageOfTheDay">Help</string>
 </resources>

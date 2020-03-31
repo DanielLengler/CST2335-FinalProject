@@ -19,6 +19,10 @@ public class DbOpenerImageOfTheDay extends SQLiteOpenHelper {
     protected final static String COL_PATH = "PATH";
     protected final static String COL_ID = "_id";
 
+    /**
+     * Make the connection between DB and Context.
+     * @param ctx
+     */
     protected DbOpenerImageOfTheDay(Context ctx)
     {
         super(ctx, DATABASE_NAME, null, VERSION_NUM);

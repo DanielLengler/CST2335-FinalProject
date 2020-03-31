@@ -64,11 +64,13 @@ public class ListOfImagesOfTheDay extends AppCompatActivity implements Navigatio
     SQLiteDatabase db;
     private ArrayList<NasaImageItem> elements;
     private MyListAdapter myAdapter;
-//    public static final String ITEM_SELECTED = "ITEM";
     public static final String ITEM_POSITION = "POSITION";
     public static final String ITEM_ID = "ID";
-//    public static final String ITEM_TYPE = "TYPE";
 
+    /**
+     * Initialise and set list of images layout
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,9 +108,6 @@ public class ListOfImagesOfTheDay extends AppCompatActivity implements Navigatio
                 new DatePickerDialog(ListOfImagesOfTheDay.this, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-//                Snackbar.make(v, "Loading Calendar", Snackbar.LENGTH_LONG)
-//                        .show();
-
             }
         });
 
@@ -187,6 +186,11 @@ public class ListOfImagesOfTheDay extends AppCompatActivity implements Navigatio
 
     }
 
+    /**
+     * Method inflate top menu with icons from layout
+     * @param menu
+     * @return boolean if creation was successful
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu items for use in the action bar
@@ -195,6 +199,11 @@ public class ListOfImagesOfTheDay extends AppCompatActivity implements Navigatio
         return true;
     }
 
+    /**
+     * This method change the activity when one of the items of switch statement is selected in Options Menu
+     * @param item item selected
+     * @return boolean if selection and activity change was successful
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         String message = null;
@@ -221,7 +230,7 @@ public class ListOfImagesOfTheDay extends AppCompatActivity implements Navigatio
                 break;
             case R.id.help_item_imageOfTheDay:
                 new AlertDialog.Builder(ListOfImagesOfTheDay.this)
-                        .setTitle("Help")
+                        .setTitle(R.string.helpTitleImageOfTheDay)
                         .setMessage(R.string.helpImageOfTheDay)
                         .setPositiveButton(R.string.okImageOfTheDay, ((dialog, which) -> {
                             dialog.cancel();
@@ -232,6 +241,11 @@ public class ListOfImagesOfTheDay extends AppCompatActivity implements Navigatio
         return true;
     }
 
+    /**
+     * This method change the activity when one of the items of switch statement is selected in Navigation Menu and loads the Drawer Layout
+     * @param item item selected
+     * @return boolean if selection and activity change was successful
+     */
     @Override
     public boolean onNavigationItemSelected( MenuItem item) {
 
@@ -262,12 +276,21 @@ public class ListOfImagesOfTheDay extends AppCompatActivity implements Navigatio
         return false;
     }
 
+    /**
+     * Save date when application is paused in shared preferences
+     */
     @Override
     protected void onPause() {
         saveSharedPrefs( editText.getText().toString());
         super.onPause();
     }
 
+    /**
+     * When activity that was called return a result, this method load the items in list view to insert or remove items that might be changed
+     * @param requestCode code defined to be the request code
+     * @param resultCode code defined to be result
+     * @param data what was returned from previous activity
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -350,15 +373,36 @@ public class ListOfImagesOfTheDay extends AppCompatActivity implements Navigatio
      * Class used to inflates information from db into list view.
      */
     class MyListAdapter extends BaseAdapter {
+        /**
+         * Return the size of the List view.
+         * @return integer representing size of List View.
+         */
         @Override
         public int getCount() {return elements.size();}
 
+        /**
+         * The return tipe has to be the type that is inflated in List View.
+         * @param position index for NasaImageItem
+         * @return NasaImageItem object
+         */
         @Override
         public NasaImageItem getItem(int position) {return elements.get(position);}
 
+        /**
+         * Handle ID for each item in the List View
+         * @param position index of the Item
+         * @return Id of the item
+         */
         @Override
         public long getItemId(int position) {return getItem(position).getId();}
 
+        /**
+         * Get new view inflated with text and image
+         * @param position index of the item
+         * @param convertView
+         * @param parent
+         * @return viwe to be inserted in List view
+         */
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             LayoutInflater inflater = getLayoutInflater();

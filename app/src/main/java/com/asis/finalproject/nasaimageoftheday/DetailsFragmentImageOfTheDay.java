@@ -33,6 +33,13 @@ public class DetailsFragmentImageOfTheDay extends Fragment {
     private String url;
     private AppCompatActivity parentActivity;
 
+    /**
+     * Connects and inflate data from DB to fragment layout.
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -56,9 +63,6 @@ public class DetailsFragmentImageOfTheDay extends Fragment {
         //show the date
         TextView dateView = result.findViewById(R.id.textViewFragmentDateImageOfTheDay);
         dateView.setText(String.format("%s%s", getString(R.string.dateImageOfTheDay), date));
-        //show the explanation
-//        TextView explanationView = (TextView)result.findViewById(R.id.textViewFragmentExplanation);
-//        explanationView.setText("Explanation: " + explanation);
         //show the url
         TextView urlView = result.findViewById(R.id.textViewFragmentUrlImageOfTheDay);
         urlView.setText(String.format("%s%s", getString(R.string.urlImageOfTheDay), url));
@@ -89,6 +93,10 @@ public class DetailsFragmentImageOfTheDay extends Fragment {
         return result;
     }
 
+    /**
+     * Attach context into parent activity.
+     * @param context
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

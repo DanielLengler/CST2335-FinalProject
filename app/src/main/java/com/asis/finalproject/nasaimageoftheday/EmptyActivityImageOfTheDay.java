@@ -6,9 +6,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.asis.finalproject.R;
 
-
+/**
+ * Class responsible to deliver empty activity to handle interfaces phone/tablet.
+ */
 public class EmptyActivityImageOfTheDay extends AppCompatActivity {
 
+    /**
+     * Get data from previous activity and set as arguments to fragment.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -30,7 +30,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 
 import static android.widget.Toast.LENGTH_LONG;
 
@@ -42,12 +41,10 @@ import static android.widget.Toast.LENGTH_LONG;
 public class NasaImageOfTheDay extends AppCompatActivity {
 
     SQLiteDatabase db; // Used to initialize database.
-//    private ArrayList<NasaImageItem> elements = new ArrayList<>();
     String nasaImageExplanation; // Text describing the image from NASA.
     String nasaImageDate; // Date that the image was added to the API.
     String nasaImageTitle; // Title of the image.
     String nasaImageUrl; // URL from the image.
-//    String nasaImagePath;
 
     /**
      *
@@ -76,7 +73,6 @@ public class NasaImageOfTheDay extends AppCompatActivity {
             db = dbOpener.getWritableDatabase();
             long newId = db.insert(DbOpenerImageOfTheDay.TABLE_NAME, null, newRowValues);
 
-//            elements.add(new NasaImageItem(nasaImageTitle, nasaImageExplanation, nasaImageDate, nasaImageUrl, nasaImagePath, newId));
             Toast.makeText(NasaImageOfTheDay.this, "Image saved to the database", LENGTH_LONG).show();
             finish();
         });
@@ -87,7 +83,6 @@ public class NasaImageOfTheDay extends AppCompatActivity {
     }
 
     //Type1     Type2   Type3
-
     /**
      * Class responsible to handle data from Nasa. Initialize and call methods to retrieve and store data.
      */
@@ -106,7 +101,6 @@ public class NasaImageOfTheDay extends AppCompatActivity {
         Bitmap image = null;
 
         //Type3                Type1
-
         /**
          *
          * @param args
