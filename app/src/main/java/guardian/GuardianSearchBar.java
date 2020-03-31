@@ -1,5 +1,14 @@
 package guardian;
 
+/**
+ * @author Naimul Rahman
+ * @class GuardianSearchBar
+ * @version 3
+ * This class is used for the layout activity_guardian_searchbar. In this activity the user can
+ * enter in the edittext searchbar for anything they want. When they click the search button, they
+ * will be redirected to @class GuardianResults.
+ */
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -27,6 +36,12 @@ public class GuardianSearchBar extends AppCompatActivity implements NavigationVi
     public static final String KEY = "Saved Search";
     private SharedPreferences prefs = null;
 
+    /**
+     * This method is used to set the layout for the activity. The user can type what they would like to search for
+     * in the search bar and upon clicking the search button they will be redirected to @class GuardianResults for
+     * the search results.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +62,11 @@ public class GuardianSearchBar extends AppCompatActivity implements NavigationVi
         });
     }
 
+    /**
+     * This method stores what the user last searched for in a file called FileName. It will load
+     * what the user last searched for in the searchbar by default.
+     * @param toSave What the user last searched for
+     */
     private void saveSharedPrefs(String toSave){
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(KEY, toSave);
@@ -54,6 +74,9 @@ public class GuardianSearchBar extends AppCompatActivity implements NavigationVi
 
     }
 
+    /**
+     * This method displays an AlertDialog with a set of instructions on how to use this application
+     */
     private void displayHelp(){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setTitle(getResources().getString(R.string.tutorialTitle));
@@ -62,6 +85,9 @@ public class GuardianSearchBar extends AppCompatActivity implements NavigationVi
         alertDialog.create().show();
     }
 
+    /**
+     * This method sets up the toolbar, navigation drawer, and actionbar for this layout.
+     */
     private void setupActionBarAndDrawer() {
         //For ToolBar:
         Toolbar toolbar = findViewById(R.id.guardianToolbar);
@@ -78,6 +104,11 @@ public class GuardianSearchBar extends AppCompatActivity implements NavigationVi
 
     }
 
+    /**
+     * This method is used to inflate the toolbar menu.
+     * @param menu
+     * @return true
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -85,6 +116,15 @@ public class GuardianSearchBar extends AppCompatActivity implements NavigationVi
         return true;
     }
 
+    /**
+     * This method is used whenever the user taps or clicks on one of the toolbar items. When favorites
+     * is clicked (the star), it will take the user to the @class Favorite activity. When the user clicks the
+     * help icon (the icon with an "i"), it will display the tutorial by called @displayHelp. When the
+     * user clicks the search icon (the magnifying glass), nothing will happen because we're already in
+     * the class used for searching.
+     * @param menuItem
+     * @return true
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
@@ -100,6 +140,15 @@ public class GuardianSearchBar extends AppCompatActivity implements NavigationVi
         return true;
     }
 
+    /**
+     * This method is used whenever the user taps or clicks on one of the navigation drawer items. When favorites
+     * is clicked (the star), it will take the user to the @class Favorite activity. When the user clicks the
+     * help icon (the icon with an "i"), it will display the tutorial by called @displayHelp. When the
+     * user clicks the search icon (the magnifying glass), nothing will happen because we're already in
+     * the class used for searching.
+     * @param item
+     * @return true
+     */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {

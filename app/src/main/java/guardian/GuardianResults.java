@@ -1,5 +1,18 @@
 package guardian;
 
+/**
+ * @author Naimul Rahman
+ * @class GuardianResults
+ * @version 3
+ * This class is used with the activity_guardian_results layout. It displays the results for what the
+ * user searched for from @class GuardianSearchBar. Articles found are displayed in a ListView in which
+ * the user can click on. If the user is using a tablet, the information about the article will be displayed
+ * on the right and they can click the url for the article to view the webpage. If the user is on a phone,
+ * it will take them to the appropriate fragment to display that same information. Users can add any
+ * article they wish to a favorites list. If an article is in their favorites list, the star beside the
+ * article will be filled yellow. If not, then it will be an empty star.
+ */
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
@@ -54,11 +67,22 @@ public class GuardianResults extends AppCompatActivity implements NavigationView
     public static final String URL = "Url";
     public static final String SECTION_NAME = "Section Name";
     // private String originalUrl = "https://content.guardianapis.com/search?api-key=1fb36b70-1588-4259-b703-2570ea1fac6a&q=Tesla";
+    /*
+     * The api provided by the professor. It's been modified to remove Tesla from the search. Will be concatenated with whatever the user wanted to search
+     * from @class GuardianSearchBar to search for that instead.
+     */
     private String modifiedUrl = "https://content.guardianapis.com/search?api-key=1fb36b70-1588-4259-b703-2570ea1fac6a&q=";
-    private String searchFor;
-    private String pageSize = "&page-size=50";
+    private String searchFor; // Will be set to what the user wanted to search for from @class GuardianSearchBar in @onCreate
+    private String pageSize = "&page-size=50"; // used to display more results in the list. Found with the guardian's api documentation: https://open-platform.theguardian.com/documentation/search
     private ProgressBar progressBar;
 
+    /**
+     * This method calls other methods to do what needs to be done. It loads the favorites list from the database,
+     * displays the results list, and allows you to add to your favorites list (or remove if you accidentally added something
+     * you did not). It basically sets an onClickListener and onItemLongClickListener to the ListView, sets up the toolbar and
+     * navigation drawer, and calls appropriate methods for different actions.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,6 +148,9 @@ public class GuardianResults extends AppCompatActivity implements NavigationView
             return true;});
     }
 
+    /**
+     * This methods loads all the articles stored in favorites and adds them to the favorites ArrayList.
+     */
     private void loadFromDatabase(){
         dataBase = dbOpener.getWritableDatabase();
         String[] columns = {MyOpener.COL_ID, MyOpener.COL_TITLE, MyOpener.COL_URL, MyOpener.COL_SECTION_NAME};
@@ -143,6 +170,11 @@ public class GuardianResults extends AppCompatActivity implements NavigationView
         }
     }
 
+    /**
+     * This method inserts an article to the user's favorites list in the database.
+     * @param article The article to be stored to the database.
+     * @return The ID of the article, a long incremented automatically by the database. This ID is provided by the database.
+     */
     private long insertIntoDataBase(Article article){
         ContentValues newRowValues = new ContentValues();
         newRowValues.put(MyOpener.COL_TITLE, article.getTitle());
@@ -151,10 +183,19 @@ public class GuardianResults extends AppCompatActivity implements NavigationView
         return dataBase.insert(MyOpener.TABLE_NAME, null, newRowValues);
     }
 
+    /**
+     * This method deletes an article from the favorites database.
+     * @param article The article to be deleted.
+     */
     private void deleteFromDataBase(Article article){
         dataBase.delete(MyOpener.TABLE_NAME, MyOpener.COL_TITLE + " = ?", new String[]{article.getTitle()});
     }
 
+    /**
+     * This method checks if the article already exists in the database or not.
+     * @param article The article whose existance is to be checked in the database.
+     * @return true if the article is already in the database, false if not.
+     */
     private boolean checkIfExistsInDataBase(Article article){
         Cursor results = dataBase.rawQuery("SELECT * FROM " + MyOpener.TABLE_NAME + " WHERE " + MyOpener.COL_TITLE + " = ? AND " + MyOpener.COL_URL + "= ? AND "
             + MyOpener.COL_SECTION_NAME + "= ?", new String[]{article.getTitle(), article.getUrl(), article.getSectionName()});
@@ -163,6 +204,9 @@ public class GuardianResults extends AppCompatActivity implements NavigationView
         else{ return false; }
     }
 
+    /**
+     * This method displays an AlertDialog with a set of instructions on how to use this application
+     */
     private void displayHelp(){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setTitle(getResources().getString(R.string.tutorialTitle));
@@ -171,6 +215,9 @@ public class GuardianResults extends AppCompatActivity implements NavigationView
         alertDialog.create().show();
     }
 
+    /**
+     * This method sets up the toolbar, navigation drawer, and actionbar for this layout.
+     */
     private void setupActionBarAndDrawer() {
         //For ToolBar:
         Toolbar toolbar = findViewById(R.id.guardianToolbar);
@@ -187,6 +234,11 @@ public class GuardianResults extends AppCompatActivity implements NavigationView
 
     }
 
+    /**
+     * This method is used to inflate the toolbar menu.
+     * @param menu
+     * @return true
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -194,6 +246,15 @@ public class GuardianResults extends AppCompatActivity implements NavigationView
         return true;
     }
 
+    /**
+     * This method is used whenever the user taps or clicks on one of the toolbar items. When favorites
+     * is clicked (the star), it will take the user to the @class Favorite activity. When the user clicks the
+     * help icon (the icon with an "i"), it will display the tutorial by called @displayHelp. When the
+     * user clicks the search icon (the magnifying glass), it will take the user to @class GuardianSearchBar to enter
+     * something else to search for.
+     * @param menuItem
+     * @return true
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
@@ -210,6 +271,15 @@ public class GuardianResults extends AppCompatActivity implements NavigationView
         return true;
     }
 
+    /**
+     * This method is used whenever the user taps or clicks on one of the navigation drawer items. When favorites
+     * is clicked (the star), it will take the user to the @class Favorite activity. When the user clicks the
+     * help icon (the icon with an "i"), it will display the tutorial by called @displayHelp. When the
+     * user clicks the search icon (the magnifying glass), it will take the user to @class GuardianSearchBar to enter
+     * something else to search for.
+     * @param item
+     * @return true
+     */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -226,29 +296,59 @@ public class GuardianResults extends AppCompatActivity implements NavigationView
         return true;
     }
 
+    /**
+     * This method is automatically called when the user goes back to this activity if they pressed the
+     * back button on their device or another method. It updates the GUI in case there's any changes.
+     */
     @Override
     protected void onResume() {
         super.onResume();
         adapter.notifyDataSetChanged();
     }
 
+    /**
+     * This is an inner class that acts as an adapter for the ListView to populate it with results.
+     */
     class Adapter extends BaseAdapter {
 
+        /**
+         * Gets the number of elements in the results ArrayList.
+         * @return The number of results in the ArrayList.
+         */
         @Override
         public int getCount() {
             return results.size();
         }
 
+        /**
+         * Gets the article stored in its designated position in the results ArrayList.
+         * @param position the index where the article is stored in the ArrayList.
+         * @return The article.
+         */
         @Override
         public Article getItem(int position) {
             return results.get(position);
         }
 
+        /**
+         * Gets the ID of the article in the ArrayList.
+         * @param position the index where the article is in the ArrayList.
+         * @return the article's ID.
+         */
         @Override
         public long getItemId(int position) {
             return getItem(position).getId();
         }
 
+        /**
+         * Populates the results ArrayList with the results found from the search. If the article
+         * exists in the favorites database, it will fill the star yellow, otherwise it will
+         * keep it empty.
+         * @param position The index where the article exists in the ArrayList.
+         * @param convertView Allows the ListView to save memory. We don't use this.
+         * @param parent The parent layout.
+         * @return The layout you want to inflate the ListView with.
+         */
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             Article results = (Article) getItem(position);
@@ -270,8 +370,18 @@ public class GuardianResults extends AppCompatActivity implements NavigationView
         }
     }
 
+    /**
+     * This class is used to retrieve the search results
+     */
     class Search extends AsyncTask<String, Integer, String> {
 
+        /**
+         * This method makes a connection with the url api provided by the professor, and
+         * concatenates it with what the user wanted to search for and sets the page-size to 50
+         * to allow more results to be displayed in the results ListView.
+         * @param strings
+         * @return null
+         */
         @Override
         protected String doInBackground(String... strings) {
             try {
@@ -301,7 +411,7 @@ public class GuardianResults extends AppCompatActivity implements NavigationView
                         String articleTitle = retrievedResult.getString("webTitle");
                         String articleUrl = retrievedResult.getString("webUrl");
                         String articleSection = retrievedResult.getString("sectionName");
-                        results.add(new Article(articleTitle, articleUrl, articleSection, 0));
+                        results.add(new Article(articleTitle, articleUrl, articleSection));
                         } catch (JSONException e) { }
 
 
@@ -316,12 +426,20 @@ public class GuardianResults extends AppCompatActivity implements NavigationView
             return null;
         }
 
+        /**
+         * This method updates the progress bar to allow seeing it fill up as necessary
+         * @param values The values when publishProgress() is called in doInBackground()
+         */
         @Override
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
             progressBar.setVisibility(values[0]);
         }
 
+        /**
+         * This method updates the GUI when everything's done.
+         * @param s
+         */
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
