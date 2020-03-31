@@ -42,11 +42,6 @@ public class FavoriteDetails extends Fragment {
 
             ImageView imageView = view.findViewById(R.id.imageView);
             imageView.setImageBitmap(NasaImageFavoritesActivity.loadImageFromPath(view.getContext(), nasaEarthImage));
-
-
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-            TextView dateTV = view.findViewById(R.id.date);
-            dateTV.setText(format.format(nasaEarthImage.getDate().getTime()));
         }
 
 

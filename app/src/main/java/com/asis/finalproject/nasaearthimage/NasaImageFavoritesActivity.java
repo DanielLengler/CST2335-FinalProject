@@ -126,8 +126,7 @@ public class NasaImageFavoritesActivity extends AppCompatActivity {
                     cursor.getLong(cursor.getColumnIndex(DatabaseHelper.COL_ID)),
                     cursor.getDouble(cursor.getColumnIndex(DatabaseHelper.COL_LATITUDE)),
                     cursor.getDouble(cursor.getColumnIndex(DatabaseHelper.COL_LONGITUDE)),
-                    cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_IMAGE_PATH)),
-                    NasaEarthImage.getCalenderFromLong(cursor.getLong(cursor.getColumnIndex(DatabaseHelper.COL_DATE))));
+                    cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_IMAGE_PATH)));
             Log.e("NasaImageFavorites", nasaEarthImage.getPath());
             Log.e("NasaImageFavorites", String.valueOf(nasaEarthImage.getId()));
             Log.e("NasaImageFavorites", String.valueOf(nasaEarthImage.getLatitude()));
@@ -193,17 +192,13 @@ public class NasaImageFavoritesActivity extends AppCompatActivity {
             assert rowView != null;
             TextView longitudeTextView = rowView.findViewById(R.id.longitude);
             TextView latitudeTextView = rowView.findViewById(R.id.latitude);
-            TextView dateTextView = rowView.findViewById(R.id.date);
             ImageView imageView = rowView.findViewById(R.id.imageView);
 
             NasaEarthImage nasaEarthImage = getItem(position);
             Log.e("FavoritesAdapter", String.valueOf(nasaEarthImage));
             if (nasaEarthImage != null) {
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-
                 longitudeTextView.setText(String.valueOf(nasaEarthImage.getLongitude()));
                 latitudeTextView.setText(String.valueOf(nasaEarthImage.getLatitude()));
-                dateTextView.setText(format.format(nasaEarthImage.getDate().getTime()));
                 imageView.setImageBitmap(loadImageFromPath(rowView.getContext(), nasaEarthImage));
             }
 

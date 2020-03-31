@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -54,7 +55,6 @@ import javax.net.ssl.HttpsURLConnection;
  */
 public class NasaImageSelectorActivity extends AppCompatActivity {
     private static final String API_KEY = "AsIyU-yO5uSuTD7nKUi0R7GnLISjrJCCe3VRqGsd4wJk2vVp3sMLjAeY_qpuBo34";
-    private TextView dateTextView;
     private ImageView imageView;
     private ProgressBar progressBar;
     private NasaEarthImage nasaEarthImage = new NasaEarthImage();
@@ -74,7 +74,6 @@ public class NasaImageSelectorActivity extends AppCompatActivity {
 
         imageView = findViewById(R.id.earthImage);
         progressBar = findViewById(R.id.progressBar);
-        dateTextView = findViewById(R.id.dateTextView);
 
         Button favoritesButton = findViewById(R.id.addToFavourites);
         favoritesButton.setOnClickListener(this::addToFavorites);
@@ -154,7 +153,7 @@ public class NasaImageSelectorActivity extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(NasaImageSelectorActivity.this);
                 builder.setTitle(R.string.help_neid)
                         .setMessage(getString(R.string.info_message1_neid) +
-                                "\n " + getString(R.string.info_message2_neid) + " " + timesOpened + " " + getString(R.string.info_message3_neid))
+                                "\n" + getString(R.string.info_message2_neid) + " " + timesOpened + " " + getString(R.string.info_message3_neid))
                         .setPositiveButton(android.R.string.cancel, (dialogInterface, i) -> dialogInterface.dismiss());
                 AlertDialog dialog = builder.create();
                 dialog.show();
@@ -182,33 +181,9 @@ public class NasaImageSelectorActivity extends AppCompatActivity {
         protected String doInBackground(String... strings) {
             try {
                 publishProgress(0);
-                URL url = new URL(strings[0]);
-
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                InputStream response = urlConnection.getInputStream();
-
-                BufferedReader reader = new BufferedReader(new InputStreamReader(response, StandardCharsets.UTF_8), 8);
-                StringBuilder sb = new StringBuilder();
-
-                String line;
-                while ((line = reader.readLine()) != null) sb.append(line).append("\n");
-                String result = sb.toString();
-                publishProgress(30);
-                JSONObject nasaImageJson = new JSONObject(result);
-
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
-
-                Calendar calendar = Calendar.getInstance();
-                calendar.clear();
-                calendar.setTime(Objects.requireNonNull(sdf.parse(nasaImageJson.getString("date"))));
-
-                nasaEarthImage.setDate(calendar);
-
-                String imageURL = nasaImageJson.getString("url");
-                publishProgress(70);
 
                 image = null;
-                URL imageUrl = new URL(imageURL);
+                URL imageUrl = new URL(strings[0]);
                 HttpURLConnection connection = (HttpURLConnection) imageUrl.openConnection();
                 connection.connect();
                 int responseCode = connection.getResponseCode();
@@ -218,9 +193,8 @@ public class NasaImageSelectorActivity extends AppCompatActivity {
                 nasaEarthImage.setPath("imageFound");
 
                 publishProgress(100);
-            } catch (IOException | JSONException | ParseException | NullPointerException e) {
-                errorMessage = getString(R.string.null_image_path_neid);
-                return errorMessage;
+            } catch (IOException | NullPointerException e) {
+                Log.e("NasaImgSelectorActivity", Objects.requireNonNull(e.getLocalizedMessage()));
             }
 
             return getString(R.string.finished_neid);
@@ -233,13 +207,11 @@ public class NasaImageSelectorActivity extends AppCompatActivity {
          */
         @Override
         protected void onPostExecute(String s) {
-            if (errorMessage == null) {
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-
+            if (errorMessage == null && image != null) {
                 imageView.setImageBitmap(image);
-                dateTextView.setText(format.format(nasaEarthImage.getDate().getTime()));
             } else {
-                Toast.makeText(NasaImageSelectorActivity.this, errorMessage, Toast.LENGTH_LONG).show();
+                imageView.setImageDrawable(getResources().getDrawable(R.drawable.image_placeholder));
+                Toast.makeText(NasaImageSelectorActivity.this, R.string.null_image_path_neid, Toast.LENGTH_LONG).show();
             }
 
             progressBar.setVisibility(View.GONE);

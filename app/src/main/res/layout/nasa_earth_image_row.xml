@@ -59,27 +59,4 @@
         app:layout_constraintTop_toTopOf="@+id/longitudeLabel"
         tools:text="569.123" />
 
-    <TextView
-        android:id="@+id/dateLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/date_neid"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/latitudeLabel" />
-
-    <TextView
-        android:id="@+id/date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/dateLabel"
-        app:layout_constraintStart_toEndOf="@+id/dateLabel"
-        app:layout_constraintTop_toTopOf="@+id/dateLabel"
-        tools:text="Some date" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
