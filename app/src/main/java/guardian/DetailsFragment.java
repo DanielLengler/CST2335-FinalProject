@@ -5,6 +5,14 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+/**
+ * @author Naimul Rahman
+ * @class DetailsFragment
+ * @version 3
+ * This class displays information about the article the user clicked on. The user can click on
+ * the url to view the webpage.
+ */
+
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -28,6 +36,14 @@ public class DetailsFragment extends Fragment {
     }
 
 
+    /**
+     * This method sets up the fragment with all the information and allows the user to click
+     * on the url.
+     * @param inflater The inflater to inflate the fragment.
+     * @param container
+     * @param savedInstanceState
+     * @return The inflated fragment.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
