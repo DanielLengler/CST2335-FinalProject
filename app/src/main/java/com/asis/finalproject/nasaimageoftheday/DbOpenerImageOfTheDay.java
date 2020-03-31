@@ -4,19 +4,22 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+/**
+ * Helper class for managing the database.
+ */
 public class DbOpenerImageOfTheDay extends SQLiteOpenHelper {
 
-    protected final static String DATABASE_NAME = "NasaImagesDB";
-    protected final static int VERSION_NUM = 1;
-    public final static String TABLE_NAME = "NasaImagesList";
-    public final static String COL_DATE = "DATE";
-    public final static String COL_EXPLANATION = "EXPLANATION";
-    public final static String COL_URL = "URL";
-    public final static String COL_TITLE = "TITLE";
-    public final static String COL_PATH = "PATH";
-    public final static String COL_ID = "_id";
+    private final static String DATABASE_NAME = "NasaImagesDB";
+    private final static int VERSION_NUM = 1;
+    protected final static String TABLE_NAME = "NasaImagesList";
+    protected final static String COL_DATE = "DATE";
+    protected final static String COL_EXPLANATION = "EXPLANATION";
+    protected final static String COL_URL = "URL";
+    protected final static String COL_TITLE = "TITLE";
+    protected final static String COL_PATH = "PATH";
+    protected final static String COL_ID = "_id";
 
-    public DbOpenerImageOfTheDay(Context ctx)
+    protected DbOpenerImageOfTheDay(Context ctx)
     {
         super(ctx, DATABASE_NAME, null, VERSION_NUM);
     }

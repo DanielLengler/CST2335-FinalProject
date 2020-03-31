@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">CST2335-ProjetoFinal</string>
+    <string name="getImageOfTheDay">Vizualizar Imagem</string>
+    <string name="textviewSelectDate">Selecione uma data e clique no botao para ver uma nova imagem</string>
+    <string name="birthday">Selecione uma data</string>
+    <string name="buttonSaveImage">Salvar Imagem</string>
+    <string name="titleImageOfTheDay">Titulo: </string>
+    <string name="dateImageOfTheDay">Data: </string>
+    <string name="urlImageOfTheDay">URL: </string>
+    <string name="idImageOfTheDay">ID=</string>
+    <string name="alertDialogImageOfTheDay">Voce quer deletar esse item?</string>
+    <string name="rowMessageImageOfTheDay">Linha: </string>
+    <string name="databaseIDImageOfTheDay">\nDatabase ID: </string>
+    <string name="titleAlertDialogImageOfTheDay">\nTitulo: </string>
+    <string name="dateAlerDialogImageOfTheDay">\nData: </string>
+    <string name="yesAlerDialogImageOfTheDay">Sim</string>
+    <string name="snackBarImageDeletedImageOfTheDay">Item deletado</string>
+    <string name="noAlertDialogImageOfTheDay">Não</string>
+    <string name="actionBarDescriptionImageOfTheDay">Lista de Imagens</string>
+    <string name="actionBarSubTitleImageOfTheDay">Aurelio Cochone Ribeiro - Versao: 1.0</string>
+    <string name="helpImageOfTheDay">Ao entrar nessa tela, voce vera todas as images guardadas no celular. \nPara pegar uma nova imagem da Nasa:\n 1. Selecione uma data clicando na parte de baixo da tela.\n 2. Clique no botao VISUALIZAR IMAGEM</string>
+    <string name="okImageOfTheDay">Ok</string>
+    <string name="titleFromDbImageOfTheDay">Titulo: </string>
+    <string name="dateFromDbImageOfTheDay">Data: </string>
+    <string name="imageTitleViewImageOfTheDay">Titulo: </string>
+    <string name="explanationImageOfTheDay">Explicacao: </string>
+    <string name="imageDateViewImageOfTheDay">Data: </string>
+    <string name="imageUrlViewImageOfTheDay">URL: </string>
+</resources>
