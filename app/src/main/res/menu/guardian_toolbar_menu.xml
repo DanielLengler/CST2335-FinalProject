@@ -4,21 +4,21 @@
 
     <item
         android:id="@+id/favoritesToolbarItem"
-        android:title="Favorites"
+        android:title="@string/favorites"
         android:icon="@drawable/star_empty"
         app:showAsAction="always"
         android:orderInCategory="1"/>
 
     <item
         android:id="@+id/searchToolbarItem"
-        android:title="Search"
+        android:title="@string/search"
         android:icon="@drawable/search"
         app:showAsAction="always"
         android:orderInCategory="2"/>
 
     <item
         android:id="@+id/helpToolbarItem"
-        android:title="Help"
+        android:title="@string/help"
         android:icon="@drawable/help"
         app:showAsAction="always"
         android:orderInCategory="3" />

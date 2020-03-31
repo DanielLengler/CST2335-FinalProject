@@ -56,12 +56,9 @@ public class GuardianSearchBar extends AppCompatActivity implements NavigationVi
 
     private void displayHelp(){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setTitle("Tutorial");
-        alertDialog.setMessage("Type in the search bar what you want to search for. Click the search button and a list of articles will be displayed. Click an article to view "
-                + "its information, click the url to go to the webpage. You can add an article to your favorites by tapping and holding an article in the list and saying Yes when "
-                + "prompted. To go to your favorites list, either tap the 3 bars at the top left and tap Favorites or tap the empty star at the top right of this page. You can" +
-                "remove from favorites in the favorites page the same way you added them on the results page.");
-        alertDialog.setPositiveButton("OK", (click, arg) -> {});
+        alertDialog.setTitle(getResources().getString(R.string.tutorialTitle));
+        alertDialog.setMessage(getResources().getString(R.string.tutorialFull));
+        alertDialog.setPositiveButton(getResources().getString(R.string.ok), (click, arg) -> {});
         alertDialog.create().show();
     }
 

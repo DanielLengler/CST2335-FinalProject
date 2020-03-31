@@ -44,18 +44,11 @@ public class Favorite extends AppCompatActivity implements NavigationView.OnNavi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
-        //setContentView(R.layout.activity_guardian_search);
-    /*
-        //Bundle dataFromActivity = getIntent().getExtras();
-        //favorites = dataFromActivity.getSerializableExtra("Favorites");
-        favorites = (ArrayList<Article>) getIntent().getSerializableExtra("Favorites");
 
-     */
         boolean isTablet = findViewById(R.id.favoriteFrameLayout) != null;
         setupActionBarAndDrawer();
         loadFromDatabase();
         ListView favoriteList = findViewById(R.id.favoriteActivityListView);
-        //ListView favoriteList = findViewById(R.id.listView);
         FavoriteAdapter favoriteAdapter = new FavoriteAdapter();
         favoriteList.setAdapter(favoriteAdapter);
 
@@ -80,19 +73,20 @@ public class Favorite extends AppCompatActivity implements NavigationView.OnNavi
         favoriteList.setOnItemLongClickListener((list, view, position, id) -> {
             Article selected = favorites.get(position);
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-            alertDialog.setTitle("Delete this article from favorites?");
-            alertDialog.setMessage("Title: " + selected.getTitle() + "\nUrl: " + selected.getUrl() + "\nSection Name: " + selected.getSectionName());
-            alertDialog.setPositiveButton("Yes", (click, arg) -> {
+            alertDialog.setTitle(getResources().getString(R.string.deleteFromFavoritesQuestion));
+            alertDialog.setMessage(getResources().getString(R.string.title) + selected.getTitle() + "\n" + getResources().getString(R.string.url) +
+                    selected.getUrl() + "\n" + getResources().getString(R.string.sectionName) + selected.getSectionName());
+            alertDialog.setPositiveButton(getResources().getString(R.string.yes), (click, arg) -> {
 
                     deleteFromDataBase(selected);
                     favorites.remove(selected);
                     favoriteAdapter.notifyDataSetChanged();
 
-                    Toast.makeText(this, "Deleted from favorites", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getResources().getString(R.string.deletedFromFavorites), Toast.LENGTH_SHORT).show();
 
 
             });
-            alertDialog.setNegativeButton("No", (click, arg) -> {});
+            alertDialog.setNegativeButton(getResources().getString(R.string.no), (click, arg) -> {});
             alertDialog.create().show();
             return true;
         });
@@ -126,19 +120,14 @@ public class Favorite extends AppCompatActivity implements NavigationView.OnNavi
     }
 
     private void deleteFromDataBase(Article article){
-        //dataBase.delete(MyOpener.TABLE_NAME, MyOpener.COL_ID + " = ?", new String[]{Long.toString(article.getId())});
         dataBase.delete(MyOpener.TABLE_NAME, MyOpener.COL_TITLE + " = ?", new String[]{article.getTitle()});
-        //new GuardianSearch().deleteFromGuardianArrayList(article);
     }
 
     private void displayHelp(){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setTitle("Tutorial");
-        alertDialog.setMessage("Type in the search bar what you want to search for. Click the search button and a list of articles will be displayed. Click an article to view "
-                + "its information, click the url to go to the webpage. You can add an article to your favorites by tapping and holding an article in the list and saying Yes when "
-                + "prompted. To go to your favorites list, either tap the 3 bars at the top left and tap Favorites or tap the empty star at the top right of this page. You can" +
-                "remove from favorites in the favorites page the same way you added them on the results page.");
-        alertDialog.setPositiveButton("OK", (click, arg) -> {});
+        alertDialog.setTitle(getResources().getString(R.string.tutorialTitle));
+        alertDialog.setMessage(getResources().getString(R.string.tutorialFull));
+        alertDialog.setPositiveButton(getResources().getString(R.string.ok), (click, arg) -> {});
         alertDialog.create().show();
     }
 

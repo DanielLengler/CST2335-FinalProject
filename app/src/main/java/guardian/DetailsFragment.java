@@ -42,21 +42,10 @@ public class DetailsFragment extends Fragment {
         TextView articleTitle = (TextView) result.findViewById(R.id.articleTitle);
         TextView articleUrl = (TextView) result.findViewById(R.id.articleUrl);
         TextView articleSection = (TextView) result.findViewById(R.id.articleSectionName);
-        //Button addtoFavoritesButton = (Button) result.findViewById(R.id.addToFavorites);
 
         articleTitle.setText(title);
         articleUrl.setText(url);
         articleSection.setText(sectionName);
-
-       /* addtoFavoritesButton.setOnClickListener((v) -> {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-            alertDialog.setTitle("Add this article to favorites?");
-            alertDialog.setMessage("Title: " + title + "\nUrl: " + url + "\nSection Name: " + sectionName);
-            alertDialog.setPositiveButton("Yes", (click, arg) -> {favorites.add(selected); /*favoriteAdapter.notifyDataSetChanged(); */
-          /*    Toast.makeText(getActivity(), "Added to favorites", Toast.LENGTH_SHORT).show();});
-            alertDialog.setNegativeButton("No", (click, arg) -> {});
-            alertDialog.create().show();*
-        });*/
 
         articleUrl.setOnClickListener((v) -> {
             Intent viewWebPage = new Intent(Intent.ACTION_VIEW);
