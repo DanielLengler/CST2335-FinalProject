@@ -1,5 +1,8 @@
 package com.asis.finalproject.nasaimageoftheday;
 
+/**
+ * Class creates objects that contains all the data for an image.
+ */
 public class NasaImageItem {
 
     private long id;
@@ -9,7 +12,16 @@ public class NasaImageItem {
     private String url;
     private String path;
 
-    public NasaImageItem(String title, String explanation, String date, String url, String path, long id){
+    /**
+     * Constructor that create Nasa Image object
+     * @param title Title of the image retrieved from Nasa
+     * @param explanation Explanation of an image retrieved from Nasa
+     * @param date Image date retrieved from Nasa
+     * @param url URL address for API data
+     * @param path Path of the image into the phone
+     * @param id ID of an object into the DB
+     */
+    protected NasaImageItem(String title, String explanation, String date, String url, String path, long id){
         setDate(date);
         setExplanation(explanation);
         setId(id);
@@ -18,11 +30,11 @@ public class NasaImageItem {
         setUrl(url);
     }
 
-    public long getId() {
+    protected long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    protected void setId(long id) {
         this.id = id;
     }
 
@@ -34,11 +46,11 @@ public class NasaImageItem {
         this.title = title;
     }
 
-    public String getExplanation() {
+    protected String getExplanation() {
         return explanation;
     }
 
-    public void setExplanation(String explanation) {
+    private void setExplanation(String explanation) {
         this.explanation = explanation;
     }
 
@@ -58,11 +70,11 @@ public class NasaImageItem {
         this.url = url;
     }
 
-    public String getPath() {
+    protected String getPath() {
         return path;
     }
 
-    public void setPath(String path) {
+    private void setPath(String path) {
         this.path = path;
     }
 }

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.asis.finalproject.R;
 
+
 public class EmptyActivityImageOfTheDay extends AppCompatActivity {
 
     @Override

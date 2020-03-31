@@ -34,24 +34,35 @@ import java.util.ArrayList;
 
 import static android.widget.Toast.LENGTH_LONG;
 
+/**
+ * This class is responsible for load and process layouts that shows image of the day.
+ * The class download data from URL and store into the phone.
+ * After that it call the methods to set values into layout
+ */
 public class NasaImageOfTheDay extends AppCompatActivity {
 
-    SQLiteDatabase db;
-    private ArrayList<NasaImageItem> elements = new ArrayList<>();
-    String nasaImageExplanation;
-    String nasaImageDate;
-    String nasaImageTitle;
-    String nasaImageUrl;
-    String nasaImagePath;
+    SQLiteDatabase db; // Used to initialize database.
+//    private ArrayList<NasaImageItem> elements = new ArrayList<>();
+    String nasaImageExplanation; // Text describing the image from NASA.
+    String nasaImageDate; // Date that the image was added to the API.
+    String nasaImageTitle; // Title of the image.
+    String nasaImageUrl; // URL from the image.
+//    String nasaImagePath;
 
+    /**
+     *
+     * @param savedInstanceState Saved Instance State
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nasa_image_of_the_day);
 
+        // Brings date left from previous execution.
         Intent fromMain = getIntent();
         String dateFromMain =  fromMain.getStringExtra("DATE");
 
+        // Create button and set listener to save data from Nasa to DB.
         Button saveImage = findViewById(R.id.buttonSaveNasaImageOfTheDay);
         saveImage.setOnClickListener( click ->
         {
@@ -65,19 +76,27 @@ public class NasaImageOfTheDay extends AppCompatActivity {
             db = dbOpener.getWritableDatabase();
             long newId = db.insert(DbOpenerImageOfTheDay.TABLE_NAME, null, newRowValues);
 
-            elements.add(new NasaImageItem(nasaImageTitle, nasaImageExplanation, nasaImageDate, nasaImageUrl, nasaImagePath, newId));
+//            elements.add(new NasaImageItem(nasaImageTitle, nasaImageExplanation, nasaImageDate, nasaImageUrl, nasaImagePath, newId));
             Toast.makeText(NasaImageOfTheDay.this, "Image saved to the database", LENGTH_LONG).show();
             finish();
         });
 
+        // Call class to download passing Nasa URL
         MyHTTPRequest req = new MyHTTPRequest();
         req.execute("https://api.nasa.gov/planetary/apod?api_key=DgPLcIlnmN0Cwrzcg3e9NraFaYLIDI68Ysc6Zh3d&date=" + dateFromMain);  //Type 1
-
     }
 
     //Type1     Type2   Type3
+
+    /**
+     * Class responsible to handle data from Nasa. Initialize and call methods to retrieve and store data.
+     */
     private class MyHTTPRequest extends AsyncTask< String, Integer, String>
     {
+        /**
+         * The following views are initialized with items from view.
+         * After this initialization, the same variables are called to set the values downloaded.
+         */
         ImageView nasaImage = findViewById(R.id.imageViewNasaImageOfTheDay);
         TextView imageTitleView = findViewById(R.id.textViewTitleNasaImageOfTheDay);
         TextView imageExplanationView = findViewById(R.id.textViewExplanationNasaImageOfTheDay);
@@ -87,6 +106,15 @@ public class NasaImageOfTheDay extends AppCompatActivity {
         Bitmap image = null;
 
         //Type3                Type1
+
+        /**
+         *
+         * @param args
+         * this parameter carry an array of url to be used to download data from source
+         * @return String indicating if code executed or not
+         *
+         * In this method, data is download and stored in the database and an image is saved into the phone.
+         */
         public String doInBackground(String ... args)
         {
             try {
@@ -106,7 +134,7 @@ public class NasaImageOfTheDay extends AppCompatActivity {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(response, "UTF-8"), 8);
                 StringBuilder sb = new StringBuilder();
 
-                String line = null;
+                String line;
                 while ((line = reader.readLine()) != null)
                 {
                     sb.append(line + "\n");
@@ -127,11 +155,7 @@ public class NasaImageOfTheDay extends AppCompatActivity {
                 nasaImageUrl = jsonObject.getString("url");
                 publishProgress(80);
 
-//                Log.i("MainActivity", "Explanation: " + imageExplanation);
-//                Log.i("MainActivity", "Explanation: " + imageDate);
-//                Log.i("MainActivity", "Explanation: " + imageTitle);
-//                Log.i("MainActivity", "Explanation: " + imageUrl);
-
+                    // Next session download the image and store into the phone
                     URL imageUrl = new URL(nasaImageUrl);
                     HttpURLConnection connection = (HttpURLConnection) imageUrl.openConnection();
                     connection.connect();
@@ -141,6 +165,7 @@ public class NasaImageOfTheDay extends AppCompatActivity {
                         image = BitmapFactory.decodeStream(connection.getInputStream());
                     }
 
+                    // Check if image exist in the phone
                     Log.i("FileName", "File Name: " + nasaImageDate + ".png");
                     if(fileExistance(nasaImageDate + ".png")){
                         Log.i("FileExists", "The file already exists");
@@ -169,25 +194,41 @@ public class NasaImageOfTheDay extends AppCompatActivity {
         }
 
         //Type 2
+
+        /**
+         * Method loads progress bar. Receives the percentage and Set visibility with the percentage loaded.
+         * @param args Carry a number that represents a percentage for the progress bar.
+         */
         public void onProgressUpdate(Integer ... args)
         {
             loadingImage.setVisibility(View.VISIBLE);
             loadingImage.setProgress(args[0]);
             Log.i("onProgressUpdate", "Progress Update");
         }
+
         //Type3
+
+        /**
+         * This method set the parameters downloaded to the layout items.
+         * @param fromDoInBackground Message passed from doInBackground method
+         */
         public void onPostExecute(String fromDoInBackground)
         {
             Log.i("HTTP", fromDoInBackground);
             nasaImage.setImageBitmap(image);
-            imageTitleView.setText("Title: " + nasaImageTitle);
-            imageExplanationView.setText("Explanation: " + nasaImageExplanation);
-            imageDateView.setText("Date: " + nasaImageDate);
-            imageUrlView.setText("URL: " + nasaImageUrl);
+            imageTitleView.setText(String.format("%s%s", getString(R.string.imageTitleViewImageOfTheDay), nasaImageTitle));
+            imageExplanationView.setText(String.format("%s%s", getString(R.string.explanationImageOfTheDay), nasaImageExplanation));
+            imageDateView.setText(String.format("%s%s", getString(R.string.imageDateViewImageOfTheDay), nasaImageDate));
+            imageUrlView.setText(String.format("%s%s", getString(R.string.imageUrlViewImageOfTheDay), nasaImageUrl));
             loadingImage.setVisibility(View.INVISIBLE);
         }
     }
 
+    /**
+     *
+     * @param fname This is the name of the image in the phone.
+     * @return boolean true if file exist and false otherwise
+     */
     public boolean fileExistance(String fname){
         Log.i("fileExistance", "Inside fileExistance Method");
         File file = getBaseContext().getFileStreamPath(fname);
