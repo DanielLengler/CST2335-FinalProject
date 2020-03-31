@@ -53,7 +53,7 @@ import javax.net.ssl.HttpsURLConnection;
  * Also referred to as NasaImageSelectorActivity and Nasa Image Finder on some occasions.
  */
 public class NasaImageSelectorActivity extends AppCompatActivity {
-
+    private static final String API_KEY = "AsIyU-yO5uSuTD7nKUi0R7GnLISjrJCCe3VRqGsd4wJk2vVp3sMLjAeY_qpuBo34";
     private TextView dateTextView;
     private ImageView imageView;
     private ProgressBar progressBar;
@@ -87,8 +87,8 @@ public class NasaImageSelectorActivity extends AppCompatActivity {
                 nasaEarthImage.setLatitude(Double.parseDouble(latitude));
                 nasaEarthImage.setLongitude(Double.parseDouble(longitude));
                 NasaImageQuery nasaImageQuery = new NasaImageQuery();
-                nasaImageQuery.execute(String.format("https://api.nasa.gov/planetary/earth/imagery/?lon=%s&lat=%s&date=2014-02-01&api_key=DEMO_KEY",
-                        longitude, latitude));
+                nasaImageQuery.execute(String.format(" http://dev.virtualearth.net/REST/V1/Imagery/Map/Birdseye/%s,%s/20?dir=180&ms=500,500&key="+API_KEY,
+                        latitude, longitude));
             } catch (NumberFormatException e) {
                 Toast.makeText(this, R.string.bad_input_message_neid, Toast.LENGTH_LONG).show();
             }
@@ -184,7 +184,7 @@ public class NasaImageSelectorActivity extends AppCompatActivity {
                 publishProgress(0);
                 URL url = new URL(strings[0]);
 
-                HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 InputStream response = urlConnection.getInputStream();
 
                 BufferedReader reader = new BufferedReader(new InputStreamReader(response, StandardCharsets.UTF_8), 8);
