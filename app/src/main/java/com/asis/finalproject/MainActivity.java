@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.asis.finalproject.bbc.Bbc2ndVersionOnToolbar;
+import com.asis.finalproject.bbc.BbcNewsFirstActivity;
 import com.asis.finalproject.nasaearthimage.NasaImageSelectorActivity;
 import com.asis.finalproject.nasaimageoftheday.ListOfImagesOfTheDay;
 import com.google.android.material.navigation.NavigationView;

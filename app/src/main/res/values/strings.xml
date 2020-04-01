@@ -4,7 +4,6 @@
     <string name="nature"> Hello there</string>
     <string name="link">link to the article</string>
     <string name="Name">Name</string>
-    <string name="search">Search</string>
     <string name="toast_message">Here is more information</string>
     <string name="snackbar_message1">Article is added to favorites</string>
     <string name="snackbar_message">Here is list of favorite Articles </string>
@@ -17,13 +16,6 @@
     <string name="help_alert">In this app you can select and save your favorite articles.
                                 They will be stored in your Favorites Section. Later you can delete
                                 articles you do not need. For closing this window please click OK</string>
-    <string name="image_of_the_day">Image of the Day</string>
-    <string name="guardian">Guardian</string>
-    <string name="app_name">CST2335-FinalProject</string>
-    <string name="getImageOfTheDay">Get image</string>
-    <string name="textviewSelectDate">Select a date and click the button to get a new image</string>
-    <string name="birthday">Select a date</string>
-    <string name="buttonSaveImage">Save Image</string>
     <string name="titleImageOfTheDay">Title: </string>
     <string name="dateImageOfTheDay">Date: </string>
     <string name="urlImageOfTheDay">URL: </string>
@@ -47,12 +39,10 @@
     <string name="imageDateViewImageOfTheDay">Date: </string>
     <string name="imageUrlViewImageOfTheDay">URL: </string>
     <string name="bbc_news">BBC News</string>
-    <string name="nasa_earth_image">Nasa Earth Image</string>
     <string name="getImageOfTheDay">Get image</string>
     <string name="textviewSelectDate">Select a date and click the button to get a new image</string>
     <string name="birthday">Select a date</string>
     <string name="buttonSaveImage">Save Image</string>
-    <string name="hello_blank_fragment">Message Here</string>
     <string name="latitude_neid">Latitude:</string>
     <string name="longitude_neid">Longitude:</string>
     <string name="date_neid">Date:</string>
@@ -86,14 +76,12 @@
     <string name="url">Url: </string>
     <string name="sectionName">Section Name: </string>
     <string name="tutorialTitle">Tutorial</string> <!-- used for help alert dialog -->
-    <string name="ok">OK</string>
     <string name="tutorialFull">Type in the search bar what you want to search for. Click the search button and a list of articles will be displayed. Click an article to view
                 its information, click the url to go to the webpage. You can add an article to your favorites by tapping and holding an article in the list and saying Yes when
                 prompted. To go to your favorites list, either tap the 3 bars at the top left and tap Favorites or tap the empty star at the top right of this page. You can
                 remove from favorites in the favorites page the same way you added them on the results page.</string> <!-- used for the tutorial -->
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <string name="undo">Undo</string>
     <string name="addToFavoritesQuestion">Add this article to favorites?</string>
     <string name="addedToFavorites">Added to favorites</string>
     <string name="removedFromFavorites">Removed From favorites</string>

@@ -1,4 +1,4 @@
-package com.asis.finalproject;
+package com.asis.finalproject.bbc;
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -26,6 +26,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.asis.finalproject.R;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
@@ -100,7 +101,7 @@ public class BbcNewsFirstActivity extends AppCompatActivity {
                     /**
                      * Transfers to the favorite page and calls for the SnackBar method
                      */
-                    Intent goToFavorites = new Intent(BbcNewsFirstActivity.this, BbcNewsFavoriteAdapter.class);
+                    Intent goToFavorites = new Intent(BbcNewsFirstActivity.this, BbcNewsFavoriteActivity.class);
                     startActivityForResult(goToFavorites, REQUEST_RETURN_PAGE);
 //                    startActivity(goToFavorites);
                     showSnackbar();

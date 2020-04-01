@@ -1,4 +1,4 @@
-package com.asis.finalproject;
+package com.asis.finalproject.bbc;
 
 import android.content.ContentValues;
 import android.content.Context;

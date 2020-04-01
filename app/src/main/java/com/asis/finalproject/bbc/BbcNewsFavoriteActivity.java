@@ -1,4 +1,4 @@
-package com.asis.finalproject;
+package com.asis.finalproject.bbc;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.asis.finalproject.R;
 
 import java.util.ArrayList;
 /**

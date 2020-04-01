@@ -39,11 +39,6 @@
         <activity android:name="com.asis.finalproject.guardian.EmptyActivity" />
         <activity android:name="com.asis.finalproject.guardian.Favorite" />
         <activity android:name="com.asis.finalproject.guardian.GuardianSearchBar" />
-        <activity android:name=".guardian.Favorite" />
-        <activity android:name=".guardian.GuardianSearchBar" />
-        <activity android:name=".nasaearthimage.NasaImageSelectorActivity" />
-        <activity android:name=".nasaearthimage.FavoriteDetailsActivityHolder" />
-        <activity android:name=".nasaearthimage.NasaImageFavoritesActivity" />
         <activity android:name=".nasaimageoftheday.NasaImageOfTheDay" />
         <activity android:name=".nasaimageoftheday.ListOfImagesOfTheDay" />
         <activity android:name=".nasaimageoftheday.EmptyActivityImageOfTheDay" />
@@ -54,6 +49,8 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
     </activity>
-</application>
+        <activity android:name=".bbc.BbcNewsFirstActivity" />
+        <activity android:name=".bbc.BbcNewsFavoriteActivity" />
+    </application>
 
 </manifest>

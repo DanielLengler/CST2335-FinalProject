@@ -1,4 +1,4 @@
-package com.asis.finalproject;
+package com.asis.finalproject.bbc;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -22,6 +22,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+
+import com.asis.finalproject.R;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;

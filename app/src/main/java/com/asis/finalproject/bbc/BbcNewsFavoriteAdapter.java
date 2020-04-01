@@ -1,4 +1,4 @@
-package com.asis.finalproject;
+package com.asis.finalproject.bbc;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.asis.finalproject.R;
 
 import java.util.ArrayList;
 
