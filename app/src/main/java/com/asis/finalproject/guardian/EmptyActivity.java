@@ -1,4 +1,11 @@
-package guardian;
+package com.asis.finalproject.guardian;
+
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+
+import com.asis.finalproject.R;
 
 /**
  * @author Naimul Rahman
@@ -8,14 +15,6 @@ package guardian;
  * to pass information from one of those activities to the fragment if the user is on a phone.
  * Immediately takes them to the fragment.
  */
-
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
-import android.os.Bundle;
-
-import com.asis.finalproject.R;
-
 public class EmptyActivity extends AppCompatActivity {
 
     /**

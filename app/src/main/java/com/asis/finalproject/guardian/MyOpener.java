@@ -1,4 +1,10 @@
-package guardian;
+package com.asis.finalproject.guardian;
+
+
+
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 
 /**
  * @author Naimul Rahman
@@ -7,15 +13,10 @@ package guardian;
  * This class is used for database purposes. The database allows storing and removing articles
  * to a favorites list.
  */
-
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-
 public class MyOpener extends SQLiteOpenHelper {
 
-    protected static final String DATABASE_NAME = "FavoritesDB";
-    protected static final int VERSION_NUM = 1;
+    private static final String DATABASE_NAME = "FavoritesDB";
+    private static final int VERSION_NUM = 1;
     public static final String TABLE_NAME = "Favorites";
     public static final String COL_ID = "_id";
     public static final String COL_TITLE = "Title";

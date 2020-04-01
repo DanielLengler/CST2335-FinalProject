@@ -1,14 +1,6 @@
-package guardian;
+package com.asis.finalproject.guardian;
 
-/**
- * @author Naimul Rahman
- * @class Favorite
- * @version 3
- * This class displays the user's favorite articles. The user can view the information of the
- * article by clicking on it and visit the webpage by clicking the url in the fragment. The user
- * can choose to delete articles from the favorites list by clicking and holding on of the articles
- * and clicking Yes when prompted.
- */
+
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -38,8 +30,15 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 
-import guardian.Article;
-
+/**
+ * @author Naimul Rahman
+ * @class Favorite
+ * @version 3
+ * This class displays the user's favorite articles. The user can view the information of the
+ * article by clicking on it and visit the webpage by clicking the url in the fragment. The user
+ * can choose to delete articles from the favorites list by clicking and holding on of the articles
+ * and clicking Yes when prompted.
+ */
 public class Favorite extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private ArrayList<Article> favorites = new ArrayList<>();
@@ -128,6 +127,8 @@ public class Favorite extends AppCompatActivity implements NavigationView.OnNavi
             String section = resultsQuery.getString(sectionColIndex);
             favorites.add(new Article(title, url, section, id));
         }
+
+        resultsQuery.close();
     }
 
     /**
@@ -284,7 +285,7 @@ public class Favorite extends AppCompatActivity implements NavigationView.OnNavi
          */
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            Article favorites = (Article) getItem(position);
+            Article favorites = getItem(position);
             LayoutInflater inflater = getLayoutInflater();
             View newView = inflater.inflate(R.layout.activity_guardian_search_populate_favorited, parent, false);
             TextView textView = newView.findViewById(R.id.results);

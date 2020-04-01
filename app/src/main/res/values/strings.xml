@@ -11,7 +11,7 @@
     <string name="searchHint">Type search criteria here</string> <!-- hint for searchbar -->
     <string name="search">Search</string>
     <string name="favorites">Favorites</string>
-    <string name="help">Help</string> <!-- used for guardian toolbar and navigation drawer -->
+    <string name="help">Help</string> <!-- used for com.asis.finalproject.guardian toolbar and navigation drawer -->
     <string name="title">Title: </string>
     <string name="url">Url: </string>
     <string name="sectionName">Section Name: </string>

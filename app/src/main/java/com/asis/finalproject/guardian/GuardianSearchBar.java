@@ -1,13 +1,6 @@
-package guardian;
+package com.asis.finalproject.guardian;
 
-/**
- * @author Naimul Rahman
- * @class GuardianSearchBar
- * @version 3
- * This class is used for the layout activity_guardian_searchbar. In this activity the user can
- * enter in the edittext searchbar for anything they want. When they click the search button, they
- * will be redirected to @class GuardianResults.
- */
+
 
 import android.content.Context;
 import android.content.Intent;
@@ -29,6 +22,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.asis.finalproject.R;
 import com.google.android.material.navigation.NavigationView;
 
+/**
+ * @author Naimul Rahman
+ * @class GuardianSearchBar
+ * @version 3
+ * This class is used for the layout activity_guardian_searchbar. In this activity the user can
+ * enter in the edittext searchbar for anything they want. When they click the search button, they
+ * will be redirected to @class GuardianResults.
+ */
 public class GuardianSearchBar extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     public static final String SEARCH = "Search";
@@ -70,8 +71,7 @@ public class GuardianSearchBar extends AppCompatActivity implements NavigationVi
     private void saveSharedPrefs(String toSave){
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(KEY, toSave);
-        editor.commit();
-
+        editor.apply();
     }
 
     /**

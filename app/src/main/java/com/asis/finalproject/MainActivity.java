@@ -13,7 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.navigation.NavigationView;
 
-import guardian.GuardianSearchBar;
+import com.asis.finalproject.guardian.GuardianSearchBar;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
