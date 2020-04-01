@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
@@ -27,7 +28,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setupActionBarAndDrawer();
 
         ImageButton bbcNewsReaderButton = findViewById(R.id.bbcNewsReaderButton);
-        bbcNewsReaderButton.setOnClickListener((v) -> launchBBC());
+        bbcNewsReaderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, BbcNewsFirstActivity.class));
+            }
+        });
 
         ImageButton guardianArticleSearchButton = findViewById(R.id.guardianArticleSearchButton);
         guardianArticleSearchButton.setOnClickListener((v) -> launchGuardian());
@@ -106,7 +112,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * Starts the BBC News activity
      */
     private void launchBBC() {
-
+        Intent myIntent = new Intent(MainActivity.this, Bbc2ndVersionOnToolbar.class);
+        startActivity(myIntent);
     }
 
     /**

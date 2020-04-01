@@ -1,5 +1,22 @@
 <resources>
-    <string name="app_name">FinalProject</string>
+    <string name="app_name">CST2335-FinalProject</string>
+    <string name="et_typeYourSearch">Type here to find your article</string>
+    <string name="nature"> Hello there</string>
+    <string name="link">link to the article</string>
+    <string name="Name">Name</string>
+    <string name="search">Search</string>
+    <string name="toast_message">Here is more information</string>
+    <string name="snackbar_message1">Article is added to favorites</string>
+    <string name="snackbar_message">Here is list of favorite Articles </string>
+    <string name="undo_message">Undo successful</string>
+    <string name="search_toast">You clicked on the search</string>
+    <string name="help_toast">You clicked on help</string>
+    <string name="mail_toast">You clicked on mail</string>
+    <string name="help_menu">Help menu</string>
+    <string name="help__menu_title">Information</string>
+    <string name="help_alert">In this app you can select and save your favorite articles.
+                                They will be stored in your Favorites Section. Later you can delete
+                                articles you do not need. For closing this window please click OK</string>
     <string name="image_of_the_day">Image of the Day</string>
     <string name="guardian">Guardian</string>
     <string name="app_name">CST2335-FinalProject</string>
@@ -92,5 +109,20 @@
     <string name="image_of_the_day">Nasa Image of the Day</string>
     <string name="helpTitleImageOfTheDay">Help</string>
     <string name="nasa_image_of_the_day">Nasa Image of the Day</string>
+
+    <string name="alert_title">Do you want to add to favorites?</string>
+    <string name="alert_add">Add to Favorites</string>
+    <string name="alert_add_negative_toast">Something went wrong. Check your acticle list</string>
+    <string name="alert_negative_btn">Cancel</string>
+    <string name="alert_cancel_toast">Task cancelled</string>
+    <string name="undo">UNDO</string>
+    <string name="progress_dialog_msg">Busy loading rss feed, please wait</string>
+    <string name="sample_email">email@example.com</string>
+    <string name="body_text">body text</string>
+    <string name="subj_here">subject here</string>
+    <string name="text_plain">text/plain</string>
+    <string name="ok">OK</string>
+    <string name="always">always</string>
+    <string name="always_collapseAction">always|collapseActionView</string>
 
 </resources>
