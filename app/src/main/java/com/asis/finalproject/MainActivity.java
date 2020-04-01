@@ -7,133 +7,122 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ImageButton;
 
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AlertDialog;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.asis.finalproject.nasaimageoftheday.ListOfImagesOfTheDay;
-import com.asis.finalproject.guardian.GuardianSearchBar;
-import com.asis.finalproject.nasaearthimage.NasaImageSelectorActivity;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ImageButton bbcNewsReaderButton = findViewById(R.id.bbcNewsReaderButton);
-        bbcNewsReaderButton.setOnClickListener((v) -> {
+        setupActionBarAndDrawer();
 
-        });
+        ImageButton bbcNewsReaderButton = findViewById(R.id.bbcNewsReaderButton);
+        bbcNewsReaderButton.setOnClickListener((v) -> launchBBC());
 
         ImageButton guardianArticleSearchButton = findViewById(R.id.guardianArticleSearchButton);
-        guardianArticleSearchButton.setOnClickListener((v) -> {
-            Intent intent = new Intent(MainActivity.this, GuardianSearchBar.class);
-            startActivity(intent);
-        });
+        guardianArticleSearchButton.setOnClickListener((v) -> launchGuardian());
 
         ImageButton nasaEarthImageButton = findViewById(R.id.nasaEarthImageButton);
-        nasaEarthImageButton.setOnClickListener((v) -> {startActivity(new Intent(MainActivity.this, NasaImageSelectorActivity.class));});
+        nasaEarthImageButton.setOnClickListener((v) -> launchNasaEarthImage());
 
         ImageButton nasaImageOfDayButton = findViewById(R.id.nasaImageOfDayButton);
-        Intent listOfImages = new Intent(MainActivity.this, ListOfImagesOfTheDay.class);
-        nasaImageOfDayButton.setOnClickListener((v) -> {
-            startActivity(listOfImages);
-        });
-        //This gets the toolbar from the layout:
-        Toolbar tBar = (Toolbar)findViewById(R.id.toolbarMain);
+        nasaImageOfDayButton.setOnClickListener((v) -> launchNasaImageOfTheDay());
+    }
 
-        //This loads the toolbar, which calls onCreateOptionsMenu below:
-        setSupportActionBar(tBar);
+    private void setupActionBarAndDrawer() {
+        //For ToolBar:
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         //For NavigationDrawer:
-        DrawerLayout drawer = findViewById(R.id.drawer_layout_main);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
-                drawer, tBar, 0, 0);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = findViewById(R.id.navViewMain);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        getSupportActionBar().setTitle("Final Project");
-        getSupportActionBar().setSubtitle("CST2335 - Version: 1.0");
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu items for use in the action bar
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_nav_bar_main, menu);
+        inflater.inflate(R.menu.main_toolbar_menu, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        String message = null;
-        Intent goToMain = new Intent(MainActivity.this, MainActivity.class);
-
-        //Look at your menu XML file. Put a case for every id in that file:
-        switch(item.getItemId())
-        {
-            //what to do when the menu item is selected:
-            case R.id.navBarBBC:
-                startActivity(goToMain);
+    public boolean onOptionsItemSelected(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.actionLaunchBBC:
+                launchBBC();
                 break;
-            case R.id.navBarTheGuardian:
-                startActivity(goToMain);
+            case R.id.actionLaunchGuardian:
+                launchGuardian();
                 break;
-            case R.id.navBarNasa:
-                Intent goToEarthImagery = new Intent(MainActivity.this, MainActivity.class);
-                startActivity(goToEarthImagery);
+            case R.id.actionLaunchNasaEarthImage:
+                launchNasaEarthImage();
                 break;
-            case R.id.navBarNasaImageOfTheDay:
-                Intent goToImageOfTheDay = new Intent(MainActivity.this, ListOfImagesOfTheDay.class);
-                startActivity(goToImageOfTheDay);
-                break;
-            case R.id.help_item_main:
-                new AlertDialog.Builder(MainActivity.this)
-                        .setTitle("Help")
-                        .setMessage("Here is how to use this application")
-                        .setPositiveButton("Ok", ((dialog, which) -> {
-                            dialog.cancel();
-                        }))
-                        .show();
+            case R.id.actionLaunchNasaImageOfDay:
+                launchNasaImageOfTheDay();
                 break;
         }
         return true;
     }
 
     @Override
-    public boolean onNavigationItemSelected( MenuItem item) {
-
-        String message = null;
-        Intent goToMain = new Intent(MainActivity.this, MainActivity.class);
-
-        switch(item.getItemId())
-        {
-            case R.id.navDrawerBBC:
-                startActivity(goToMain);
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.actionLaunchBBC:
+                launchBBC();
                 break;
-            case R.id.navDrawerTheGuardian:
-                startActivity(goToMain);
+            case R.id.actionLaunchGuardian:
+                launchGuardian();
                 break;
-            case R.id.navDrawerNasaEarth:
-                Intent goToEarthImagery = new Intent(MainActivity.this, MainActivity.class);
-                startActivity(goToEarthImagery);
+            case R.id.actionLaunchNasaEarthImage:
+                launchNasaEarthImage();
                 break;
-            case R.id.navDrawerNasaImageOfTheDay:
-                Intent goToImageOfTheDay = new Intent(MainActivity.this, ListOfImagesOfTheDay.class);
-                startActivity(goToImageOfTheDay);
+            case R.id.actionLaunchNasaImageOfDay:
+                launchNasaImageOfTheDay();
                 break;
         }
+        return true;
+    }
 
-        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout_main);
-        drawerLayout.closeDrawer(GravityCompat.START);
-        return false;
+    /*
+    * Above this line is code for the navigation drawer and toolbars.
+    * You should not need to touch any of it.
+    * --------------------------------------------------------------
+    * In the methods below go your startActivity code for launching your
+    * particular part of the project.
+    * */
+
+    /**
+     * Starts the BBC News activity
+     */
+    private void launchBBC() {
+
+    }
+
+    /**
+     * Starts the Guardian News activity
+     */
+    private void launchGuardian() {
+
+    }
+
+    /**
+     * Starts the Nasa earth image activity
+     */
+    private void launchNasaEarthImage() {
+
+    }
+
+    /**
+     * Starts the Nasa image of the day activity
+     */
+    private void launchNasaImageOfTheDay() {
+
     }
 }
