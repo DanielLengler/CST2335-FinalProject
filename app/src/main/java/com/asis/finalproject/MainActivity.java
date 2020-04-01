@@ -5,14 +5,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.asis.finalproject.bbc.Bbc2ndVersionOnToolbar;
 import com.asis.finalproject.bbc.BbcNewsFirstActivity;
 import com.asis.finalproject.nasaearthimage.NasaImageSelectorActivity;
 import com.asis.finalproject.nasaimageoftheday.ListOfImagesOfTheDay;
@@ -30,12 +28,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setupActionBarAndDrawer();
 
         ImageButton bbcNewsReaderButton = findViewById(R.id.bbcNewsReaderButton);
-        bbcNewsReaderButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, BbcNewsFirstActivity.class));
-            }
-        });
+        bbcNewsReaderButton.setOnClickListener((v) -> launchBBC());
 
         ImageButton guardianArticleSearchButton = findViewById(R.id.guardianArticleSearchButton);
         guardianArticleSearchButton.setOnClickListener((v) -> launchGuardian());
@@ -114,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * Starts the BBC News activity
      */
     private void launchBBC() {
-        Intent myIntent = new Intent(MainActivity.this, Bbc2ndVersionOnToolbar.class);
+        Intent myIntent = new Intent(MainActivity.this, BbcNewsFirstActivity.class);
         startActivity(myIntent);
     }
 

@@ -1,14 +1,15 @@
 <resources>
-    <string name="app_name">CST2335-ProjetoFinal</string>
-    <string name="getImageOfTheDay">Vizualizar Imagem</string>
-    <string name="textviewSelectDate">Selecione uma data e clique no botao para ver uma nova imagem</string>
+    <!-- everything below here is being used for Image of the Day -->
+    <string name="app_name">ProjetoFinal</string>
+    <string name="getImageOfTheDay">Visualizar Imagem</string>
+    <string name="textviewSelectDate">Selecione uma data e clique no botão para ver uma nova imagem</string>
     <string name="birthday">Selecione uma data</string>
     <string name="buttonSaveImage">Salvar Imagem</string>
     <string name="titleImageOfTheDay">Titulo: </string>
     <string name="dateImageOfTheDay">Data: </string>
     <string name="urlImageOfTheDay">URL: </string>
     <string name="idImageOfTheDay">ID=</string>
-    <string name="alertDialogImageOfTheDay">Voce quer deletar esse item?</string>
+    <string name="alertDialogImageOfTheDay">Você quer deletar esse item?</string>
     <string name="rowMessageImageOfTheDay">Linha: </string>
     <string name="databaseIDImageOfTheDay">\nDatabase ID: </string>
     <string name="titleAlertDialogImageOfTheDay">\nTitulo: </string>
@@ -17,19 +18,106 @@
     <string name="snackBarImageDeletedImageOfTheDay">Item deletado</string>
     <string name="noAlertDialogImageOfTheDay">Não</string>
     <string name="actionBarDescriptionImageOfTheDay">Lista de Imagens</string>
-    <string name="actionBarSubTitleImageOfTheDay">Aurelio Cochone Ribeiro - Versao: 1.0</string>
-    <string name="helpImageOfTheDay">Ao entrar nessa tela, voce vera todas as images guardadas no celular. \nPara pegar uma nova imagem da Nasa:\n 1. Selecione uma data clicando na parte de baixo da tela.\n 2. Clique no botao VISUALIZAR IMAGEM</string>
+    <string name="actionBarSubTitleImageOfTheDay">Aurelio Cochone Ribeiro - Versão: 1.0</string>
+    <string name="helpImageOfTheDay">Ao entrar nessa tela, você verá todas as imagens guardadas no celular.
+                                    \nPara pegar uma nova imagem da Nasa:
+                                    \n 1. Selecione uma data clicando na parte de baixo da tela.
+                                    \n 2. Clique no botão VISUALIZAR IMAGEM</string>
     <string name="okImageOfTheDay">Ok</string>
     <string name="titleFromDbImageOfTheDay">Titulo: </string>
     <string name="dateFromDbImageOfTheDay">Data: </string>
     <string name="imageTitleViewImageOfTheDay">Titulo: </string>
-    <string name="explanationImageOfTheDay">Explicacao: </string>
+    <string name="explanationImageOfTheDay">Explicação: </string>
     <string name="imageDateViewImageOfTheDay">Data: </string>
     <string name="imageUrlViewImageOfTheDay">URL: </string>
     <string name="helpTitleImageOfTheDay">Ajuda</string>
-    <string name="bbc_news">BBC News</string>
+    <string name="bbc_news">BBC Noticias</string>
     <string name="guardian">Guardian</string>
-    <string name="nasa_earth_image">Nasa Earth</string>
-    <string name="image_of_the_day">Nasa Image of the Day</string>
-    <string name="nasa_image_of_the_day">Nasa Image of the Day</string>
+    <string name="image_of_the_day">Nasa Imagem do dia</string>
+    <string name="nasa_image_of_the_day">Nasa Imagem do dia</string>
+    <string name="nasa_earth_image">Nasa Imagem da Terra</string>
+
+    <!-- everything below here is being used for Guardian -->
+    <string name="open">Abrir</string> <!-- for DrawerLayout actionbar-->
+    <string name="close">Fechar</string> <!-- for DrawerLayout actionbar-->
+    <string name="guardianSearchTitle">Guardian Busca de Artigos</string> <!-- title for Guardian Search -->
+    <string name="searchHint">Digite o criterio de busca aqui</string> <!-- hint for searchbar -->
+    <string name="search">Buscar</string>
+    <string name="favorites">Favoritos</string>
+    <string name="help">Ajuda</string> <!-- used for com.asis.finalproject.guardian toolbar and navigation drawer -->
+    <string name="title">Titulo: </string>
+    <string name="url">Url: </string>
+    <string name="sectionName">Nome da Seção: </string>
+    <string name="tutorialTitle">Tutorial</string> <!-- used for help alert dialog -->
+    <string name="tutorialFull">Digite na barra de pesquisa o que você deseja procurar. Clique no botão de busca que uma lista de artigos será mostrada. Clique em um artigo para ver mais informações,
+                clique na url para ir a página da web. Você pode acrescentar um artigo aos seus favoritos com um longo clique no item da lista de artigos e selecionar SIM quando solicitado.
+                Para ir aos seus favoritos, clique nos três pontos do canto superior esquerdo e clique Favoritos ou clique na estrela no topo dessa página. Você pode remover dos seus Favoritos
+                na página de favoritos da mesma maneira que você adicionou na lista de resultados.</string> <!-- used for the tutorial -->
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+    <string name="addToFavoritesQuestion">Adicionar esse artigo aos seus favoritos?</string>
+    <string name="addedToFavorites">Adicionado aos favoritos</string>
+    <string name="removedFromFavorites">Removido dos favoritos</string>
+    <string name="alreadyInFavorites">Artigo já existente nos favoritos</string>
+    <string name="deleteFromFavoritesQuestion">Deletar esse artigo dos favoritos?</string>
+    <string name="deletedFromFavorites">Deletado dos favoritos</string>
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <!-- everything below here is being used for BBC -->
+    <string name="et_typeYourSearch">Digite aqui para encontrar seu artigo</string>
+    <string name="nature"> Ola</string>
+    <string name="link">link para o artigo</string>
+    <string name="Name">Nome</string>
+    <string name="toast_message">Mais informações</string>
+    <string name="snackbar_message1">Artigo adicionado aos favoritos</string>
+    <string name="snackbar_message">Lista dos artigos favoritos </string>
+    <string name="undo_message">Desfeito com sucesso</string>
+    <string name="search_toast">Você clicou em busca</string>
+    <string name="help_toast">Voce clicou em ajuda</string>
+    <string name="mail_toast">Voce clicou em email</string>
+    <string name="help_menu">Menu de ajuda</string>
+    <string name="help__menu_title">Informações</string>
+    <string name="help_alert">Nesta tela, você pode selecionar e salvar seus artigos favoritos.
+                                Eles serão armazenados na sua Seção de Favoritos. Depois, você pode deletar
+                                artigos que você não precisa mais. Para fechar essa janela, clique em OK.</string>
+    <string name="alert_title">Voce deseja adicionar aos favoritos?</string>
+    <string name="alert_add">Adicionar aos favoritos</string>
+    <string name="alert_add_negative_toast">Algo deu errado. Cheque sua lista de favoritos.</string>
+    <string name="alert_negative_btn">Cancelar</string>
+    <string name="alert_cancel_toast">Tarefa cancelada</string>
+    <string name="undo">DESFAZER</string>
+    <string name="progress_dialog_msg">Ocupado carregando rss feed. Por favor aguarde.</string>
+    <string name="sample_email">email@exemplo.com</string>
+    <string name="body_text">corpo do texto</string>
+    <string name="subj_here">assunto vai aqui</string>
+    <string name="text_plain">text/plain</string>
+    <string name="ok">OK</string>
+    <string name="always">always</string>
+    <string name="always_collapseAction">always|collapseActionView</string>
+
+    <!-- everything below here is being used for Nasa Earth Image -->
+    <string name="hello_blank_fragment">Aqui vai a mensagem</string>
+    <string name="latitude_neid">Latitude:</string>
+    <string name="longitude_neid">Longitude:</string>
+    <string name="date_neid">Data:</string>
+    <string name="latitude2_neid">Latitude</string>
+    <string name="longitude2_neid">Longitude</string>
+    <string name="find_earth_image_neid">Encontrar Imagem da Terra</string>
+    <string name="add_to_favorites_neid">Adicionado aos Favoritos</string>
+    <string name="help_neid">Ajuda</string>
+    <string name="favorites_neid">Favoritos</string>
+    <string name="neid_toolbar_title">Nasa Buscador de Imagens</string>
+    <string name="neid_toolbar_subtitle">Daniel lengler - versão 1</string>
+    <string name="bad_input_message_neid">Não foi possível converter a longitude ou latitude digitada</string>
+    <string name="null_image_path_neid">Imagem não encontrada</string>
+    <string name="added_to_favorites_neid">Imagem adicionada aos seus favoritos</string>
+    <string name="info_message1_neid">Para usar essa aplicação, você deve digitar uma longitude e uma latitude. Você pode então salvar a imagem se você gostar dela ou buscar coordenadas diferentes.</string>
+    <string name="info_message2_neid">Ajuda aberta</string>
+    <string name="info_message3_neid">tempos.</string>
+    <string name="finished_neid">Finalizado</string>
+    <string name="remove_from_favorites_neid">Remover imagem dos favoritos?</string>
+    <string name="file_delete_neid">Resultado do arquivo deletado:</string>
+    <string name="imageSavedNasaImageOfTheDay">Imagem Salva na base de dados</string>
+    <string name="hideImageOfTheDay">Esconder</string>
+    <string name="mainImageOfTheDay">Tela Principal</string>
 </resources>

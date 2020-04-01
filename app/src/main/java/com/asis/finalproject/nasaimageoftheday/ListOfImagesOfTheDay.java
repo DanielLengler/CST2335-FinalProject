@@ -35,6 +35,10 @@ import androidx.fragment.app.Fragment;
 
 import com.asis.finalproject.R;
 import com.asis.finalproject.MainActivity;
+import com.asis.finalproject.bbc.Bbc2ndVersionOnToolbar;
+import com.asis.finalproject.bbc.BbcNewsFirstActivity;
+import com.asis.finalproject.guardian.GuardianSearchBar;
+import com.asis.finalproject.nasaearthimage.NasaImageSelectorActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -208,9 +212,9 @@ public class ListOfImagesOfTheDay extends AppCompatActivity implements Navigatio
     public boolean onOptionsItemSelected(MenuItem item) {
         String message = null;
         Intent goToMain = new Intent(ListOfImagesOfTheDay.this, MainActivity.class);
-        Intent goToBbc = new Intent(ListOfImagesOfTheDay.this, MainActivity.class);
-        Intent goToGuardian = new Intent(ListOfImagesOfTheDay.this, MainActivity.class);
-        Intent goToNasaEarth = new Intent(ListOfImagesOfTheDay.this, MainActivity.class);
+        Intent goToBbc = new Intent(ListOfImagesOfTheDay.this, BbcNewsFirstActivity.class);
+        Intent goToGuardian = new Intent(ListOfImagesOfTheDay.this, GuardianSearchBar.class);
+        Intent goToNasaEarth = new Intent(ListOfImagesOfTheDay.this, NasaImageSelectorActivity.class);
 
         //Look at your menu XML file. Put a case for every id in that file:
         switch(item.getItemId())
@@ -251,9 +255,9 @@ public class ListOfImagesOfTheDay extends AppCompatActivity implements Navigatio
 
         String message = null;
         Intent goToMain = new Intent(ListOfImagesOfTheDay.this, MainActivity.class);
-        Intent goToBbc = new Intent(ListOfImagesOfTheDay.this, MainActivity.class);
-        Intent goToGuardian = new Intent(ListOfImagesOfTheDay.this, MainActivity.class);
-        Intent goToNasaEarth = new Intent(ListOfImagesOfTheDay.this, MainActivity.class);
+        Intent goToBbc = new Intent(ListOfImagesOfTheDay.this, BbcNewsFirstActivity.class);
+        Intent goToGuardian = new Intent(ListOfImagesOfTheDay.this, GuardianSearchBar.class);
+        Intent goToNasaEarth = new Intent(ListOfImagesOfTheDay.this, NasaImageSelectorActivity.class);
 
         switch(item.getItemId())
         {

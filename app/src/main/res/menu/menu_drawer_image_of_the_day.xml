@@ -4,26 +4,26 @@
 
 
     <item android:id="@+id/navDrawerBBC"
-        android:title="BBC"
+        android:title="@string/bbc_news"
         android:orderInCategory="1"
-        app:showAsAction="always"
+        app:showAsAction="ifRoom"
         android:icon="@drawable/icon_plus"/>
 
     <item android:id="@+id/navDrawerTheGuardian"
-        android:title="The Guardian"
+        android:title="@string/guardian"
         android:orderInCategory="2"
-        app:showAsAction="always"
+        app:showAsAction="ifRoom"
         android:icon="@drawable/icon_plus"/>
 
     <item android:id="@+id/navDrawerNasaEarth"
-        android:title="Nasa"
-        app:showAsAction="always"
+        android:title="@string/nasa_earth_image"
+        app:showAsAction="ifRoom"
         android:orderInCategory="3"
         android:icon="@drawable/icon_plus"/>
 
     <item android:id="@+id/navDrawerMain"
-        android:title="Main"
-        app:showAsAction="always"
+        android:title="@string/mainImageOfTheDay"
+        app:showAsAction="ifRoom"
         android:orderInCategory="4"
         android:icon="@drawable/home"/>
 </menu>

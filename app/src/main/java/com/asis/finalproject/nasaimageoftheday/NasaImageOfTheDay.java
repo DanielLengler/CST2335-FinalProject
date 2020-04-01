@@ -73,7 +73,7 @@ public class NasaImageOfTheDay extends AppCompatActivity {
             db = dbOpener.getWritableDatabase();
             long newId = db.insert(DbOpenerImageOfTheDay.TABLE_NAME, null, newRowValues);
 
-            Toast.makeText(NasaImageOfTheDay.this, "Image saved to the database", LENGTH_LONG).show();
+            Toast.makeText(NasaImageOfTheDay.this, R.string.imageSavedNasaImageOfTheDay, LENGTH_LONG).show();
             finish();
         });
 
