@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.asis.finalproject.nasaimageoftheday.ListOfImagesOfTheDay;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -123,6 +124,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * Starts the Nasa image of the day activity
      */
     private void launchNasaImageOfTheDay() {
-
+        startActivity(new Intent(this, ListOfImagesOfTheDay.class));
     }
 }
