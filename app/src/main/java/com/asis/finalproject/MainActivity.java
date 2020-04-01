@@ -1,6 +1,5 @@
 package com.asis.finalproject;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,8 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.navigation.NavigationView;
-
-import guardian.GuardianSearchBar;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -111,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * Starts the Guardian News activity
      */
     private void launchGuardian() {
-        startActivity(new Intent(MainActivity.this, GuardianSearchBar.class));
+
     }
 
     /**
