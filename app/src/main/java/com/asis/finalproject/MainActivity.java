@@ -14,6 +14,8 @@ import androidx.appcompat.widget.Toolbar;
 import com.asis.finalproject.nasaearthimage.NasaImageSelectorActivity;
 import com.google.android.material.navigation.NavigationView;
 
+import com.asis.finalproject.guardian.GuardianSearchBar;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
@@ -110,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * Starts the Guardian News activity
      */
     private void launchGuardian() {
-
+        startActivity(new Intent(MainActivity.this, GuardianSearchBar.class));
     }
 
     /**

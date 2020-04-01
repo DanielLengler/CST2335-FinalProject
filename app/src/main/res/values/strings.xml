@@ -30,4 +30,34 @@
     <string name="remove_from_favorites_neid">Remove image from favorites?</string>
     <string name="file_delete_neid">File delete result:</string>
 
+    <!-- everything below here is being used for Guardian -->
+    <string name="open">Open</string> <!-- for DrawerLayout actionbar-->
+    <string name="close">Close</string> <!-- for DrawerLayout actionbar-->
+    <string name="guardianSearchTitle">Guardian News Article Search</string> <!-- title for Guardian Search -->
+    <string name="searchHint">Type search criteria here</string> <!-- hint for searchbar -->
+    <string name="search">Search</string>
+    <string name="favorites">Favorites</string>
+    <string name="help">Help</string> <!-- used for com.asis.finalproject.guardian toolbar and navigation drawer -->
+    <string name="title">Title: </string>
+    <string name="url">Url: </string>
+    <string name="sectionName">Section Name: </string>
+    <string name="tutorialTitle">Tutorial</string> <!-- used for help alert dialog -->
+    <string name="ok">OK</string>
+    <string name="tutorialFull">Type in the search bar what you want to search for. Click the search button and a list of articles will be displayed. Click an article to view
+                its information, click the url to go to the webpage. You can add an article to your favorites by tapping and holding an article in the list and saying Yes when
+                prompted. To go to your favorites list, either tap the 3 bars at the top left and tap Favorites or tap the empty star at the top right of this page. You can
+                remove from favorites in the favorites page the same way you added them on the results page.</string> <!-- used for the tutorial -->
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="undo">Undo</string>
+    <string name="addToFavoritesQuestion">Add this article to favorites?</string>
+    <string name="addedToFavorites">Added to favorites</string>
+    <string name="removedFromFavorites">Removed From favorites</string>
+    <string name="alreadyInFavorites">Article already in favorites</string>
+    <string name="deleteFromFavoritesQuestion">Delete this article from favorites?</string>
+    <string name="deletedFromFavorites">Deleted from favorites</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

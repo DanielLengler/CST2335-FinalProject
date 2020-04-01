@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/guardianToolbar" />
+
+        <androidx.drawerlayout.widget.DrawerLayout
+            android:id="@+id/guardianDrawerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:openDrawer="start">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/guardianTextView"
+                    android:text="@string/guardianSearchTitle"
+                    android:textSize="30dp"
+                    android:textStyle="bold"
+                    android:textColor="#000000"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/guardianSearchBar"
+                    android:hint="@string/searchHint"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/guardianSearchCriteriaButton"
+                    android:text="@string/search"/>
+
+                <ProgressBar
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:visibility="invisible"
+                    android:id="@+id/guardianSearchBarProgress" />
+
+            </LinearLayout>
+            <com.google.android.material.navigation.NavigationView
+                android:id="@+id/guardian_Nav_View"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:fitsSystemWindows="true"
+                app:headerLayout="@layout/header_layout"
+                app:menu="@menu/guardian_toolbar_menu" />
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+</LinearLayout>
