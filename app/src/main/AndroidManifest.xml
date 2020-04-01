@@ -35,12 +35,19 @@
             android:name=".nasaearthimage.NasaImageSelectorActivity"
             android:launchMode="singleTop">
         </activity>
-
-        android:theme="@style/AppTheme">
         <activity android:name="com.asis.finalproject.guardian.GuardianResults" />
         <activity android:name="com.asis.finalproject.guardian.EmptyActivity" />
         <activity android:name="com.asis.finalproject.guardian.Favorite" />
         <activity android:name="com.asis.finalproject.guardian.GuardianSearchBar" />
+        <activity android:name=".guardian.Favorite" />
+        <activity android:name=".guardian.GuardianSearch" />
+        <activity android:name=".guardian.GuardianSearchBar" />
+        <activity android:name=".nasaearthimage.NasaImageSelectorActivity" />
+        <activity android:name=".nasaearthimage.FavoriteDetailsActivityHolder" />
+        <activity android:name=".nasaearthimage.NasaImageFavoritesActivity" />
+        <activity android:name=".nasaimageoftheday.NasaImageOfTheDay" />
+        <activity android:name=".nasaimageoftheday.ListOfImagesOfTheDay" />
+        <activity android:name=".nasaimageoftheday.EmptyActivityImageOfTheDay" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
