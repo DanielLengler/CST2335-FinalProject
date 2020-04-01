@@ -7,18 +7,45 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
-
+/**
+ * Class helps to create, update a database
+ */
 public class SqliteDatabase extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 5;
+    /**
+     * database version
+     */
+    private static final int DATABASE_VERSION = 1;
+    /**
+     * database name
+     */
     private static final String DATABASE_NAME = "BbcNewsArticlesDB";
-    private static final int VERSION_NUM = 1;
+    /**
+     * table name
+     */
     private static final String TABLE_NAME = "BbcNewsArticles";
+    /**
+     * column name in a table
+     */
     private static final String COL_ID = "_id";
+    /**
+     * column name in a table
+     */
     private static final String COL_TITLE = "title";
+    /**
+     * column name in a table
+     */
     private static final String COL_PUBDATE = "pubDate";
+    /**
+     * column name in a table
+     */
     private static final String COL_DESCRIPTION = "description";
+    /**
+     * column name in a table
+     */
     private static final String COL_URL = "weblink";
-
+    /**
+     * Constructor
+     */
     SqliteDatabase(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -30,6 +57,12 @@ public class SqliteDatabase extends SQLiteOpenHelper {
                 + COL_DESCRIPTION + " TEXT, " + COL_URL + " TEXT)";
         db.execSQL(CREATE_CONTACTS_TABLE);
     }
+    /**
+     * Method downgrades a database
+     * @param db database
+     * @param oldVersion old version number
+     * @param newVersion new version number
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
@@ -54,6 +87,11 @@ public class SqliteDatabase extends SQLiteOpenHelper {
         cursor.close();
         return storeArticles;
     }
+
+    /**
+     * Adds articles to DB
+     * @param articles
+     */
     void addArticles(BbcArticles articles) {
         ContentValues values = new ContentValues();
         values.put(COL_TITLE, articles.getTitle());
@@ -64,6 +102,11 @@ public class SqliteDatabase extends SQLiteOpenHelper {
         db.insert(TABLE_NAME, null, values);
 
     }
+
+    /**
+     * Updates number of articles in DB
+     * @param articles
+     */
     void updateArticles(BbcArticles articles) {
         ContentValues values = new ContentValues();
         values.put(COL_TITLE, articles.getTitle());
@@ -73,6 +116,11 @@ public class SqliteDatabase extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.update(TABLE_NAME, values, COL_ID + " = ?", new String[]{String.valueOf(articles.getId())});
     }
+
+    /**
+     * Deletes articles from DB
+     * @param id
+     */
     void deleteArticle(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NAME, COL_ID + " = ?", new String[]{String.valueOf(id)});

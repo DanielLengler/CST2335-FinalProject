@@ -2,22 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-    <item
-        android:id="@+id/item1"
-        android:icon="@drawable/freeicon"
-        android:orderInCategory="100"
-        android:title="@string/nature"
-        app:showAsAction="always" />  <!-- This uses showAsAction=always, so look at icon= parameter -->
-
-
     <item android:id="@+id/search_item"
         android:orderInCategory="50"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         android:icon="@android:drawable/ic_search_category_default"
         app:showAsAction="always|collapseActionView"
         android:title="@string/search"/>    <!-- This uses showAsAction=always, so look at icon= parameter -->
-
 
     <item
         android:id="@+id/help_item"
@@ -27,8 +17,8 @@
         app:showAsAction="never" /> <!-- This uses showAsAction=never, so look at title= parameter -->
 
     <item android:id="@+id/mail"
-        android:icon="@drawable/mail"
+        android:icon="@drawable/ic_mail"
         android:orderInCategory="75"
         app:showAsAction="always"
-        android:title="Not used, since showAsAction=always"/>
+        android:title="@string/always"/>
 </menu>

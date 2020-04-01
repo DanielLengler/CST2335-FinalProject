@@ -8,26 +8,32 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-
-public class FavoritesActivity extends AppCompatActivity {
+/**
+ * BbcNewsFavoriteActivity class
+ * It is involved into proper appearance of the favorites page of BBCNews app
+ */
+public class BbcNewsFavoriteActivity extends AppCompatActivity {
     ArrayList<BbcArticles> allArticles;
     private SqliteDatabase mDatabase;
     private BbcNewsFavoriteAdapter mAdapter;
     ImageButton returnBtn;
 
+    /**
+     * Method where the activity is initialized
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_favorite_list);
+        setContentView(R.layout.bbcnews_favorite_list_activity);
 
-        // Search functionality step1
+        /**
+         *  Article search functionality step 1, using the edit text
+         */
         EditText edSearch = findViewById(R.id.searchEditText2);
         edSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -41,11 +47,17 @@ public class FavoritesActivity extends AppCompatActivity {
                 filter(s.toString());
             }
         });
-        // receive an intent from the previous  page
+
+        /**
+         *  Receives an intent from the previous  page
+         */
+
         Intent resultIntent = new Intent();
         setResult(Activity.RESULT_CANCELED, resultIntent);
 
-        //return to the previous page
+        /**
+         * Returns to the previous page with the click on Return button
+         */
         returnBtn = findViewById(R.id.returnBtn);
         returnBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,24 +66,12 @@ public class FavoritesActivity extends AppCompatActivity {
             }
         });
 
-        RecyclerView favArticleView = findViewById(R.id.recyclerFavorites);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        favArticleView.setLayoutManager(linearLayoutManager);
-        favArticleView.setHasFixedSize(true);
-        mDatabase = new SqliteDatabase(this);
-        allArticles = mDatabase.listArticles();
-        if (allArticles.size() > 0) {
-            favArticleView.setVisibility(View.VISIBLE);
-            mAdapter = new BbcNewsFavoriteAdapter(this, allArticles);
-            favArticleView.setAdapter(mAdapter);
-        }
-        else {
-            favArticleView.setVisibility(View.GONE);
-            Toast.makeText(this, "There are no saved articles in Favorites list. Start adding now", Toast.LENGTH_LONG).show();
-        }
 
     }
-    //search functionality step2
+
+    /**
+     * Article search functionality step 2
+     */
     private void filter(String text){
         ArrayList<BbcArticles> filteredList = new ArrayList<>();
         for (BbcArticles item : allArticles){
@@ -81,5 +81,7 @@ public class FavoritesActivity extends AppCompatActivity {
         }
         mAdapter.filterList(filteredList);
     }
+
+
 
 }
