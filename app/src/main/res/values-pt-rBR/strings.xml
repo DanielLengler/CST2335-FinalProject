@@ -31,4 +31,5 @@
     <string name="guardian">Guardian</string>
     <string name="nasa_earth_image">Nasa Earth</string>
     <string name="image_of_the_day">Nasa Image of the Day</string>
+    <string name="nasa_image_of_the_day">Nasa Image of the Day</string>
 </resources>
