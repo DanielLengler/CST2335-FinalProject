@@ -20,7 +20,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/txtTitle"
+                android:id="@+id/artTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Title"
@@ -28,42 +28,43 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/txtPubDate"
+                android:id="@+id/artPubDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/txtTitle"
+                android:layout_below="@+id/artTitle"
                 android:text="2020-03-20 12:30:00"
                 android:textSize="12sp"
                 android:textStyle="italic" />
 
             <TextView
-                android:id="@+id/txtDescription"
+                android:id="@+id/artDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/txtPubDate"
+                android:layout_below="@+id/artPubDate"
                 android:text="Description"
 
                 android:textSize="14sp"
                 android:textStyle="normal" />
 
             <TextView
-                android:id="@+id/link"
+                android:id="@+id/artLink"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/txtDescription"
+                android:layout_below="@+id/artDescription"
                 android:autoLink="web"
                 android:text="@string/link"
                 android:textColor="#329EF4" />
 
-            <ImageView
-                android:id="@+id/addArticle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/link"
+            <Button
+                android:id="@+id/favBtn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_below="@+id/artLink"
                 android:layout_alignParentEnd="true"
-                android:layout_gravity="center"
-                android:contentDescription="TODO"
-                android:src="@drawable/ic_favorite_border" />
+                android:layout_gravity="center|end"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/ic_favorite_color" />
         </RelativeLayout>
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>

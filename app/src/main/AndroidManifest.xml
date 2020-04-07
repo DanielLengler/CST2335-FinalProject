@@ -13,7 +13,9 @@ package="com.asis.finalproject">
     android:supportsRtl="true"
     android:theme="@style/AppTheme">
     <activity android:name=".Bbc2ndVersionOnToolbar" />
-    <activity android:name=".BbcNewsFavoriteActivity" />
+    <activity android:name=".BbcFavAdapter" />
+    <activity android:name=".BbcFavActivity" />
+    <activity android:name=".BbcAdapter" />
     <activity android:name=".BbcNewsFirstActivity" />
     <activity android:name=".MainActivity" >
         <intent-filter>

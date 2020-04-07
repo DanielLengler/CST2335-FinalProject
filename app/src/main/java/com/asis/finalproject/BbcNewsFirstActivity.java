@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -40,88 +41,143 @@ import java.util.ArrayList;
  */
 public class BbcNewsFirstActivity extends AppCompatActivity {
     public static final int REQUEST_RETURN_PAGE = 500;
-    private ArrayList<BbcArticles> newsArticleList;
-    private SqliteDatabase mDatabase;
-    private RecyclerView mRecyclerView;
-    private BbcNewsAdapter mAdapter;
+    private BbcAdapter bbcAdapter;
+    private ArrayList<BbcItem> bbcItems = new ArrayList<>();
+    private ArrayList<BbcFavItem> bbcFavItems = new ArrayList<>();
     private RecyclerView.LayoutManager mLayoutManager;
+    private RecyclerView recyclerView;
     private RequestQueue mRequestQueue;
     ImageButton favoriteBtn;
     private LinearLayout linearLayout;
+    BbcFavDB favDB;
 
-    /**
-     * Method where the activity is initialized
-     * @param savedInstanceState
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.bbcnews_first_activity);
-        /**
-         * Call of the method for building the RecyclerView
-         */
+        setContentView(R.layout.bbc_first_activity);
+
         buildRecyclerView();
 
-        mRecyclerView = findViewById(R.id.recyclerView);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        newsArticleList = new ArrayList<>();
         mRequestQueue = Volley.newRequestQueue(this);
-        /**
-         *  Article search functionality step 1, using the edit text
-         */
+        linearLayout = findViewById(R.id.linearLayout);
+        favDB = new BbcFavDB(this);
+        bbcFavItems = favDB.listFavItems();
 
+
+      //Search function part 1
         EditText edSearch = findViewById(R.id.searchEditText);
         edSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
-
             @Override
             public void afterTextChanged(Editable s) {
                 filter(s.toString());
             }
         });
 
-        linearLayout = findViewById(R.id.linearLayout);
-        /**
-         * Snackbar  and intent to move to favorites list
-         */
 
+
+        // Snackbar  and intent to move to favorites list
         favoriteBtn = findViewById(R.id.favoriteBtn);
         if (favoriteBtn != null) {
             favoriteBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    /**
-                     * Transfers to the favorite page and calls for the SnackBar method
-                     */
-                    Intent goToFavorites = new Intent(BbcNewsFirstActivity.this, BbcNewsFavoriteAdapter.class);
+                    //create an intent to go to the FavoritesActivity
+                    Intent goToFavorites = new Intent(BbcNewsFirstActivity.this, BbcFavActivity.class);
                     startActivityForResult(goToFavorites, REQUEST_RETURN_PAGE);
-//                    startActivity(goToFavorites);
                     showSnackbar();
                 }
             });
         }
+
+//        Button favBtn = findViewById(R.id.favBtn);
+//        favBtn.setOnClickListener((view) -> {
+//                addTaskDialog();
+//        });
+
+
+
+
+//
         /**
          * Json parsing method call
          */
         parseJSON();
+/*
+ //**********************************************
+        bbcItems.add(new BbcItem(1, "title1", "pubDate1", "Description1","webLink1", "1"));
+        bbcItems.add(new BbcItem(2, "title2", "pubDate2", "Description2","webLink2", "0"));
+        bbcItems.add(new BbcItem(3, "title3", "pubDate3", "Description3","webLink3", "0"));
+        bbcItems.add(new BbcItem(4, "title4", "pubDate4", "Description4","webLink4", "0"));
+        bbcItems.add(new BbcItem(5, "title5", "pubDate5", "Description5","webLink5", "0"));
+        bbcItems.add(new BbcItem(6, "title6", "pubDate6", "Description6","webLink6", "0"));
+        bbcItems.add(new BbcItem(7, "title7", "pubDate7", "Description7","webLink7", "0"));
+        bbcItems.add(new BbcItem(8, "title8", "pubDate8", "Description8","webLink8", "0"));
+        bbcItems.add(new BbcItem(9, "title9", "pubDate9", "Description9","webLink9", "0"));
+        bbcItems.add(new BbcItem(10, "title10", "pubDate10", "Description10","webLink10", "0"));
 
+*/
+
+ //***********************************
     }
 
     /**
-     * removes items from the list
-     * @param position
+     * Dialog window for adding article to the favorite list
      */
-    public void removeItem(int position) {
-        newsArticleList.remove(position);
-        mAdapter.notifyItemRemoved(position);
+    private void addTaskDialog() {
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View subView = inflater.inflate(R.layout.bbc_article_list_layout, null);
+        final TextView titleText = subView.findViewById(R.id.txtTitle);
+        final TextView pubDateText = subView.findViewById(R.id.txtPubDate);
+        final TextView descriptionText = subView.findViewById(R.id.txtDescription);
+        final TextView webLinkText = subView.findViewById(R.id.link);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Do you want to add to favorites? ");
+        builder.setView(subView);
+        builder.create();
+        builder.setPositiveButton("Add to Favorites", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                final String title = titleText.getText().toString();
+                final String pubDate = pubDateText.getText().toString();
+                final String description = descriptionText.getText().toString();
+                final String webLink = webLinkText.getText().toString();
+                if (TextUtils.isEmpty(title) || TextUtils.isEmpty(pubDate) || TextUtils.isEmpty(description) || TextUtils.isEmpty(webLink)) {
+                    Toast.makeText(BbcNewsFirstActivity.this, "Something went wrong. Check your article list", Toast.LENGTH_LONG).show();
+                } else {
+                    BbcFavItem newFavItem = new BbcFavItem(title, pubDate, description, webLink);
+                    favDB.addArticles(newFavItem);
+//                    favDB.updateArticles(new
+//                            BbcItem(title, pubDate, description, webLink));
+                    finish();
+                    startActivity(getIntent());
+                }
+            }
+        });
+        builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(BbcNewsFirstActivity.this, "Task cancelled", Toast.LENGTH_LONG).show();
+            }
+        });
+        builder.show();
     }
+
+//    public void addArticles(){
+//        bbcItems.add(new BbcItem());
+//        bbcAdapter.notifyDataSetChanged();
+//    }
+
+//    public void removeItem(int position) {
+//        bbcItems.remove(position);
+//       bbcAdapter.notifyItemRemoved(position);
+//    }
 
 
 //Snackbar message
@@ -169,11 +225,11 @@ public void showSnackbar() {
                                 /**
                                  * new article is added to the list in the RecyclerView
                                  */
-                                newsArticleList.add(new BbcArticles(artTitle, artPubDate, description, url));
+                                bbcItems.add(new BbcItem( artTitle, artPubDate, description, url));
                             }
 
-                            mAdapter = new BbcNewsAdapter(BbcNewsFirstActivity.this, newsArticleList);
-                            mRecyclerView.setAdapter(mAdapter);
+                            bbcAdapter = new BbcAdapter( bbcItems, BbcNewsFirstActivity.this);
+                            recyclerView.setAdapter(bbcAdapter);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -192,34 +248,27 @@ public void showSnackbar() {
      * Article search functionality step 2
      */
     private void filter(String text) {
-        ArrayList<BbcArticles> filteredList = new ArrayList<>();
-        for (BbcArticles item : newsArticleList) {
+        ArrayList<BbcItem> filteredList = new ArrayList<>();
+        for (BbcItem item : bbcItems) {
             if (item.getTitle().toLowerCase().contains(text.toLowerCase())) {
                 filteredList.add(item);
             }
         }
-        mAdapter.filterList(filteredList);
+        bbcAdapter.filterList(filteredList);
     }
 
     /**
      * This method builds RecyslerView and is called in the onCreate section
      */
     public void buildRecyclerView() {
-        mRecyclerView = findViewById(R.id.recyclerView);
-        mRecyclerView.setHasFixedSize(true);
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        bbcAdapter = new BbcAdapter(bbcItems, this);
+        recyclerView.setAdapter(bbcAdapter);
         mLayoutManager = new LinearLayoutManager(this);
-        mAdapter = new BbcNewsAdapter(this, newsArticleList);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(mAdapter);
-
+        recyclerView.setLayoutManager(mLayoutManager);
     }
 
-    /**
-     * Returns intent to the caller
-     * @param requestCode
-     * @param resultCode
-     * @param data
-     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -231,44 +280,6 @@ public void showSnackbar() {
         }
     }
 
-    /**
-     * Dialog window for adding article to the favorite list
-     */
-    private void addTaskDialog() {
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View subView = inflater.inflate(R.layout.bbc_article_list_layout, null);
-        final TextView titleText = subView.findViewById(R.id.txtTitle);
-        final TextView pubDateText = subView.findViewById(R.id.txtPubDate);
-        final TextView descriptionText = subView.findViewById(R.id.txtDescription);
-        final TextView webLinkText = subView.findViewById(R.id.link);
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(getString(R.string.alert_title));
-        builder.setView(subView);
-        builder.create();
-        builder.setPositiveButton(R.string.alert_add, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                final String title = titleText.getText().toString();
-                final String pubDate = pubDateText.getText().toString();
-                final String description = descriptionText.getText().toString();
-                final String webLink = webLinkText.getText().toString();
-                if (TextUtils.isEmpty(title) || TextUtils.isEmpty(pubDate) || TextUtils.isEmpty(description) || TextUtils.isEmpty(webLink)) {
-                    Toast.makeText(BbcNewsFirstActivity.this, getString(R.string.alert_add_negative_toast), Toast.LENGTH_LONG).show();
-                } else {
-                    BbcArticles newArticle = new BbcArticles(title, pubDate, description, webLink);
-                    mDatabase.addArticles(newArticle);
-                    finish();
-                    startActivity(getIntent());
-                }
-            }
-        });
-        builder.setNegativeButton((R.string.alert_negative_btn), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(BbcNewsFirstActivity.this, getString(R.string.alert_cancel_toast), Toast.LENGTH_LONG).show();
-            }
-        });
-        builder.show();
-    }
+
 
 }
