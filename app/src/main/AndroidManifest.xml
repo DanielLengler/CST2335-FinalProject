@@ -33,8 +33,7 @@
 
         <activity
             android:name=".nasaearthimage.NasaImageSelectorActivity"
-            android:launchMode="singleTop">
-        </activity>
+            android:launchMode="singleTop" />
         <activity android:name=".bbc.BbcFavAdapter" />
         <activity android:name=".bbc.BbcFavActivity" />
         <activity android:name=".bbc.BbcAdapter" />
@@ -50,11 +49,9 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-    </activity>
-        <activity android:name=".bbc.BbcNewsFirstActivity" />
-        <activity android:name=".bbc.BbcNewsFavoriteActivity" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

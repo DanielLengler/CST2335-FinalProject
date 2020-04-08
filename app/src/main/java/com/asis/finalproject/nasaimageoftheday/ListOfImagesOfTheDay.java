@@ -35,7 +35,6 @@ import androidx.fragment.app.Fragment;
 
 import com.asis.finalproject.R;
 import com.asis.finalproject.MainActivity;
-import com.asis.finalproject.bbc.Bbc2ndVersionOnToolbar;
 import com.asis.finalproject.bbc.BbcNewsFirstActivity;
 import com.asis.finalproject.guardian.GuardianSearchBar;
 import com.asis.finalproject.nasaearthimage.NasaImageSelectorActivity;
