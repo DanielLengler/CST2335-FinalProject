@@ -10,7 +10,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -36,14 +36,14 @@ public class BbcFavActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.bbcnews_favorite_list_activity);
+        setContentView(R.layout.bbc_fav_list);
 
         favDB = new BbcFavDB(this);
         favRecyclerView = findViewById(R.id.recyclerView);
-//        favRecyclerView.setHasFixedSize(true);
-//        favRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        favRecyclerView.setHasFixedSize(true);
+        favRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-//        loadData();
+        loadData();
 
         /**
          *  Article search functionality step 1, using the edit text
@@ -79,27 +79,7 @@ public class BbcFavActivity extends AppCompatActivity {
                 finish();
             }
         });
-/*
-//        bbcFavItems = new ArrayList<>();
-        bbcFavItems.add(new BbcFavItem("title1", "pubDate2", "description1", "webLink1"));
-        bbcFavItems.add(new BbcFavItem("title2", "pubDate3", "description2", "webLink2"));
-        bbcFavItems.add(new BbcFavItem("title3", "pubDate4", "description3", "webLink3"));
-        bbcFavItems.add(new BbcFavItem("title4", "pubDate5", "description4", "webLink4"));
-        bbcFavItems.add(new BbcFavItem("title5", "pubDate6", "description5", "webLink5"));
-        bbcFavItems.add(new BbcFavItem("title6", "pubDate7", "description6", "webLink6"));
-        bbcFavItems.add(new BbcFavItem("title7", "pubDate8", "description7", "webLink7"));
-        bbcFavItems.add(new BbcFavItem("title8", "pubDate7", "description6", "webLink6"));
-        bbcFavItems.add(new BbcFavItem("title9", "pubDate8", "description8", "webLink8"));
-        bbcFavItems.add(new BbcFavItem("title5", "pubDate6", "description5", "webLink5"));
-*/
 
-//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-////        favRecyclerView.setLayoutManager(linearLayoutManager);
-//
-//        favDB =new BbcFavDB(this);
-//        bbcFavItems = favDB.listFavItems();
-//        favRecyclerView.setAdapter(new BbcFavAdapter(bbcFavItems, this));
-//        favAdapter.notifyDataSetChanged();
     }
     private void loadData() {
         if (bbcFavItems != null){
@@ -113,7 +93,6 @@ public class BbcFavActivity extends AppCompatActivity {
                 String pubDate = cursor.getString(cursor.getColumnIndex(BbcFavDB.COL_PUBDATE));
                 String description = cursor.getString(cursor.getColumnIndex(BbcFavDB.COL_DESCRIPTION));
                 String webLink = cursor.getString(cursor.getColumnIndex(BbcFavDB.COL_URL));
-//                int id = cursor.getString(cursor.getColumnIndex(BbcFavDB.COL_ID));
                 BbcFavItem favItem = new BbcFavItem(title, pubDate, description, webLink);
                 bbcFavItems.add(favItem);
             }

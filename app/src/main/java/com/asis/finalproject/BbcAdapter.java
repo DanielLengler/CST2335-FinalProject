@@ -4,14 +4,10 @@ package com.asis.finalproject;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.Filter;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +21,11 @@ public class BbcAdapter extends RecyclerView.Adapter<BbcAdapter.BbcViewHolder> {
     private Context context;
     private BbcFavDB favDB;
 
-
+    /**
+     *
+     * @param articleList
+     * @param context
+     */
     public BbcAdapter(ArrayList<BbcItem> articleList, Context context) {
         this.bbcItems = articleList;
         this.context = context;
@@ -33,14 +33,19 @@ public class BbcAdapter extends RecyclerView.Adapter<BbcAdapter.BbcViewHolder> {
     }
 
     /**
-     * BbcNewsAdapter constuctor
-     * @param articleList
+     * Constructor
+     * @param articleList ArrayList of articles
      */
     public BbcAdapter(ArrayList<BbcItem> articleList){
         bbcItems = articleList;
     }
 
-
+    /**
+     * This method calls for creation of a new ViewHolder
+     * @param parent
+     * @param viewType initializes the layout
+     * @return a new ViewHolder object
+     */
     @NonNull
     @Override
     public BbcViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -48,7 +53,11 @@ public class BbcAdapter extends RecyclerView.Adapter<BbcAdapter.BbcViewHolder> {
         return new BbcViewHolder(view);
     }
 
-
+    /**
+     * This binds content (data) with views of RecyclerView
+     * @param holder holds position and content of the item together
+     * @param position identifies position of each element
+     */
     @Override
     public void onBindViewHolder(@NonNull BbcViewHolder holder, int position) {
         final BbcItem bbcItem = bbcItems.get(position);
@@ -57,11 +66,14 @@ public class BbcAdapter extends RecyclerView.Adapter<BbcAdapter.BbcViewHolder> {
         holder.descriptionTextView.setText(bbcItem.getDescription());
         holder.linkTextView.setText(bbcItem.getWebUrl());
         holder.favBtn.setOnClickListener((view) -> {
-            addTaskDialog();
+            addTaskDialog(bbcItem);
         });
     }
 
-
+    /**
+     * Returns the total number of items held by adapter
+     * @return the size of items in the arrayList
+     */
     @Override
     public int getItemCount() {
         if (bbcItems == null)
@@ -70,11 +82,17 @@ public class BbcAdapter extends RecyclerView.Adapter<BbcAdapter.BbcViewHolder> {
             return bbcItems.size();
     }
 
-
+    /**
+     * This inner class
+     */
     public class BbcViewHolder extends RecyclerView.ViewHolder {
         TextView titleTextView, pubDateTextView, descriptionTextView, linkTextView;
         Button favBtn;
 
+        /**
+         * Constructor
+         * @param itemView we get references to our article views in rows
+         */
         public BbcViewHolder(@NonNull View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.txtTitle);
@@ -84,40 +102,6 @@ public class BbcAdapter extends RecyclerView.Adapter<BbcAdapter.BbcViewHolder> {
             favBtn = itemView.findViewById(R.id.favBtn);
 
         }
-
-//    private void createTableOnFirstStart(){
-//        favDB.insertEmpty();
-//
-//        SharedPreferences prefs = context.getSharedPreferences("prefs", Context.MODE_PRIVATE);
-//        SharedPreferences.Editor editor = prefs.edit();
-//        editor.putBoolean("firstStart", false);
-//        editor.apply();
-//    }
-//
-//    private void readCursorData(BbcItem bbcItem, BbcNewsViewHolder bbcNewsViewHolder){
-//        Cursor cursor = favDB.read_all_data(bbcItem.getKey_id());
-//        SQLiteDatabase db = favDB.getReadableDatabase();
-//        try{
-//            while (cursor.moveToNext()){
-//                String item_fav_status = cursor.getString(cursor.getColumnIndex(BbcFavDB.FAVORITE_STATUS));
-//                bbcItem.setFavStatus(item_fav_status);
-//
-//                //check fav status
-//                if (item_fav_status != null && item_fav_status.equals("1")){
-//                    bbcNewsViewHolder.favBtn.setBackgroundResource(R.drawable.ic_favorite_color);
-//                } else if (item_fav_status != null && item_fav_status.equals("0")){
-//                    bbcNewsViewHolder.favBtn.setBackgroundResource(R.drawable.ic_favorite_border);
-//                }
-//            }
-//        }finally{
-//            if(cursor != null && cursor.isClosed())
-//                cursor.close();
-//            db.close();
-//        }
-//    }
-
-
-
     }
     /**
      * Article search functionality step 3
@@ -127,8 +111,10 @@ public class BbcAdapter extends RecyclerView.Adapter<BbcAdapter.BbcViewHolder> {
         bbcItems = filteredList;
         notifyDataSetChanged();
     }
-
-    private void addTaskDialog() {
+    /**
+     * Dialog window for adding article to the favorite list
+     */
+    private void addTaskDialog(BbcItem bbcItem) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View subView = inflater.inflate(R.layout.bbc_article_list_layout, null);
         final TextView titleText = subView.findViewById(R.id.txtTitle);
@@ -136,34 +122,30 @@ public class BbcAdapter extends RecyclerView.Adapter<BbcAdapter.BbcViewHolder> {
         final TextView descriptionText = subView.findViewById(R.id.txtDescription);
         final TextView webLinkText = subView.findViewById(R.id.link);
 
+        titleText.setText(bbcItem.getTitle());
+        pubDateText.setText(bbcItem.getPubDate());
+        descriptionText.setText(bbcItem.getDescription());
+        webLinkText.setText(bbcItem.getWebUrl());
+
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Do you want to add to favorites? ");
+        builder.setTitle(R.string.alert_title);
         builder.setView(subView);
         builder.create();
-        builder.setPositiveButton("Add to Favorites", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.alert_add, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                final String title = titleText.getText().toString();
-                final String pubDate = pubDateText.getText().toString();
-                final String description = descriptionText.getText().toString();
-                final String webLink = webLinkText.getText().toString();
-                if (TextUtils.isEmpty(title) || TextUtils.isEmpty(pubDate) || TextUtils.isEmpty(description) || TextUtils.isEmpty(webLink)) {
-                    Toast.makeText(context, "Something went wrong. Check your article list", Toast.LENGTH_LONG).show();
-                } else {
-//                    BbcItem newBbcItem = new BbcItem(title, pubDate, description, webLink);
-//                    favDB.updateArticles(newBbcItem);
-                    BbcFavItem newFavItem = new BbcFavItem(title, pubDate, description, webLink);
+                    BbcFavItem newFavItem = new BbcFavItem(bbcItem.getTitle(), bbcItem.getPubDate(), bbcItem.getDescription(), bbcItem.getWebUrl());
                     favDB.addArticles(newFavItem);
                     ((Activity) context).finish();
                     context.startActivity(((Activity)
                             context).getIntent());
-                }
+
             }
         });
-        builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.alert_negative_btn, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(context, "Task cancelled", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, R.string.alert_cancel_toast, Toast.LENGTH_LONG).show();
             }
         });
         builder.show();

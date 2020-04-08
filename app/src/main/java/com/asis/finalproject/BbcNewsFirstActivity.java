@@ -1,26 +1,22 @@
 package com.asis.finalproject;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.ProgressBar;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -28,11 +24,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.snackbar.Snackbar;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 
 /**
@@ -50,21 +44,32 @@ public class BbcNewsFirstActivity extends AppCompatActivity {
     ImageButton favoriteBtn;
     private LinearLayout linearLayout;
     BbcFavDB favDB;
+    private ProgressBar progressBar;
 
+    /**
+     *  Method where the activity is initialized
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bbc_first_activity);
 
+        /**
+         * Call of the method for building the RecyclerView
+         */
         buildRecyclerView();
 
         mRequestQueue = Volley.newRequestQueue(this);
         linearLayout = findViewById(R.id.linearLayout);
         favDB = new BbcFavDB(this);
         bbcFavItems = favDB.listFavItems();
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
 
-
-      //Search function part 1
+        /**
+         *  Article search functionality step 1, using the edit text
+         */
         EditText edSearch = findViewById(R.id.searchEditText);
         edSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -79,9 +84,9 @@ public class BbcNewsFirstActivity extends AppCompatActivity {
             }
         });
 
-
-
-        // Snackbar  and intent to move to favorites list
+        /**
+         * Snackbar  and intent to move to favorites list
+         */
         favoriteBtn = findViewById(R.id.favoriteBtn);
         if (favoriteBtn != null) {
             favoriteBtn.setOnClickListener(new View.OnClickListener() {
@@ -95,79 +100,14 @@ public class BbcNewsFirstActivity extends AppCompatActivity {
             });
         }
 
-//        Button favBtn = findViewById(R.id.favBtn);
-//        favBtn.setOnClickListener((view) -> {
-//                addTaskDialog();
-//        });
-
-
-
-
-//
         /**
-         * Json parsing method call
+         * Call of the execute method for starting loading information from the Internet
          */
-        parseJSON();
-/*
- //**********************************************
-        bbcItems.add(new BbcItem(1, "title1", "pubDate1", "Description1","webLink1", "1"));
-        bbcItems.add(new BbcItem(2, "title2", "pubDate2", "Description2","webLink2", "0"));
-        bbcItems.add(new BbcItem(3, "title3", "pubDate3", "Description3","webLink3", "0"));
-        bbcItems.add(new BbcItem(4, "title4", "pubDate4", "Description4","webLink4", "0"));
-        bbcItems.add(new BbcItem(5, "title5", "pubDate5", "Description5","webLink5", "0"));
-        bbcItems.add(new BbcItem(6, "title6", "pubDate6", "Description6","webLink6", "0"));
-        bbcItems.add(new BbcItem(7, "title7", "pubDate7", "Description7","webLink7", "0"));
-        bbcItems.add(new BbcItem(8, "title8", "pubDate8", "Description8","webLink8", "0"));
-        bbcItems.add(new BbcItem(9, "title9", "pubDate9", "Description9","webLink9", "0"));
-        bbcItems.add(new BbcItem(10, "title10", "pubDate10", "Description10","webLink10", "0"));
+        Content content = new Content();
+        content.execute();
 
-*/
-
- //***********************************
     }
 
-    /**
-     * Dialog window for adding article to the favorite list
-     */
-    private void addTaskDialog() {
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View subView = inflater.inflate(R.layout.bbc_article_list_layout, null);
-        final TextView titleText = subView.findViewById(R.id.txtTitle);
-        final TextView pubDateText = subView.findViewById(R.id.txtPubDate);
-        final TextView descriptionText = subView.findViewById(R.id.txtDescription);
-        final TextView webLinkText = subView.findViewById(R.id.link);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Do you want to add to favorites? ");
-        builder.setView(subView);
-        builder.create();
-        builder.setPositiveButton("Add to Favorites", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                final String title = titleText.getText().toString();
-                final String pubDate = pubDateText.getText().toString();
-                final String description = descriptionText.getText().toString();
-                final String webLink = webLinkText.getText().toString();
-                if (TextUtils.isEmpty(title) || TextUtils.isEmpty(pubDate) || TextUtils.isEmpty(description) || TextUtils.isEmpty(webLink)) {
-                    Toast.makeText(BbcNewsFirstActivity.this, "Something went wrong. Check your article list", Toast.LENGTH_LONG).show();
-                } else {
-                    BbcFavItem newFavItem = new BbcFavItem(title, pubDate, description, webLink);
-                    favDB.addArticles(newFavItem);
-//                    favDB.updateArticles(new
-//                            BbcItem(title, pubDate, description, webLink));
-                    finish();
-                    startActivity(getIntent());
-                }
-            }
-        });
-        builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(BbcNewsFirstActivity.this, "Task cancelled", Toast.LENGTH_LONG).show();
-            }
-        });
-        builder.show();
-    }
 
 //    public void addArticles(){
 //        bbcItems.add(new BbcItem());
@@ -179,8 +119,10 @@ public class BbcNewsFirstActivity extends AppCompatActivity {
 //       bbcAdapter.notifyItemRemoved(position);
 //    }
 
+    /**
+     * Snackbar message when clicked on favorites button
+     */
 
-//Snackbar message
 public void showSnackbar() {
     Snackbar snackbar = Snackbar.make(linearLayout, getText(R.string.snackbar_message), Snackbar.LENGTH_INDEFINITE)
             .setAction(getString(R.string.undo), new View.OnClickListener() {
@@ -193,56 +135,6 @@ public void showSnackbar() {
     snackbar.show();
 
 }
-
-    /**
-     * JSON parsing using Volley library.
-     */
-    private void parseJSON(){
-        /**
-         * JSON link for pulling data from the Internet
-         */
-        String url = "https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Ffeeds.bbci.co.uk%2Fnews%2Fworld%2Fus_and_canada%2Frss.xml";
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            JSONArray jsonArray = response.getJSONArray("items");
-                            /**
-                             * loops through the JSON array looking for the new items in the list
-                             */
-                            for (int i= 0; i < jsonArray.length(); i++){
-                                JSONObject item = jsonArray.getJSONObject(i);
-                                /**
-                                 * When the "items" tag is found, it is mean the beginning
-                                 * of the article. Then all the sub-items listed below are pulled.
-                                 */
-                                String artTitle = item.getString("title");
-                                String artPubDate = item.getString("pubDate");
-                                String description = item.getString("description");
-                                String url = item.getString("link");
-                                /**
-                                 * new article is added to the list in the RecyclerView
-                                 */
-                                bbcItems.add(new BbcItem( artTitle, artPubDate, description, url));
-                            }
-
-                            bbcAdapter = new BbcAdapter( bbcItems, BbcNewsFirstActivity.this);
-                            recyclerView.setAdapter(bbcAdapter);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        });
-
-        mRequestQueue.add(request);
-    }
 
     /**
      * Article search functionality step 2
@@ -269,6 +161,12 @@ public void showSnackbar() {
         recyclerView.setLayoutManager(mLayoutManager);
     }
 
+    /**
+     * This method returns the result back to the inquiry point
+     * @param requestCode should coincide with the one initiated at the beginning of the intent
+     * @param resultCode result code - is a default value specifying the status of activity
+     * @param data is optional parameter, especially when there is just return to the previous page
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -280,6 +178,73 @@ public void showSnackbar() {
         }
     }
 
+    /**
+     * This inner class is a subclass of AsyncTask
+     */
+    private class Content extends AsyncTask<Void, Void,Void>{
+        /**
+         * This method uses JSON reading for loading articles from the Internet
+         * @param voids represents a result of the loading information from the Internet
+         * @return null in case if there is no Internet connection
+         */
+        @Override
+        protected Void doInBackground(Void... voids) {
+            String url = "https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Ffeeds.bbci.co.uk%2Fnews%2Fworld%2Fus_and_canada%2Frss.xml";
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                    new Response.Listener<JSONObject>() {
+                        /**
+                         * This method fetches required information from the internet
+                         * @param response provides response from the Internet
+                         */
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                JSONArray jsonArray = response.getJSONArray("items");
+                                for (int i= 0; i < jsonArray.length(); i++){
+                                    JSONObject item = jsonArray.getJSONObject(i);
+                                    String artTitle = item.getString("title");
+                                    String artPubDate = item.getString("pubDate");
+                                    String description = item.getString("description");
+                                    String url = item.getString("link");
+                                    bbcItems.add(new BbcItem( artTitle, artPubDate, description, url));
+                                }
 
+                                bbcAdapter = new BbcAdapter( bbcItems, BbcNewsFirstActivity.this);
+                                recyclerView.setAdapter(bbcAdapter);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    error.printStackTrace();
+                }
+            });
+
+            mRequestQueue.add(request);
+
+            return null;
+        }
+
+        /**
+         * This method is used for displaying the progress
+         * @param values indicate the status of the progress bar, progress
+         */
+        protected void onProgressUpdate(Integer... values) {
+            progressBar.setVisibility(View.VISIBLE);
+            progressBar.setProgress(values[0]);
+        }
+
+        /**
+         * The results of doInBackground are passed to this method
+         * @param aVoid represents a result of the doInBackground
+         */
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            progressBar.setVisibility(View.INVISIBLE);
+        }
+    }
 
 }
