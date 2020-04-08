@@ -12,10 +12,10 @@ package="com.asis.finalproject">
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
     android:theme="@style/AppTheme">
-    <activity android:name=".BbcFavAdapter" />
-    <activity android:name=".BbcFavActivity" />
-    <activity android:name=".BbcAdapter" />
-    <activity android:name=".BbcNewsFirstActivity" />
+    <activity android:name=".bbc.BbcFavAdapter" />
+    <activity android:name=".bbc.BbcFavActivity" />
+    <activity android:name=".bbc.BbcAdapter" />
+    <activity android:name=".bbc.BbcNewsFirstActivity" />
     <activity android:name=".MainActivity" >
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />

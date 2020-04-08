@@ -1,10 +1,13 @@
-package com.asis.finalproject;
+package com.asis.finalproject.bbc;
 
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.asis.finalproject.R;
+
 import java.util.ArrayList;
 
 /**

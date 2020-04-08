@@ -1,4 +1,4 @@
-package com.asis.finalproject;
+package com.asis.finalproject.bbc;
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -21,6 +21,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.asis.finalproject.R;
 import com.google.android.material.snackbar.Snackbar;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,10 +53,6 @@ public class BbcNewsFirstActivity extends AppCompatActivity {
      * ArrayList of loaded articles from the Internet
      */
     private ArrayList<BbcItem> bbcItems = new ArrayList<>();
-    /**
-     * ArrayList of favorite list articles
-     */
-    private ArrayList<BbcFavItem> bbcFavItems = new ArrayList<>();
     /**
      * responsible for measuring and positioning item views within RecyclerView
      */
@@ -99,7 +97,6 @@ public class BbcNewsFirstActivity extends AppCompatActivity {
 
         linearLayout = findViewById(R.id.linearLayout);
         favDB = new BbcFavDB(this);
-        bbcFavItems = favDB.listFavItems();
         Toolbar tBar = findViewById(R.id.toolbar);
         setSupportActionBar(tBar);
         progressBar = findViewById(R.id.progressBar);
@@ -143,6 +140,10 @@ public class BbcNewsFirstActivity extends AppCompatActivity {
         Content content = new Content();
         content.execute("https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Ffeeds.bbci.co.uk%2Fnews%2Fworld%2Fus_and_canada%2Frss.xml");
 
+        if(findViewById(R.id.frameLayout) != null) {
+            BbcFragment bbcFragment = new BbcFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, bbcFragment).commit();
+        }
     }
 
     /**
