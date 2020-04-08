@@ -3,223 +3,191 @@ package com.asis.finalproject.bbc;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.asis.finalproject.R;
 import com.google.android.material.snackbar.Snackbar;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 /**
  * BbcNewsFirstActivity class
- * It is involved into proper appearance of the first page of BBCNews app
+ * The first page of BBCNews app with loaded articles appear here
  */
 public class BbcNewsFirstActivity extends AppCompatActivity {
+    /**
+     * this code is used for returning (results) to initial page
+     */
     public static final int REQUEST_RETURN_PAGE = 500;
-    private ArrayList<BbcArticles> newsArticleList;
-    private SqliteDatabase mDatabase;
-    private RecyclerView mRecyclerView;
-    private BbcNewsAdapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-    private RequestQueue mRequestQueue;
+    /**
+     * BBC news adapter for populating the views in each rows with
+     * article details
+     */
+    private BbcAdapter bbcAdapter;
+    /**
+     * ArrayList of loaded articles from the Internet
+     */
+    private ArrayList<BbcItem> bbcItems = new ArrayList<>();
+    /**
+     * provides adapter-based view
+     */
+    private RecyclerView recyclerView;
+//    private RequestQueue mRequestQueue;
+    /**
+     * button for switching between the pages:
+     * (1)original page with articles and (2) favorite list
+     */
     ImageButton favoriteBtn;
+    /**
+     * aligns all children in a single direction
+     */
     private LinearLayout linearLayout;
+    /**
+     * Database of favorite articles
+     */
+    BbcFavDB favDB;
+    /**
+     * Progress bar declaration
+     */
+    private ProgressBar progressBar;
 
     /**
-     * Method where the activity is initialized
-     * @param savedInstanceState
+     *  Method where the activity is initialized
+     * @param savedInstanceState is a reference to a Bundle object that
+     *  is passed into the onCreate method
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.bbcnews_first_activity);
+        setContentView(R.layout.bbc_first_activity);
+
         /**
          * Call of the method for building the RecyclerView
          */
         buildRecyclerView();
 
-        mRecyclerView = findViewById(R.id.recyclerView);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        newsArticleList = new ArrayList<>();
-        mRequestQueue = Volley.newRequestQueue(this);
-        /**
-         *  Article search functionality step 1, using the edit text
-         */
+        linearLayout = findViewById(R.id.linearLayout);
+        favDB = new BbcFavDB(this);
+        Toolbar tBar = findViewById(R.id.toolbar);
+        setSupportActionBar(tBar);
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
 
+        /**
+         *  Article search functionality step 1, using the EditText
+         */
         EditText edSearch = findViewById(R.id.searchEditText);
         edSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
-
             @Override
             public void afterTextChanged(Editable s) {
                 filter(s.toString());
             }
         });
 
-        linearLayout = findViewById(R.id.linearLayout);
         /**
-         * Snackbar  and intent to move to favorites list
+         * SnackBar  and intent to move to favorites list
          */
-
         favoriteBtn = findViewById(R.id.favoriteBtn);
         if (favoriteBtn != null) {
             favoriteBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    /**
-                     * Transfers to the favorite page and calls for the SnackBar method
-                     */
-                    Intent goToFavorites = new Intent(BbcNewsFirstActivity.this, BbcNewsFavoriteActivity.class);
+                    Intent goToFavorites = new Intent(BbcNewsFirstActivity.this, BbcFavActivity.class);
                     startActivityForResult(goToFavorites, REQUEST_RETURN_PAGE);
-//                    startActivity(goToFavorites);
                     showSnackbar();
                 }
             });
         }
-        /**
-         * Json parsing method call
-         */
-        parseJSON();
 
+        /**
+         * Call of the execute method for starting loading information from the Internet
+         */
+        Content content = new Content();
+        content.execute("https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Ffeeds.bbci.co.uk%2Fnews%2Fworld%2Fus_and_canada%2Frss.xml");
+
+        if(findViewById(R.id.frameLayout) != null) {
+            BbcFragment bbcFragment = new BbcFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, bbcFragment).commit();
+        }
     }
 
     /**
-     * removes items from the list
-     * @param position
+     * Shows SnackBar message when click on favorites button
      */
-    public void removeItem(int position) {
-        newsArticleList.remove(position);
-        mAdapter.notifyItemRemoved(position);
-    }
 
-
-//Snackbar message
-public void showSnackbar() {
+    public void showSnackbar() {
     Snackbar snackbar = Snackbar.make(linearLayout, getText(R.string.snackbar_message), Snackbar.LENGTH_INDEFINITE)
-            .setAction(getString(R.string.undo), new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Snackbar snackbar1 = Snackbar.make(linearLayout, getText(R.string.undo_message), Snackbar.LENGTH_SHORT);
-                    snackbar1.show();
-                }
-            });
-    snackbar.show();
-
-}
-
-    /**
-     * JSON parsing using Volley library.
-     */
-    private void parseJSON(){
-        /**
-         * JSON link for pulling data from the Internet
-         */
-        String url = "https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Ffeeds.bbci.co.uk%2Fnews%2Fworld%2Fus_and_canada%2Frss.xml";
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            JSONArray jsonArray = response.getJSONArray("items");
-                            /**
-                             * loops through the JSON array looking for the new items in the list
-                             */
-                            for (int i= 0; i < jsonArray.length(); i++){
-                                JSONObject item = jsonArray.getJSONObject(i);
-                                /**
-                                 * When the "items" tag is found, it is mean the beginning
-                                 * of the article. Then all the sub-items listed below are pulled.
-                                 */
-                                String artTitle = item.getString("title");
-                                String artPubDate = item.getString("pubDate");
-                                String description = item.getString("description");
-                                String url = item.getString("link");
-                                /**
-                                 * new article is added to the list in the RecyclerView
-                                 */
-                                newsArticleList.add(new BbcArticles(artTitle, artPubDate, description, url));
-                            }
-
-                            mAdapter = new BbcNewsAdapter(BbcNewsFirstActivity.this, newsArticleList);
-                            mRecyclerView.setAdapter(mAdapter);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
+        .setAction(getString(R.string.undo), new View.OnClickListener() {
             @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
+            public void onClick(View v) {
+                 Snackbar snackbar1 = Snackbar.make(linearLayout, getText(R.string.undo_message), Snackbar.LENGTH_SHORT);
+                 snackbar1.show();
             }
         });
-
-        mRequestQueue.add(request);
+        snackbar.show();
     }
 
     /**
      * Article search functionality step 2
      */
     private void filter(String text) {
-        ArrayList<BbcArticles> filteredList = new ArrayList<>();
-        for (BbcArticles item : newsArticleList) {
+        ArrayList<BbcItem> filteredList = new ArrayList<>();
+        for (BbcItem item : bbcItems) {
             if (item.getTitle().toLowerCase().contains(text.toLowerCase())) {
                 filteredList.add(item);
             }
         }
-        mAdapter.filterList(filteredList);
+        bbcAdapter.filterList(filteredList);
     }
 
     /**
-     * This method builds RecyslerView and is called in the onCreate section
+     * This method builds RecyclerView and is called in the onCreate section
      */
     public void buildRecyclerView() {
-        mRecyclerView = findViewById(R.id.recyclerView);
-        mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(this);
-        mAdapter = new BbcNewsAdapter(this, newsArticleList);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(mAdapter);
-
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        bbcAdapter = new BbcAdapter(bbcItems, this);
+        recyclerView.setAdapter(bbcAdapter);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(mLayoutManager);
     }
 
     /**
-     * Returns intent to the caller
-     * @param requestCode
-     * @param resultCode
-     * @param data
+     * This method returns the result back to the inquiry point
+     * @param requestCode should coincide with the one initiated at the beginning of the intent
+     * @param resultCode result code - is a default value specifying the status of activity
+     * @param data is optional parameter, especially when there is just return to the previous page
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -233,43 +201,121 @@ public void showSnackbar() {
     }
 
     /**
-     * Dialog window for adding article to the favorite list
+     * This inner class is a subclass of AsyncTask
      */
-    private void addTaskDialog() {
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View subView = inflater.inflate(R.layout.bbc_article_list_layout, null);
-        final TextView titleText = subView.findViewById(R.id.txtTitle);
-        final TextView pubDateText = subView.findViewById(R.id.txtPubDate);
-        final TextView descriptionText = subView.findViewById(R.id.txtDescription);
-        final TextView webLinkText = subView.findViewById(R.id.link);
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(getString(R.string.alert_title));
-        builder.setView(subView);
-        builder.create();
-        builder.setPositiveButton(R.string.alert_add, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                final String title = titleText.getText().toString();
-                final String pubDate = pubDateText.getText().toString();
-                final String description = descriptionText.getText().toString();
-                final String webLink = webLinkText.getText().toString();
-                if (TextUtils.isEmpty(title) || TextUtils.isEmpty(pubDate) || TextUtils.isEmpty(description) || TextUtils.isEmpty(webLink)) {
-                    Toast.makeText(BbcNewsFirstActivity.this, getString(R.string.alert_add_negative_toast), Toast.LENGTH_LONG).show();
-                } else {
-                    BbcArticles newArticle = new BbcArticles(title, pubDate, description, webLink);
-                    mDatabase.addArticles(newArticle);
-                    finish();
-                    startActivity(getIntent());
+    private class Content extends AsyncTask<String,Integer,String>{
+        /**
+         * This method uses JSON reading for loading articles from the Internet
+         * @param params represents a result of the loading information from the Internet
+         * @return the resulting statement
+         */
+        @Override
+        protected String doInBackground(String... params) {
+            publishProgress(0);
+            try {
+                URL url = new URL(params[0]);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                InputStream response = conn.getInputStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(response, "UTF-8"), 8);
+                StringBuilder sb = new StringBuilder();
+                publishProgress(50);
+                String line = null;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line + "\n");
                 }
+                String result = sb.toString();
+                JSONObject jsonObject = new JSONObject(result);
+                JSONArray jsonArray = jsonObject.getJSONArray("items");
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject item = jsonArray.getJSONObject(i);
+                    String artTitle = item.getString("title");
+                    String artPubDate = item.getString("pubDate");
+                    String description = item.getString("description");
+                    String linkUrl = item.getString("link");
+                    bbcItems.add(new BbcItem(artTitle, artPubDate, description, linkUrl));
+                }
+                bbcAdapter = new BbcAdapter(bbcItems, BbcNewsFirstActivity.this);
+                publishProgress(75);
+            } catch (JSONException | IOException e) {
+                e.printStackTrace();
             }
-        });
-        builder.setNegativeButton((R.string.alert_negative_btn), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(BbcNewsFirstActivity.this, getString(R.string.alert_cancel_toast), Toast.LENGTH_LONG).show();
-            }
-        });
-        builder.show();
+
+            return "Finished task";
+        }
+        /**
+         * This method is used for displaying the progress
+         * @param values indicate the status of the progress bar, progress
+         */
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            progressBar.setVisibility(View.VISIBLE);
+            progressBar.setProgress(values[0]);
+        }
+        /**
+         * The results of doInBackground are passed to this method
+         * @param str represents a result of the doInBackground
+         */
+        @Override
+        protected void onPostExecute(String str) {
+            progressBar.setVisibility(View.INVISIBLE);
+            recyclerView.setAdapter(bbcAdapter);
+        }
     }
 
+    /**
+     * Creates toolbar menu with different options
+     * @param menu represents menu with different options (items)
+     * @return menu options for selection
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        /**
+         * Inflate the menu items for use in the action bar
+         */
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.bbc_menu, menu);
+        return true;
+    }
+    /**
+     * This method allows to select items on the toolbar
+     * @param item are represented as icons or located in dropdown menu
+     * @return one of of the selections in the toolbar menu
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        String message = null;
+        /**
+         * Switch statement for selecting different activities on the Toolbar
+         * It provides also the toast messages
+         */
+        switch(item.getItemId())
+        {
+            case R.id.help_item:
+                message = getString(R.string.help_toast);
+                new AlertDialog.Builder(this)
+                        .setTitle(getString(R.string.help__menu_title))
+                        .setMessage(getString(R.string.help_alert))
+                        .setCancelable(false)
+                        .setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id){
+
+                            }
+                        })
+                        .show();
+
+                break;
+            case R.id.mail:
+                message = getString(R.string.mail_toast);
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType(getString(R.string.text_plain));
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[] {getString(R.string.sample_email)});
+                intent.putExtra(Intent.EXTRA_SUBJECT, (getString(R.string.subj_here)));
+                intent.putExtra(Intent.EXTRA_TEXT, (getString(R.string.body_text)));
+                startActivity(intent);
+                break;
+        }
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        return true;
+    }
 }
+

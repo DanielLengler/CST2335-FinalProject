@@ -55,15 +55,15 @@
                 android:text="@string/link"
                 android:textColor="#329EF4" />
 
-            <ImageView
-                android:id="@+id/deleteArticle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <Button
+                android:id="@+id/deleteBtn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_below="@+id/artLink"
                 android:layout_alignParentEnd="true"
-                android:layout_gravity="center"
-                android:contentDescription="TODO"
-                android:src="@drawable/ic_delete" />
+                android:layout_gravity="center|end"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/ic_delete" />
         </RelativeLayout>
 
     </LinearLayout>

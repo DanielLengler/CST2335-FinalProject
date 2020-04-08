@@ -55,15 +55,16 @@
                 android:text="@string/link"
                 android:textColor="#329EF4" />
 
-            <ImageView
-                android:id="@+id/addArticle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <Button
+                android:id="@+id/favBtn"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_below="@+id/link"
                 android:layout_alignParentEnd="true"
-                android:layout_gravity="center"
-                android:contentDescription="TODO"
-                android:src="@drawable/ic_favorite_border" />
+                android:layout_gravity="bottom|end"
+                android:background="@drawable/ic_favorite_border"
+                android:layout_marginEnd ="18dp"
+                android:layout_marginBottom="8dp"/>
         </RelativeLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

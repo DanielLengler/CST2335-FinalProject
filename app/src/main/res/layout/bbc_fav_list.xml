@@ -25,22 +25,15 @@
 
         <EditText
             android:id="@+id/searchEditText2"
-            android:layout_width="262dp"
+            android:layout_width="301dp"
             android:layout_height="55dp"
-            android:hint="Search"
-            android:drawableLeft="@drawable/ic_search"
-            android:drawablePadding="5dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginBottom="20dp" />
-
-        <!---->
-        <ImageButton
-            android:id="@+id/searchBtn2"
-            android:layout_width="wrap_content"
-            android:layout_height="53dp"
-            app:srcCompat="@drawable/ic_clear" />
+            android:layout_marginBottom="20dp"
+            android:drawableLeft="@drawable/ic_search"
+            android:drawablePadding="5dp"
+            android:hint="Search" />
 
         <ImageButton
             android:id="@+id/returnBtn"
@@ -60,7 +53,7 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerFavorites"
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"

@@ -35,6 +35,10 @@
             android:name=".nasaearthimage.NasaImageSelectorActivity"
             android:launchMode="singleTop">
         </activity>
+        <activity android:name=".bbc.BbcFavAdapter" />
+        <activity android:name=".bbc.BbcFavActivity" />
+        <activity android:name=".bbc.BbcAdapter" />
+        <activity android:name=".bbc.BbcNewsFirstActivity" />
         <activity android:name="com.asis.finalproject.guardian.GuardianResults" />
         <activity android:name="com.asis.finalproject.guardian.EmptyActivity" />
         <activity android:name="com.asis.finalproject.guardian.Favorite" />
