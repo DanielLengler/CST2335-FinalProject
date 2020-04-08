@@ -2,16 +2,13 @@ package com.asis.finalproject;
 
 import android.view.View;
 import android.widget.Button;
-
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
 
 /**
- *
+ * Class BbcFavViewHolder describes an item view and its location within the RecyclerView
  */
 public class BbcFavViewHolder extends RecyclerView.ViewHolder {
 
@@ -21,8 +18,8 @@ public class BbcFavViewHolder extends RecyclerView.ViewHolder {
     Button deleteBtn;
 
     /**
-     *
-      * @param itemView we get references to our favorite article views in rows
+     * Constructor of BbcFavViewHolder class
+     * @param itemView gives references to the view of favorite articles in rows
      */
     public BbcFavViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -31,8 +28,6 @@ public class BbcFavViewHolder extends RecyclerView.ViewHolder {
             favDescriptionView = itemView.findViewById(R.id.artDescription);
             favLinkView = itemView.findViewById(R.id.artLink);
             deleteBtn = itemView.findViewById(R.id.deleteBtn);
-
-            //removes from favorite list after click
             deleteBtn.setOnClickListener((view) -> {
                 int position = getAdapterPosition();
                 final BbcFavItem favItem = favItemList.get(position);
@@ -42,7 +37,10 @@ public class BbcFavViewHolder extends RecyclerView.ViewHolder {
 
     }
 
-
+    /**
+     * This method removes items from favorite list
+     * @param position the position of the removing item in the list
+     */
     private void removeItem(int position){
         favItemList.remove(position);
 

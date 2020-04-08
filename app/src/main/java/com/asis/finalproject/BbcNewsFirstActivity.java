@@ -16,23 +16,15 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.material.snackbar.Snackbar;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -106,25 +98,10 @@ public class BbcNewsFirstActivity extends AppCompatActivity {
         buildRecyclerView();
 
         linearLayout = findViewById(R.id.linearLayout);
-        /**
-         * creation of new object of BbcFavDB database
-         */
         favDB = new BbcFavDB(this);
-        /**
-         * assigning the favorite articles to Bbc favorite items
-         */
         bbcFavItems = favDB.listFavItems();
-        /**
-         * This gets the toolbar from the layout
-         */
         Toolbar tBar = findViewById(R.id.toolbar);
-        /**
-         * This loads the toolbar, which calls onCreateOptionsMenu below
-         */
         setSupportActionBar(tBar);
-        /**
-         * This gets the progressbar from the layout and makes it visible
-         */
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
 
@@ -153,7 +130,6 @@ public class BbcNewsFirstActivity extends AppCompatActivity {
             favoriteBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //create an intent to go to the FavoritesActivity
                     Intent goToFavorites = new Intent(BbcNewsFirstActivity.this, BbcFavActivity.class);
                     startActivityForResult(goToFavorites, REQUEST_RETURN_PAGE);
                     showSnackbar();
@@ -263,7 +239,6 @@ public class BbcNewsFirstActivity extends AppCompatActivity {
                 }
                 bbcAdapter = new BbcAdapter(bbcItems, BbcNewsFirstActivity.this);
                 publishProgress(75);
-//                recyclerView.setAdapter(bbcAdapter);
             } catch (JSONException | IOException e) {
                 e.printStackTrace();
             }
@@ -301,7 +276,7 @@ public class BbcNewsFirstActivity extends AppCompatActivity {
          * Inflate the menu items for use in the action bar
          */
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_first, menu);
+        inflater.inflate(R.menu.bbc_menu, menu);
         return true;
     }
     /**
@@ -345,43 +320,5 @@ public class BbcNewsFirstActivity extends AppCompatActivity {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
         return true;
     }
-
 }
-
-//
-
-//            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-//                    new Response.Listener<JSONObject>() {
-//                        /**
-//                         * This method fetches required information from the internet
-//                         * @param response provides response from the Internet
-//                         */
-//                        @Override
-//                        public void onResponse(JSONObject response) {
-//                            try {
-//                                JSONArray jsonArray = response.getJSONArray("items");
-//                                for (int i= 0; i < jsonArray.length(); i++){
-//                                    JSONObject item = jsonArray.getJSONObject(i);
-//                                    String artTitle = item.getString("title");
-//                                    String artPubDate = item.getString("pubDate");
-//                                    String description = item.getString("description");
-//                                    String url = item.getString("link");
-//                                    bbcItems.add(new BbcItem( artTitle, artPubDate, description, url));
-//                                }
-//
-//                                bbcAdapter = new BbcAdapter( bbcItems, BbcNewsFirstActivity.this);
-//                                recyclerView.setAdapter(bbcAdapter);
-//                            } catch (JSONException e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
-//                    }, new Response.ErrorListener() {
-//                @Override
-//                public void onErrorResponse(VolleyError error) {
-//                    error.printStackTrace();
-//                }
-//            });
-//
-//            mRequestQueue.add(request);
-
 

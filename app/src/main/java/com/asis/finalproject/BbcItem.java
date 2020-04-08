@@ -10,27 +10,36 @@ public class BbcItem {
     private String pubDate;
     private String description;
     private String webUrl;
-    private String favStatus;
 
+    /**
+     * Constructor
+     */
     public BbcItem(){
     }
 
     /**
-     * Constructor
-     * @param title
-     * @param pubDate
-     * @param description
-     * @param webUrl
+     * Overloaded Constructor
+     * @param id is the identifier of the article (row)
+     * @param title the title of the article loaded from the Internet
+     * @param pubDate date of the article release
+     * @param description short description of the loaded article
+     * @param webUrl  the web link of the article
      */
-    public BbcItem(int id, String title, String pubDate, String description, String webUrl, String favStatus) {
+    public BbcItem(int id, String title, String pubDate, String description, String webUrl) {
         this.id = id;
         this.title = title;
         this.pubDate = pubDate;
         this.description = description;
         this.webUrl = webUrl;
-        this.favStatus = favStatus;
     }
 
+    /**
+     * Overloaded Constructor
+     * @param title the title of the article loaded from the Internet
+     * @param pubDate  date of the article release
+     * @param description short description of the loaded article
+     * @param webUrl the web link of the article
+     */
     public BbcItem(String title, String pubDate, String description, String webUrl) {
         this.title = title;
         this.pubDate = pubDate;
@@ -40,7 +49,7 @@ public class BbcItem {
 
     /**
      * Method for getting id
-     * @return
+     * @return id of the article
      */
     public int getId() {
         return id;
@@ -48,7 +57,7 @@ public class BbcItem {
 
     /**
      * Method for setting Id
-     * @param id
+     * @param id article's id
      */
     public void setId( int id) {
         this.id = id;
@@ -56,7 +65,7 @@ public class BbcItem {
 
     /**
      * Method for getting title of the article
-     * @return
+     * @return the title of article
      */
     public String getTitle() {
         return title;
@@ -64,7 +73,7 @@ public class BbcItem {
 
     /**
      * Method for setting the title
-     * @param title
+     * @param title the title for article
      */
     public void setTitle(String title) {
         this.title = title;
@@ -72,7 +81,7 @@ public class BbcItem {
 
     /**
      * Method for getting the date of the article release
-     * @return
+     * @return the date of article release
      */
     public String getPubDate() {
         return pubDate;
@@ -80,7 +89,7 @@ public class BbcItem {
 
     /**
      * Method for setting the date when the article released
-     * @param pubDate
+     * @param pubDate the release date of the article
      */
     public void setPubDate(String pubDate) {
         this.pubDate = pubDate;
@@ -88,7 +97,7 @@ public class BbcItem {
 
     /**
      * Method for getting description of the article
-     * @return
+     * @return description of the article
      */
     public String getDescription() {
         return description;
@@ -96,7 +105,7 @@ public class BbcItem {
 
     /**
      * Method for setting the description
-     * @param description
+     * @param description description of the article
      */
     public void setDescription(String description) {
         this.description = description;
@@ -104,7 +113,7 @@ public class BbcItem {
 
     /**
      * Method for getting the article's web link
-     * @return
+     * @return the web link to the article
      */
     public String getWebUrl() {
         return webUrl;
@@ -113,19 +122,10 @@ public class BbcItem {
 
     /**
      * Method for setting the webLink
-     * @param webUrl
+     * @param webUrl the web link to the article
      */
     public void setWebUrl(String webUrl) {
         this.webUrl = webUrl;
-    }
-
-
-    public String getFavStatus() {
-        return favStatus;
-    }
-
-    public void setFavStatus(String favStatus) {
-        this.favStatus = favStatus;
     }
 
 }

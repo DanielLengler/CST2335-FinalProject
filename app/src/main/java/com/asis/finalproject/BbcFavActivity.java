@@ -1,18 +1,24 @@
 package com.asis.finalproject;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
-
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,7 +37,8 @@ public class BbcFavActivity extends AppCompatActivity {
 
     /**
      * Method where the activity is initialized
-     * @param savedInstanceState
+     * @param savedInstanceState is a reference to a Bundle object that
+     * is passed into the onCreate method
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +49,16 @@ public class BbcFavActivity extends AppCompatActivity {
         favRecyclerView = findViewById(R.id.recyclerView);
         favRecyclerView.setHasFixedSize(true);
         favRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        Toolbar tBar = findViewById(R.id.toolbar);
+        setSupportActionBar(tBar);
 
+        /**
+         * Call for loading data from database
+         */
         loadData();
 
         /**
-         *  Article search functionality step 1, using the edit text
+         *  Article search functionality step 1, using the EditText
          */
         EditText edSearch = findViewById(R.id.searchEditText2);
         edSearch.addTextChangedListener(new TextWatcher() {
@@ -81,6 +93,10 @@ public class BbcFavActivity extends AppCompatActivity {
         });
 
     }
+
+    /**
+     * Loads data from database
+     */
     private void loadData() {
         if (bbcFavItems != null){
             bbcFavItems.clear();
@@ -119,6 +135,61 @@ public class BbcFavActivity extends AppCompatActivity {
         favAdapter.filterList(filteredList);
     }
 
+    /**
+     * Creates toolbar menu with different options
+     * @param menu represents menu with different options (items)
+     * @return menu options for selection
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        /**
+         * Inflate the menu items for use in the action bar
+         */
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.bbc_menu, menu);
+        return true;
+    }
+    /**
+     * This method allows to select items on the toolbar
+     * @param item are represented as icons or located in dropdown menu
+     * @return one of of the selections in the toolbar menu
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        String message = null;
+        /**
+         * Switch statement for selecting different activities on the Toolbar
+         * It provides also the toast messages
+         */
+        switch(item.getItemId())
+        {
+            case R.id.help_item:
+                message = getString(R.string.help_toast);
+                new AlertDialog.Builder(this)
+                        .setTitle(getString(R.string.help__menu_title))
+                        .setMessage(getString(R.string.help_alert))
+                        .setCancelable(false)
+                        .setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id){
+
+                            }
+                        })
+                        .show();
+
+                break;
+            case R.id.mail:
+                message = getString(R.string.mail_toast);
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType(getString(R.string.text_plain));
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[] {getString(R.string.sample_email)});
+                intent.putExtra(Intent.EXTRA_SUBJECT, (getString(R.string.subj_here)));
+                intent.putExtra(Intent.EXTRA_TEXT, (getString(R.string.body_text)));
+                startActivity(intent);
+                break;
+        }
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        return true;
+    }
 
 
 }

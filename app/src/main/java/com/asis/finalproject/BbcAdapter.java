@@ -104,7 +104,7 @@ public class BbcAdapter extends RecyclerView.Adapter<BbcAdapter.BbcViewHolder> {
 
         /**
          * Constructor of BbcViewHolder class
-         * @param itemView we get references to the article views in rows
+         * @param itemView gives references to the view of loaded articles in rows
          */
         public BbcViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -125,7 +125,7 @@ public class BbcAdapter extends RecyclerView.Adapter<BbcAdapter.BbcViewHolder> {
         notifyDataSetChanged();
     }
     /**
-     * Dialog window for adding an article to the favorite list
+     * Alert Dialog for adding an article to the favorite list database
      */
     private void addTaskDialog(BbcItem bbcItem) {
         LayoutInflater inflater = LayoutInflater.from(context);

@@ -1,6 +1,5 @@
 package com.asis.finalproject;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,12 +21,10 @@ public class BbcFavAdapter extends RecyclerView.Adapter<BbcFavViewHolder>{
      * ArrayList of BBC favorite articles located in BbcFavDB database
      */
     private ArrayList<BbcFavItem> favItemList;
-//    private ArrayList<BbcFavItem> mArrayList;
     /**
      * database of favorite Articles
      */
     private BbcFavDB favDB;
-
 
     /**
      * BbcFavAdapter Constructor that includes:
@@ -40,7 +37,7 @@ public class BbcFavAdapter extends RecyclerView.Adapter<BbcFavViewHolder>{
     }
 
     /**
-     *
+     * This method calls for creation of a new ViewHolder
      * @param parent is a grouping parameter
      * @param viewType initializes the layout
      * @return a new ViewHolder object
@@ -52,7 +49,6 @@ public class BbcFavAdapter extends RecyclerView.Adapter<BbcFavViewHolder>{
         favDB = new BbcFavDB(favContext);
     return new BbcFavViewHolder(view);
     }
-
 
     /**
      * This binds content (data) with views of RecyclerView
@@ -82,8 +78,6 @@ public class BbcFavAdapter extends RecyclerView.Adapter<BbcFavViewHolder>{
         else
             return favItemList.size();
     }
-
-
 
     /**
      * This method removes items from favorite list
