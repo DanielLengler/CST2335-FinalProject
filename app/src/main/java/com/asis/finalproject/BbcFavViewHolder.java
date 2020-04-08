@@ -1,7 +1,6 @@
 package com.asis.finalproject;
 
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 
 import android.widget.TextView;
@@ -47,8 +46,6 @@ public class BbcFavViewHolder extends RecyclerView.ViewHolder {
     private void removeItem(int position){
         favItemList.remove(position);
 
-//        notifyItemRemoved(position);
-//        notifyItemRangeChanged(position, favItemList.size());
-        }
+    }
 
 }

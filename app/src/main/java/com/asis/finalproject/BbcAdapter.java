@@ -1,6 +1,5 @@
 package com.asis.finalproject;
 
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,21 +9,34 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
+
+/**
+ * BbcAdapter class
+ * Connects data to RecyclerView and determines
+ * ViewHolder for displaying the Data
+ */
 public class BbcAdapter extends RecyclerView.Adapter<BbcAdapter.BbcViewHolder> {
+    /**
+     * ArrayList of BBC articles loaded from the Internet
+     */
     private ArrayList<BbcItem> bbcItems;
+    /**
+     * Content of the articles ArrayList
+     */
     private Context context;
+    /**
+     * database of favorite Articles
+     */
     private BbcFavDB favDB;
 
     /**
-     *
-     * @param articleList
-     * @param context
+     * BbcAdapter Constructor that includes:
+     * @param articleList ArrayList of articles
+     * @param context content of the articles
      */
     public BbcAdapter(ArrayList<BbcItem> articleList, Context context) {
         this.bbcItems = articleList;
@@ -42,7 +54,7 @@ public class BbcAdapter extends RecyclerView.Adapter<BbcAdapter.BbcViewHolder> {
 
     /**
      * This method calls for creation of a new ViewHolder
-     * @param parent
+     * @param parent is a grouping parameter
      * @param viewType initializes the layout
      * @return a new ViewHolder object
      */
@@ -83,15 +95,16 @@ public class BbcAdapter extends RecyclerView.Adapter<BbcAdapter.BbcViewHolder> {
     }
 
     /**
-     * This inner class
+     * This inner class BbcViewHolder describes an item view and its location
+     * within the RecyclerView
      */
     public class BbcViewHolder extends RecyclerView.ViewHolder {
         TextView titleTextView, pubDateTextView, descriptionTextView, linkTextView;
         Button favBtn;
 
         /**
-         * Constructor
-         * @param itemView we get references to our article views in rows
+         * Constructor of BbcViewHolder class
+         * @param itemView we get references to the article views in rows
          */
         public BbcViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -112,7 +125,7 @@ public class BbcAdapter extends RecyclerView.Adapter<BbcAdapter.BbcViewHolder> {
         notifyDataSetChanged();
     }
     /**
-     * Dialog window for adding article to the favorite list
+     * Dialog window for adding an article to the favorite list
      */
     private void addTaskDialog(BbcItem bbcItem) {
         LayoutInflater inflater = LayoutInflater.from(context);

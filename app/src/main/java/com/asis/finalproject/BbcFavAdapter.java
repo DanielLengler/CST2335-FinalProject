@@ -18,28 +18,33 @@ import java.util.ArrayList;
 
 public class BbcFavAdapter extends RecyclerView.Adapter<BbcFavViewHolder>{
     private Context favContext;
+    /**
+     * ArrayList of BBC favorite articles located in BbcFavDB database
+     */
     private ArrayList<BbcFavItem> favItemList;
-    private ArrayList<BbcFavItem> mArrayList;
+//    private ArrayList<BbcFavItem> mArrayList;
+    /**
+     * database of favorite Articles
+     */
     private BbcFavDB favDB;
 
 
     /**
-     *
-     * @param favItemList
-     * @param favContext
+     * BbcFavAdapter Constructor that includes:
+     * @param favItemList ArrayList of favorite articles
+     * @param favContext content of the favorite articles
      */
     public BbcFavAdapter( ArrayList<BbcFavItem> favItemList, Context favContext) {
         this.favContext = favContext;
         this.favItemList = favItemList;
     }
 
-//    public interface OnItemClickListener{
-//        void onDeleteClick(int position);
-//    }
-//    public void setOnItemClickListener(OnItemClickListener listener){
-//        mListener = listener;
-//    }
-
+    /**
+     *
+     * @param parent is a grouping parameter
+     * @param viewType initializes the layout
+     * @return a new ViewHolder object
+     */
     @NonNull
     @Override
     public BbcFavViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -62,8 +67,7 @@ public class BbcFavAdapter extends RecyclerView.Adapter<BbcFavViewHolder>{
         holder.favLinkView.setText(favItemList.get(position).getFav_webUrl());
         holder.deleteBtn.setOnClickListener((view) -> {
             favDB.deleteArticle(favItemList.get(position).getId());
-            ((Activity)favContext).finish();
-            favContext.startActivity(((Activity)favContext).getIntent());
+            removeItem(position);
         });
     }
 
@@ -80,27 +84,6 @@ public class BbcFavAdapter extends RecyclerView.Adapter<BbcFavViewHolder>{
     }
 
 
-
-//    public class BbcFavViewHolder extends RecyclerView.ViewHolder{
-//        TextView favTitleView, favPubDateView, favDescriptionView, favLinkView;
-//        Button deleteBtn;
-//
-//        public BbcFavViewHolder(@NonNull View itemView) {
-//            super(itemView);
-//            favTitleView = itemView.findViewById(R.id.artTitle);
-//            favPubDateView = itemView.findViewById(R.id.artPubDate);
-//            favDescriptionView = itemView.findViewById(R.id.artDescription);
-//            favLinkView = itemView.findViewById(R.id.artLink);
-//            deleteBtn = itemView.findViewById(R.id.favBtn);
-//            //removes from favorite list after click
-//            deleteBtn.setOnClickListener((view) -> {
-//                int position = getAdapterPosition();
-//                final BbcFavItem favItem = favItemList.get(position);
-//                favDB.deleteArticle(favItem.getId());
-//                removeItem(position);
-//            });
-//        }
-//    }
 
     /**
      * This method removes items from favorite list

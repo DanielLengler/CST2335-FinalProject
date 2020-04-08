@@ -89,11 +89,13 @@ public class BbcFavActivity extends AppCompatActivity {
         Cursor cursor = favDB.select_all_favorite_list();
         try{
             while(cursor. moveToNext()){
+                long id = cursor.getLong(cursor.getColumnIndex(BbcFavDB.COL_ID));
                 String title = cursor.getString(cursor.getColumnIndex(BbcFavDB.COL_TITLE));
                 String pubDate = cursor.getString(cursor.getColumnIndex(BbcFavDB.COL_PUBDATE));
                 String description = cursor.getString(cursor.getColumnIndex(BbcFavDB.COL_DESCRIPTION));
                 String webLink = cursor.getString(cursor.getColumnIndex(BbcFavDB.COL_URL));
                 BbcFavItem favItem = new BbcFavItem(title, pubDate, description, webLink);
+                favItem.setId((int)id);
                 bbcFavItems.add(favItem);
             }
         }finally {

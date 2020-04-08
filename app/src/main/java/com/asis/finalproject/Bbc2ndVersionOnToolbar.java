@@ -54,7 +54,6 @@ public class Bbc2ndVersionOnToolbar extends AppCompatActivity {
         /**
          * This gets the toolbar from the layout:
          */
-
         Toolbar tBar = findViewById(R.id.toolbar);
         //This loads the toolbar, which calls onCreateOptionsMenu below:
           setSupportActionBar(tBar);
@@ -118,9 +117,6 @@ public class Bbc2ndVersionOnToolbar extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         String message = null;
-        /**
-         * Looks at menu XML file. Puts a case for every id in that file:
-         */
 
         /**
          * Switch statement for selecting different activities on the Toolbar
