@@ -152,9 +152,7 @@ public class BbcAdapter extends RecyclerView.Adapter<BbcAdapter.BbcViewHolder> {
             public void onClick(DialogInterface dialog, int which) {
                     BbcFavItem newFavItem = new BbcFavItem(bbcItem.getTitle(), bbcItem.getPubDate(), bbcItem.getDescription(), bbcItem.getWebUrl());
                     favDB.addArticles(newFavItem);
-                    ((Activity) context).finish();
-                    context.startActivity(((Activity)
-                            context).getIntent());
+                    Toast.makeText(context, R.string.alert_add, Toast.LENGTH_SHORT).show();
 
             }
         });

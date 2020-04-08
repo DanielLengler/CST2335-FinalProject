@@ -54,10 +54,6 @@ public class BbcNewsFirstActivity extends AppCompatActivity {
      */
     private ArrayList<BbcItem> bbcItems = new ArrayList<>();
     /**
-     * responsible for measuring and positioning item views within RecyclerView
-     */
-    private RecyclerView.LayoutManager mLayoutManager;
-    /**
      * provides adapter-based view
      */
     private RecyclerView recyclerView;
@@ -183,7 +179,7 @@ public class BbcNewsFirstActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         bbcAdapter = new BbcAdapter(bbcItems, this);
         recyclerView.setAdapter(bbcAdapter);
-        mLayoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
     }
 
