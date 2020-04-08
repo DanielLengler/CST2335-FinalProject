@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item android:id="@+id/navBarBBC"
+        android:title="@string/bbc_news"
+        android:orderInCategory="1"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/bbc_news"/>  <!-- This uses showAsAction=always, so look at icon= parameter -->
+
+
+    <item android:id="@+id/navBarTheGuardian"
+        android:title="@string/guardian"
+        android:orderInCategory="2"
+        android:icon="@drawable/the_guardian"
+        app:showAsAction="ifRoom"
+        />    <!-- This uses showAsAction=always, so look at icon= parameter -->
+
+    <item android:id="@+id/navBarNasa"
+        android:orderInCategory="3"
+        app:showAsAction="ifRoom"
+        android:title="@string/nasa_earth_image"
+        android:icon="@drawable/nasa_earth"/>
+
+    <item android:id="@+id/navBarMain"
+        android:orderInCategory="4"
+        app:showAsAction="ifRoom"
+        android:title="@string/mainImageOfTheDay"
+        android:icon="@drawable/home"/>
+
+    <item android:id="@+id/help_item_imageOfTheDay"
+        android:title="@string/help"
+        app:showAsAction="never"
+        android:orderInCategory="5"/> <!-- This uses showAsAction=never, so look at title= parameter -->
+
+</menu>

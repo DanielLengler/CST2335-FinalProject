@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.asis.finalproject">
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -8,7 +11,40 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+        tools:ignore="GoogleAppIndexingWarning">
+
+        <activity
+            android:name=".nasaearthimage.FavoriteDetailsActivityHolder"
+            android:launchMode="singleTop">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".nasaearthimage.NasaImageFavoritesActivity" />
+        </activity>
+
+        <activity
+            android:name=".nasaearthimage.NasaImageFavoritesActivity"
+            android:launchMode="singleTop">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".nasaearthimage.NasaImageSelectorActivity" />
+        </activity>
+
+        <activity
+            android:name=".nasaearthimage.NasaImageSelectorActivity"
+            android:launchMode="singleTop" />
+        <activity android:name=".bbc.BbcFavAdapter" />
+        <activity android:name=".bbc.BbcFavActivity" />
+        <activity android:name=".bbc.BbcAdapter" />
+        <activity android:name=".bbc.BbcNewsFirstActivity" />
+        <activity android:name="com.asis.finalproject.guardian.GuardianResults" />
+        <activity android:name="com.asis.finalproject.guardian.EmptyActivity" />
+        <activity android:name="com.asis.finalproject.guardian.Favorite" />
+        <activity android:name="com.asis.finalproject.guardian.GuardianSearchBar" />
+        <activity android:name=".nasaimageoftheday.NasaImageOfTheDay" />
+        <activity android:name=".nasaimageoftheday.ListOfImagesOfTheDay" />
+        <activity android:name=".nasaimageoftheday.EmptyActivityImageOfTheDay" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

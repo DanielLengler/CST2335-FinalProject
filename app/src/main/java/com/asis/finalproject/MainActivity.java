@@ -1,5 +1,6 @@
 package com.asis.finalproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -7,10 +8,17 @@ import android.view.MenuItem;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.asis.finalproject.bbc.BbcNewsFirstActivity;
+import com.asis.finalproject.nasaearthimage.NasaImageSelectorActivity;
+import com.asis.finalproject.nasaimageoftheday.ListOfImagesOfTheDay;
 import com.google.android.material.navigation.NavigationView;
+
+import com.asis.finalproject.guardian.GuardianSearchBar;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -40,6 +48,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         //For NavigationDrawer:
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.open, R.string.close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
@@ -101,27 +114,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * Starts the BBC News activity
      */
     private void launchBBC() {
-
+        Intent myIntent = new Intent(MainActivity.this, BbcNewsFirstActivity.class);
+        startActivity(myIntent);
     }
 
     /**
      * Starts the Guardian News activity
      */
     private void launchGuardian() {
-
+        startActivity(new Intent(MainActivity.this, GuardianSearchBar.class));
     }
 
     /**
      * Starts the Nasa earth image activity
      */
     private void launchNasaEarthImage() {
-
+        startActivity(new Intent(this, NasaImageSelectorActivity.class));
     }
 
     /**
      * Starts the Nasa image of the day activity
      */
     private void launchNasaImageOfTheDay() {
-
+        startActivity(new Intent(this, ListOfImagesOfTheDay.class));
     }
 }

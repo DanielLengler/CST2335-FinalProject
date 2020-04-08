@@ -1,7 +1,117 @@
 <resources>
-    <string name="app_name">FinalProject</string>
-    <string name="image_of_the_day">Image of the Day</string>
-    <string name="guardian">Guardian</string>
+    <!-- everything below here is being used for Image of the Day -->
+    <string name="app_name">CST2335-FinalProject</string>
+    <string name="et_typeYourSearch">Type here to find your article</string>
+    <string name="nature"> Hello there</string>
+    <string name="link">link to the article</string>
+    <string name="Name">Name</string>
+    <string name="toast_message">Here is more information</string>
+    <string name="snackbar_message1">Article is added to favorites</string>
+    <string name="snackbar_message">Here is list of favorite Articles </string>
+    <string name="undo_message">Undo successful</string>
+    <string name="search_toast">You clicked on the search</string>
+    <string name="help_toast">You clicked on help</string>
+    <string name="mail_toast">You clicked on mail</string>
+    <string name="help_menu">Help menu</string>
+    <string name="help__menu_title">Information</string>
+    <string name="help_alert">In this app you can select and save your favorite articles.
+                                They will be stored in your Favorites Section. Later you can delete
+                                articles you do not need. For closing this window please click OK</string>
+    <string name="titleImageOfTheDay">Title: </string>
+    <string name="dateImageOfTheDay">Date: </string>
+    <string name="urlImageOfTheDay">URL: </string>
+    <string name="idImageOfTheDay">ID=</string>
+    <string name="alertDialogImageOfTheDay">Do you want to delete this item?</string>
+    <string name="rowMessageImageOfTheDay">Row: </string>
+    <string name="databaseIDImageOfTheDay">\nDatabase ID: </string>
+    <string name="titleAlertDialogImageOfTheDay">\nTitle: </string>
+    <string name="dateAlerDialogImageOfTheDay">\nDate: </string>
+    <string name="yesAlerDialogImageOfTheDay">Yes</string>
+    <string name="snackBarImageDeletedImageOfTheDay">Item deleted</string>
+    <string name="noAlertDialogImageOfTheDay">No</string>
+    <string name="actionBarDescriptionImageOfTheDay">List Of Images</string>
+    <string name="actionBarSubTitleImageOfTheDay">Aurelio Cochone Ribeiro - Version: 1.0</string>
+    <string name="helpImageOfTheDay">Entering this screen, you will see all the images stored on the phone.\nTo fetch a new image from NASA:\n 1. Select a date clicking at the bottom of the screen.\n 2. Click on the GET IMAGE button.</string>
+    <string name="okImageOfTheDay">OK</string>
+    <string name="titleFromDbImageOfTheDay">Title: </string>
+    <string name="dateFromDbImageOfTheDay">Date: </string>
+    <string name="imageTitleViewImageOfTheDay">Title: </string>
+    <string name="explanationImageOfTheDay">Explanation: </string>
+    <string name="imageDateViewImageOfTheDay">Date: </string>
+    <string name="imageUrlViewImageOfTheDay">URL: </string>
     <string name="bbc_news">BBC News</string>
-    <string name="nasa_earth_image">Nasa Earth Image</string>
+    <string name="getImageOfTheDay">Get image</string>
+    <string name="textviewSelectDate">Select a date and click the button to get a new image</string>
+    <string name="birthday">Select a date</string>
+    <string name="buttonSaveImage">Save Image</string>
+    <string name="latitude_neid">Latitude:</string>
+    <string name="longitude_neid">Longitude:</string>
+    <string name="date_neid">Date:</string>
+    <string name="latitude2_neid">Latitude</string>
+    <string name="longitude2_neid">Longitude</string>
+    <string name="find_earth_image_neid">Find Earth Image</string>
+    <string name="add_to_favorites_neid">Add to Favorites</string>
+    <string name="help_neid">Help</string>
+    <string name="favorites_neid">Favorites</string>
+    <string name="neid_toolbar_title">Nasa Image Finder</string>
+    <string name="neid_toolbar_subtitle">Daniel lengler - version 1</string>
+    <string name="bad_input_message_neid">Unable to parse you\'re inputted longitude or latitude</string>
+    <string name="null_image_path_neid">No image found</string>
+    <string name="added_to_favorites_neid">Image added to your favorites</string>
+    <string name="info_message1_neid">To use this application you enter a longitude and a latitude. You may then save the image if you like it or look for a different coordinate.</string>
+    <string name="info_message2_neid">Help opened</string>
+    <string name="info_message3_neid">times.</string>
+    <string name="finished_neid">Finished</string>
+    <string name="remove_from_favorites_neid">Remove image from favorites?</string>
+    <string name="file_delete_neid">File delete result:</string>
+
+    <!-- everything below here is being used for Guardian -->
+    <string name="open">Open</string> <!-- for DrawerLayout actionbar-->
+    <string name="close">Close</string> <!-- for DrawerLayout actionbar-->
+    <string name="guardianSearchTitle">Guardian News Article Search</string> <!-- title for Guardian Search -->
+    <string name="searchHint">Type search criteria here</string> <!-- hint for searchbar -->
+    <string name="search">Search</string>
+    <string name="favorites">Favorites</string>
+    <string name="help">Help</string> <!-- used for com.asis.finalproject.guardian toolbar and navigation drawer -->
+    <string name="title">Title: </string>
+    <string name="url">Url: </string>
+    <string name="sectionName">Section Name: </string>
+    <string name="tutorialTitle">Tutorial</string> <!-- used for help alert dialog -->
+    <string name="tutorialFull">Type in the search bar what you want to search for. Click the search button and a list of articles will be displayed. Click an article to view
+                its information, click the url to go to the webpage. You can add an article to your favorites by tapping and holding an article in the list and saying Yes when
+                prompted. To go to your favorites list, either tap the 3 bars at the top left and tap Favorites or tap the empty star at the top right of this page. You can
+                remove from favorites in the favorites page the same way you added them on the results page.</string> <!-- used for the tutorial -->
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="addToFavoritesQuestion">Add this article to favorites?</string>
+    <string name="addedToFavorites">Added to favorites</string>
+    <string name="removedFromFavorites">Removed From favorites</string>
+    <string name="alreadyInFavorites">Article already in favorites</string>
+    <string name="deleteFromFavoritesQuestion">Delete this article from favorites?</string>
+    <string name="deletedFromFavorites">Deleted from favorites</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="guardian">Guardian</string>
+    <string name="nasa_earth_image">Nasa Earth</string>
+    <string name="image_of_the_day">Nasa Image of the Day</string>
+    <string name="helpTitleImageOfTheDay">Help</string>
+    <string name="nasa_image_of_the_day">Nasa Image of the Day</string>
+    <string name="alert_title">Do you want to add to favorites?</string>
+    <string name="alert_add">Add to Favorites</string>
+    <string name="alert_add_negative_toast">Something went wrong. Check your acticle list</string>
+    <string name="alert_negative_btn">Cancel</string>
+    <string name="alert_cancel_toast">Task cancelled</string>
+    <string name="undo">UNDO</string>
+    <string name="progress_dialog_msg">Busy loading rss feed, please wait</string>
+    <string name="sample_email">email@example.com</string>
+    <string name="body_text">body text</string>
+    <string name="subj_here">subject here</string>
+    <string name="text_plain">text/plain</string>
+    <string name="ok">OK</string>
+    <string name="always">always</string>
+    <string name="always_collapseAction">always|collapseActionView</string>
+    <string name="imageSavedNasaImageOfTheDay">Image saved to the database</string>
+    <string name="hideImageOfTheDay">Hide</string>
+    <string name="mainImageOfTheDay">Main</string>
 </resources>
